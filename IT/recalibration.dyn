@@ -1,0 +1,858 @@
+
+load data
+load pdata
+
+INT0 = 0.01;
+
+// Global parameters     
+        load('pdata','INOM_SS_EA');
+        set_param_value('INOM_SS_EA',INOM_SS_EA);
+
+        ALPHABW1_EA = 0.005;
+        ALPHABW0_EA = 0.5;
+        RHO_BW_EA = 0;
+        PHICVAT_SS_EA = 0.0044; 
+        TAUC_EA = 0.2;
+        ETAIPHI_EA= 1.6246;//1.48; //estimates GM2-commodities AF17
+        ETADY_EA= 0;
+        ETAIY_EA= 0.07;//0.07719; //0.5; //estimates GM2-commodities AF17
+        RHOINOM_EA = 0.8452;//0.8388; //0.923; //estimates GM2-commodities AF17
+        MA_INOM_EA = 0;         
+        RHO_INOM_EA  = 0;
+TAUOIL=0.3;
+
+RPBW_RoW = 0;    
+
+load('pdata','GPOP0','GP0','GYTREND0');
+set_param_value('GP0',GP0);
+set_param_value('GPOP0',GPOP0);
+set_param_value('GYTREND0',GYTREND0);
+
+BETA0 = ((1.01*exp(-GP0-GYTREND0)))^(-1);
+
+        load('pdata','SIZEobs_@{co}');
+        set_param_value('SIZEobs_@{co}',SIZEobs_@{co});
+        load('pdata','SIZEobs_REA');
+        set_param_value('SIZEobs_REA',SIZEobs_REA);
+
+SIZEobs_RoW = 100  
+
+        - SIZEobs_@{co}
+        - SIZEobs_REA
+;
+
+
+       APC_FLAG_@{co} = 1;
+
+       APM_FLAG_@{co} = 0;
+       APOIL_FLAG_@{co} = 0;
+       APG_FLAG_@{co} = 1;
+       API_FLAG_@{co} = 1;
+       APO_FLAG_@{co} = 0;
+       AY_FLAG_@{co} = 1;
+       HPERE_FLAG_@{co} = 0;
+       L_FLAG_@{co} = 0;
+       PARTR_FLAG_@{co} = 0;
+       ACTR_FLAG_@{co} = 1;
+       POP_FLAG_@{co} = 1;
+       
+       load('pdata','SOILobs_@{co}');
+       set_param_value('SPOIL_@{co}',1*SOILobs_@{co}*2/0.03); 
+            set_param_value('SOILobs_@{co}',1*0.015);     
+
+
+       
+       load('pdata','SMobs_@{co}');
+       set_param_value('SMobs_@{co}',SMobs_@{co});
+                load('pdata','SMTOT_@{co}_REA');  
+                set_param_value('SMTOT_REA_@{co}',SMTOT_REA_@{co});    
+                load('pdata','SMTOT_@{co}_RoW');  
+                set_param_value('SMTOT_RoW_@{co}',SMTOT_RoW_@{co});    
+          APC_FLAG_REA = 0;
+
+
+       APM_FLAG_REA = 0;
+       APOIL_FLAG_REA = 0;
+       APG_FLAG_REA = 1;
+       API_FLAG_REA = 1;
+       APO_FLAG_REA = 0;
+       AY_FLAG_REA = 1;
+       HPERE_FLAG_REA = 0;
+       L_FLAG_REA = 0;
+       PARTR_FLAG_REA = 0;
+       ACTR_FLAG_REA = 1;
+       POP_FLAG_REA = 1;
+       
+       load('pdata','SOILobs_REA');
+       set_param_value('SPOIL_REA',1*SOILobs_REA*2/0.03); 
+            set_param_value('SOILobs_REA',1*0.015);     
+
+
+       
+       load('pdata','SMobs_REA');
+       set_param_value('SMobs_REA',SMobs_REA);
+       SMC_REA = SMobs_REA;
+                load('pdata','SMTOT_REA_@{co}');  
+                set_param_value('SMTOT_@{co}_REA',SMTOT_@{co}_REA);    
+                load('pdata','SMTOT_REA_RoW');  
+                set_param_value('SMTOT_RoW_REA',SMTOT_RoW_REA);    
+       APC_FLAG_RoW = 0;
+       APM_FLAG_RoW = 0;
+       APOIL_FLAG_RoW = 1;
+       AY_FLAG_RoW = 1;
+       POP_FLAG_RoW = 1;
+
+        SM_RoW_@{co} = (1
+                    -SM_REA_@{co}
+        );
+        SM_RoW_REA = (1
+                    -SM_@{co}_REA
+        );
+ 
+//
+//RoW
+//
+
+SM_RoW = 0.05; //endogenized in st. state
+SMC_RoW = 0.05; //endogenized in st. state
+SM_REA_RoW = 0.7;  //endogenized in st. state
+
+
+//
+// Country specific parameters 
+//
+
+        ALPHA_@{co} = 0.65; 
+
+        ALPHA_G_@{co} = 0.05;  
+        ALPHA_IG_@{co} = 0.05;  
+        ALPHA_T_@{co} = 0.01;
+           
+
+        ALPHABW0_@{co} = 0.5;
+        //ALPHABW1_@{co} = 0.005; 
+        ALPHABW1_@{co} = 0.0001;                
+        ASCALE_@{co} = 0.5;
+        CUSCALE_@{co} = 1;
+        THETA_@{co} = 1.5;  
+        THETAN_@{co} = 5;  
+        OMEGAN_@{co} = 0.5;  
+        MUW_@{co} = 1.2;
+        BETA_@{co} = 1.03;
+         load('pdata','INOM_SS_EA');
+         set_param_value('INOM_SS_@{co}',INOM_SS_EA);
+
+        load('pdata','meanBGY_@{co}');
+        set_param_value('BGTAR_@{co}', meanBGY_@{co});
+
+        set_param_value('OMEGATAXCC_@{co}',1);
+
+        load('pdata','DELTA_@{co}');
+        set_param_value('DELTA_@{co}',DELTA_@{co});
+        set_param_value('DELTAG_@{co}',DELTA_@{co});
+
+        DEFTAR_@{co} = BGTAR_@{co}*(1-exp(-GYTREND0-GP0));
+        ETABG_@{co} =  0;
+        ETABIG_@{co} = 0;
+        //ETABT_@{co} = 0.001;
+        ETABT_@{co} = 0.02;
+        ETADEFG_@{co} = 0;
+        ETADEFIG_@{co} = 0;           
+        ETADEFT_@{co} = 0.03;             
+        ETAGY_@{co} = 0;
+        ETAIGY_@{co} = 0; 
+        ETATY_@{co} = 0;
+       
+    
+        GAMMAN_@{co} = 100;
+		GAMMAN4_@{co} = 0;
+        GAMMAN2_@{co} = 0;
+        GAMMAP_@{co} = 40;  
+		GAMMAP4_@{co} = 0;
+        GAMMAP2_@{co} = 0;  
+        GAMMAPM_@{co} = 0;
+        GAMMAPX_@{co} = 0;
+        GAMMAPX1_@{co} = 0;
+        GAMMAPY_@{co} = 0;  
+        GAMMAPY2_@{co} = 0;  
+        GAMMAU1_@{co} = 0.03;           
+        GAMMAU2_@{co} =  0.01;  
+        GAMMAU3_@{co} =  0; //0.1;  
+		GAMMAFN2_@{co} =  2;
+		FN_@{co} = 0.1;
+        GAMMAI1_@{co} = 30;
+        GAMMAI2_@{co} = 10;
+        GAMMAI3_@{co} = 0;
+        GAMMARULC_@{co} = 0;  
+        GAMMAW_@{co} = 30;  
+        GAMMAWR_@{co} = 0.9;  
+        
+        load('pdata','GPM0_@{co}');
+        set_param_value('GPM0_@{co}',GPM0_@{co});   // GAPM0_@{co} = 0;                                                                             
+        load('pdata','GPC0_@{co}');
+        set_param_value('GPC0_@{co}',GPC0_@{co});   // GAPC0_@{co} = 0.001;
+        load('pdata','GPG0_@{co}');
+        set_param_value('GPG0_@{co}',GPG0_@{co});   // GAPG0_@{co} = 0.001;        
+        load('pdata','GPITOT0_@{co}');
+        set_param_value('GPITOT0_@{co}',GPITOT0_@{co});   // // GAPI0_@{co}= 0.001;
+
+        GAY0_@{co} = GYTREND0 - (GPOP0 +GAPI0_@{co}*((1-ALPHA_@{co})/ALPHA_@{co}));
+       
+        load('pdata','meanTBY_@{co}');
+        load('pdata','meanCGY_@{co}');
+        load('pdata','meanIGY_@{co}');
+        load('pdata','meanISN_@{co}');
+        load('pdata','meanIBY_@{co}');
+        load('pdata','meanTY_@{co}');
+          set_param_value('TBY0_@{co}', meanTBY_@{co});
+          set_param_value('ITR_@{co}',-meanTBY_@{co});
+        set_param_value('ISNobs_@{co}',meanISN_@{co});
+        set_param_value('G_SSobs_@{co}',meanCGY_@{co});
+        set_param_value('IG_SSobs_@{co}',meanIGY_@{co});
+       
+        set_param_value('T_SSobs_@{co}',meanTY_@{co});
+        set_param_value('IB_SS_@{co}',meanIBY_@{co});
+        
+        
+                INV_SS_@{co}=0;
+                set_param_value('CSNobs_@{co}',(1-G_SSobs_@{co}-ISNobs_@{co}-IG_SSobs_@{co}-meanTBY_@{co}));
+
+        H_@{co} = 0.95;
+        HL_@{co} = 0;
+        L_SS_@{co}=1;
+        NFA0_@{co} = 0;
+        
+                OMEGAS_@{co} = 0.61;
+
+        FC_@{co} = 0;
+        
+        PHI_U_@{co} = 0.001;
+        PHICVAT_SS_@{co} = 0;
+        RHOCU_@{co} = 0.975;
+		RHOFN_@{co} = 0.975;
+        RHOCX_@{co} = 0;
+        //RHOINOM_@{co}  = 0.65;
+        RHOINOMG_@{co} = 0.5;//0;// 0.2;
+        RHOZ_@{co} = 0;
+        RHOSIG_@{co} = 0;
+        GAMMAM_@{co}=0;       
+        SFPMO_@{co}=1;
+        RHO_MO_@{co}=0;
+        //RHOIG_@{co}  = 0.85;
+        RHOIG_@{co}  = 0;
+        //RHOG_@{co}  = 0.85;
+        RHOG_@{co}  = 0;
+        RHOOIL_@{co}  = 0;
+        //RHOT_@{co} =0.85;
+        RHOT_@{co} =0;
+        RHO_A_@{co} = 0.5;
+        RHO_APC_@{co} = 0;
+        RHO_APG_@{co} = 0;
+        RHO_API_@{co} = 0;
+        RHO_APIG_@{co} = 0.98;
+        RHO_APM_@{co} = 0.975;
+        RHO_APO_@{co} = 0;
+        RHO_AY_@{co} = 0;
+        RHO_CU_@{co} = 0;
+        RHO_FQ_@{co} = 0;
+        //RHO_FQ_@{co} = 0.99;
+        RHO_FN_@{co} = 0.5;
+        RHO_ND_@{co} = 0.5;
+        RHO_B_@{co}  =0.95;
+        RHO_BW_@{co} = 0;  
+        RHO_CU_@{co} = 0.85;
+        RHO_G_@{co} = 0;
+        MA_INOM_@{co} = 0;         
+        RHO_INOM_@{co} = 0;         
+        RHO_IG_@{co} = 0;
+        RHO_M_@{co} = 0;
+        RHO2_M_@{co} = 0;
+        RHO_MUM_@{co} = 0.85;
+        RHO_MUY_@{co} = 0;
+        RHO_NFA_@{co} = 0;
+        RHO_PHISTAR_@{co} = 0;//0.85;
+        RHO_P_@{co} = 0;//0.85;
+        RHO_PMTOT_@{co} = 0.85;
+        RHO_PX_@{co} = 0.85;
+        RHO_S_@{co} = 0.5;       
+        RHO_SOIL_@{co} = 0.85;       
+        //RHO_T_@{co} = 0.9;
+        RHO_T_@{co} = 0;
+        RHO_TAX_@{co} = 0.85;
+        RHO_U_@{co} = 0;
+        RHO_W_@{co} = 0;        
+        RPREMG_@{co} = meanINOMG_@{co}-INOM_SS_@{co};
+        RPREMS_@{co} = 0.01;
+        SFRULC_@{co} = 0.85;
+        SFW_@{co} = 0.5;
+        SFP_@{co} = 0.5;
+        SPM_@{co} = 0;
+        SFPM_@{co} = 1;
+        SFPX_@{co} = 1;
+        SFH_@{co} = 1;
+        SFH1_@{co} = 0;
+        SFI_@{co} = 1;
+        SFI1_@{co} = 0;
+        SIGMAC_@{co} = 2;              
+        SIGMAG_@{co}  = 2;              
+        SIGMAM_@{co} = 2;     
+        SIGMAPX_@{co} = 2; 
+        SIGMAPX1_@{co} = 2;
+        ALPHAPM_@{co} = 0.5*0;  
+        ALPHAPX_@{co} = 0.5*0;  
+        SIGMAFM_@{co} = 2;            
+        SIGMAI_@{co} = 2;               
+        SIGMAIG_@{co} = SIGMAI_@{co};                 
+        SIGMAO_@{co} = 0.5;               
+        SIGMAY_@{co}  = 2;             
+        SIGMAZ_@{co}  = 2;       
+        load('pdata','SMCobs_@{co}');
+        load('pdata','SMGobs_@{co}');
+        load('pdata','SMIobs_@{co}');
+        load('pdata','SMXobs_@{co}');
+        set_param_value('SMCobs_@{co}', SMCobs_@{co});
+        set_param_value('SMGobs_@{co}', SMGobs_@{co});
+        set_param_value('SMIobs_@{co}', SMIobs_@{co});
+        set_param_value('SMXobs_@{co}', SMXobs_@{co});
+        SMIGobs_@{co} = SMIobs_@{co};
+      
+        SB_@{co} = 1.0;        
+        SS_@{co} = 1.0;                 
+        TAUC_@{co} = 0.2;              
+        TAUK0_@{co} = 0.3;                
+        //TAUK0_@{co} = 0.35; 
+        
+        TAUOIL_@{co} = TAUOIL; //0.30;        // 0;
+        T_SS_@{co} = 0.12;    
+        RHO_MAY_@{co} = 0;
+        RHO_TZEPS_MUY_@{co} = 0;
+        RHO_TZEPS_M_@{co} = 0;
+        T_MUY_PHI0_@{co} = 1;
+        T_MUY_PHI1_@{co} = 0;
+        T_MUY_PHI2_@{co} = 0;
+        T_MUY_PHI3_@{co} = 0;
+        T_MUY_PHI4_@{co} = 0;
+        T_MUY_PHI5_@{co} = 0;
+        T_MUY_PHI6_@{co} = 0;
+        T_MUY_Y0_@{co} = 0;
+        T_MUY_Y1_@{co} = 0;
+        T_MUY_Y2_@{co} = 0;
+        T_MUY_Y3_@{co} = 0;
+
+        T_MAY_@{co} = 0;      
+        T_MAY2_@{co} = 0;
+        T_MAY3_@{co} = 0;
+        T_MAY1_@{co}_@{co} = 0; 
+        T_MAY2_@{co}_@{co} = 0;
+        T_MAY3_@{co}_@{co} = 0;                           
+
+        T_PXAY_@{co} = 0;
+        T_PXE_@{co} = 0;
+
+        load('pdata','meanWY_@{co}');
+        //@#if co =="IT"
+        //set_param_value('WS_@{co}',0.55);        
+        //@#else
+        set_param_value('WS_@{co}',meanWY_@{co});        
+        //@#endif
+       
+        // trend parameters        
+        RHO_GPOP_@{co} = 0.98;
+        RHO_POP_@{co} = 0;
+        RHO_GACTR_@{co} = 0.94;
+        RHO_ACTR_@{co} = 0;
+        RHO_PARTR_@{co} = 0.87;
+        RHO_GPARTRTREND_@{co} = 0.96;
+        RHO_HPERE_@{co} = 0.75;
+        RHO_GHPERETREND_@{co} = 0.91;
+        RHO_GLTREND_@{co} = 0.5;
+        RHO_GAYTREND_@{co} = 0.95;
+        //
+
+        SBG_@{co}_@{co} = 0.9;           
+        SSTOT_@{co}_@{co} = 0.9;
+        RHO_B_@{co}_@{co} = 0.5;        
+        RHO_S_@{co}_@{co} =0.5;
+        ALPHAB0_@{co}_@{co} = 0.5;
+        ALPHAB1_@{co}_@{co} =0;
+        ALPHAS0_@{co}_@{co} = 0.5;
+        ALPHAS1_@{co}_@{co} = 0;     
+    
+    //    
+    // Bilateral parameters
+    //
+    
+        
+        
+                RHO_M_REA_@{co} = 0;                           
+                T_MAY2_REA_@{co} = 1;   
+                GAMMAPM_REA_@{co} = 0;  
+                GAMMAPX_REA_@{co} = 0; 
+                ALPHAPM_REA_@{co} = 0;
+                ALPHAPX_REA_@{co} = 0;
+                RHOSIG_REA_@{co} = 0;
+        
+                RHO_M_RoW_@{co} = 0;                           
+                T_MAY2_RoW_@{co} = 1;   
+                GAMMAPM_RoW_@{co} = 0;  
+                GAMMAPX_RoW_@{co} = 0; 
+                ALPHAPM_RoW_@{co} = 0;
+                ALPHAPX_RoW_@{co} = 0;
+                RHOSIG_RoW_@{co} = 0;
+    
+    
+        //RoW and REA
+        SMC_REA = 0.3;
+        //SMX_REA = 0.27;
+        load('pdata','SMXobs_REA');
+        set_param_value('SMXobs_REA',SMXobs_REA);
+        load('pdata','meanTBY_REA');
+        set_param_value('ITR_REA',-meanTBY_REA);
+        set_param_value('TBY0_REA',meanTBY_REA);
+        RHOOIL_REA  = 0;
+        SIGMAO_REA = 0.5;
+        TAUOIL_REA = TAUOIL;    
+        SIGMAC_REA = .75; 
+        SIGMAX_REA = .75; 
+        load('pdata','INOM_SS_EA');
+        set_param_value('INOM_SS_REA',INOM_SS_EA);
+
+        RHO_MAY_REA = 0;
+        RHO_PHISTAR_REA = 0;
+        RHO_TZEPS_M_REA = 0;
+        RHO_APC_REA = 0;    
+        T_MAY_REA = 0;
+        T_MAY1_REA_REA = 0; 
+        T_MAY2_REA_REA = 0;
+
+
+        T_MAY3_REA_REA = 0;                           
+        T_MAY2_REA = 0;
+        T_MAY3_REA = 0;
+        T_MUY_PHI0_REA = 1;
+        T_MUY_PHI1_REA = 0;
+        T_MUY_PHI2_REA = 0;
+        T_MUY_PHI3_REA = 0;
+        T_MUY_PHI4_REA = 0;
+        T_MUY_PHI5_REA = 0;
+        T_MUY_PHI6_REA = 0;
+        ALPHABW0_REA = 0.005; 
+        //ALPHABW1_REA = 0.005; 
+        ALPHABW1_REA = 0;            
+        APOP_REA = 1.0;            
+        ASCALE_REA = 0.5;
+        BETA_REA = BETA0;
+        
+        GAPC0_REA = 0;
+            load('pdata','GPC0_EA');
+            set_param_value('GPC0_EA',GPC0_EA);
+        GAY0_REA = GYTREND0-GPOP0;  
+        GAMMAPM_REA = 0;            
+        GAMMAPX_REA = 0;
+        GAMMAPX1_REA = 0;
+        H_REA = 0.7;
+        PHI_Y_REA = 0.01;
+        PHIY_SS_REA= 0.02;
+        
+        RHO_A_REA = 0.5;
+        RHO_APOIL_REA = 0.92;
+        RHO_AY_REA = 0.75;
+        RHO_B_REA  = 0.5;
+        RHO_BW_REA = 0;
+        RHO_GAYTREND_REA = 0.99; //0.995;    
+
+
+        RHO_LAYTREND_REA = 0;
+        RHO_GPOP_REA = 0.995;
+        RHO_PHITREND_REA = 0.99; 
+        RHO_POP_REA = 0.75; 
+        RHOIM_REA = 0; //0.9;//0;//0.2;
+        RHOSIG_REA = 0;
+        GAMMAM_REA = 0;
+        SFPMO_REA=1;
+        RHO_MO_REA=0;
+ 		RHOZ_REA=0;
+        RHO_M_REA = 0;
+        RHO2_M_REA = 0;
+        RHO_P_REA = 0.5;        
+        RHO_PX_REA = 0.95;
+        RHO_S_REA = 0.5;        
+        RHO_Y_REA = 0.9;  
+        SBW_REA = 0.5;
+        SFH_REA = 1;
+        SFH1_REA = 0;
+        SFP_REA = 0.85;
+        SFPM_REA = 1;
+        SFPX_REA = 1;
+            RHO_FQ_REA = 0;
+
+        SIGMAM_REA = 2;
+        SIGMAPX_REA = 2;
+        SIGMAPX1_REA = 2;
+        ALPHAPM_REA = 0.5*0;  
+        ALPHAPX_REA = 0.5*0;  
+
+
+        SIGMAFM_REA = 0.75;
+        THETA_REA = 1;     
+        
+        
+        NFA0_REA = 0;
+        RHO_PX_REA = 0.5;
+        T_PXAY_REA = 0;
+        T_PXE_REA = 0;
+        
+
+
+     
+    // Bilateral parameter for RoW
+    
+                RHO_M_@{co}_REA = 0;     
+                RHO_PX_@{co}_REA = 0;                           
+                RHO_TZEPS_PX_@{co}_REA = 0;                           
+                RHO_TZEPS_PXAY_@{co}_REA = 0.99;                           
+                T_MAY2_@{co}_REA = 1;   
+                GAMMAPM_@{co}_REA = 0;  
+                GAMMAPX_@{co}_REA = 0; 
+                ALPHAPM_@{co}_REA = 0;
+                ALPHAPX_@{co}_REA = 0;
+                RHOSIG_@{co}_REA = 0;                        
+                RHO_M_RoW_REA = 0;     
+                RHO_PX_RoW_REA = 0;                           
+                RHO_TZEPS_PX_RoW_REA = 0;                           
+                RHO_TZEPS_PXAY_RoW_REA = 0.99;                           
+                T_MAY2_RoW_REA = 1;   
+                GAMMAPM_RoW_REA = 0;  
+                GAMMAPX_RoW_REA = 0; 
+                ALPHAPM_RoW_REA = 0;
+                ALPHAPX_RoW_REA = 0;
+                RHOSIG_RoW_REA = 0;                        
+    
+        //RoW and REA
+        SMC_RoW = 0.3;
+        //SMX_RoW = 0.27;
+        load('pdata','SMXobs_RoW');
+        set_param_value('SMXobs_RoW',SMXobs_RoW);
+        SIGMAC_RoW = 2; 
+        //INOM_SS_RoW = 0.0055;
+        load('pdata','INOM_SS_RoW');
+        set_param_value('INOM_SS_RoW',INOM_SS_RoW);
+        RHO_GY_RoW = 0;
+        RHO_PHIY_RoW =0;
+        
+        RHO_MAY_RoW = 0;
+        RHO_PHISTAR_RoW = 0;
+        RHO_TZEPS_M_RoW = 0;
+        RHO_APC_RoW = 0;    
+        T_MAY_RoW = 0;
+        T_MAY1_RoW_RoW = 0; 
+        T_MAY2_RoW_RoW = 0;
+
+
+        T_MAY3_RoW_RoW = 0;                           
+        T_MAY2_RoW = 0;
+        T_MAY3_RoW = 0;
+        T_MUY_PHI0_RoW = 1;
+        T_MUY_PHI1_RoW = 0;
+        T_MUY_PHI2_RoW = 0;
+        T_MUY_PHI3_RoW = 0;
+        T_MUY_PHI4_RoW = 0;
+        T_MUY_PHI5_RoW = 0;
+        T_MUY_PHI6_RoW = 0;
+        ALPHABW0_RoW = 0.005; 
+        //ALPHABW1_RoW = 0.005; 
+        ALPHABW1_RoW = 0;            
+        APOP_RoW = 1.0;            
+        ASCALE_RoW = 0.5;
+        BETA_RoW = BETA0;
+        
+        GAPC0_RoW = 0;
+        GAY0_RoW = GYTREND0-GPOP0;  
+        GAMMAPM_RoW = 0;            
+        GAMMAPX_RoW = 0;
+        GAMMAPX1_RoW = 0;
+        H_RoW = 0.7;
+        PHI_Y_RoW = 0.01;
+        PHIY_SS_RoW= 0.02;
+        
+        RHO_A_RoW = 0.5;
+        RHO_APOIL_RoW = 0.92;
+        RHO_AY_RoW = 0.75;
+        RHO_B_RoW  = 0.5;
+        RHO_BW_RoW = 0;
+                RHO_APOILTREND_RoW = 0.95; //0.995;
+                RHO_GAPOILTREND_RoW = 0.3; //0.995;
+        RHO_GAYTREND_RoW = 0.99; //0.995;    
+
+
+                RHO_GAYTREND2_RoW = 0;
+                RHO_GAYTREND3_RoW = 0;
+        RHO_LAYTREND_RoW = 0;
+        RHO_GPOP_RoW = 0.995;
+        RHO_PHITREND_RoW = 0.99; 
+        RHO_POP_RoW = 0.75; 
+        RHOIM_RoW = 0; //0.9;//0;//0.2;
+        RHOSIG_RoW = 0;
+        GAMMAM_RoW = 0;
+        SFPMO_RoW=1;
+        RHO_MO_RoW=0;
+ 		RHOZ_RoW=0;
+        RHO_M_RoW = 0;
+        RHO2_M_RoW = 0;
+        RHO_P_RoW = 0.5;        
+        RHO_PX_RoW = 0.95;
+        RHO_S_RoW = 0.5;        
+        RHO_Y_RoW = 0.9;  
+        SBW_RoW = 0.5;
+        SFH_RoW = 1;
+        SFH1_RoW = 0;
+        SFP_RoW = 0.85;
+        SFPM_RoW = 1;
+        SFPX_RoW = 1;
+            RHO_FQ_RoW = 0;
+            RHO_GAY0_RoW = 0;
+
+        SIGMAM_RoW = 2;
+        SIGMAPX_RoW = 2;
+        SIGMAPX1_RoW = 2;
+        ALPHAPM_RoW = 0.5*0;  
+        ALPHAPX_RoW = 0.5*0;  
+
+
+        SIGMAFM_RoW = 0.75;
+        THETA_RoW = 1;     
+        
+        
+
+        // Taylor rule coefficientes taken from  *GM2_commodities/2018_01_12_noservices_restrited_supply_eq_SIGMA0_RHOsupply_Taylor_est
+        ETAIPHI_RoW = 1.1237; //1.5;
+        ETADY_RoW = 0;
+        ETAIY_RoW = 0.3287;//0.1;
+        RHOINOM_RoW = 0.9245; //0.65;
+        RHO_INOM_RoW = 0; 
+
+
+     
+    // Bilateral parameter for RoW
+    
+                RHO_M_@{co}_RoW = 0;     
+                   RHO_TZEPS_M_@{co}_RoW =0; // no longer used
+                RHO_PX_@{co}_RoW = 0;                           
+                RHO_TZEPS_PX_@{co}_RoW = 0;                           
+                RHO_TZEPS_PXAY_@{co}_RoW = 0.99;                           
+                T_MAY2_@{co}_RoW = 1;   
+                GAMMAPM_@{co}_RoW = 0;  
+                GAMMAPX_@{co}_RoW = 0; 
+                ALPHAPM_@{co}_RoW = 0;
+                ALPHAPX_@{co}_RoW = 0;
+                RHOSIG_@{co}_RoW = 0;                        
+                RHO_M_REA_RoW = 0;     
+                   RHO_TZEPS_M_REA_RoW =0; // no longer used
+                RHO_PX_REA_RoW = 0;                           
+                RHO_TZEPS_PX_REA_RoW = 0;                           
+                RHO_TZEPS_PXAY_REA_RoW = 0.99;                           
+                T_MAY2_REA_RoW = 1;   
+                GAMMAPM_REA_RoW = 0;  
+                GAMMAPX_REA_RoW = 0; 
+                ALPHAPM_REA_RoW = 0;
+                ALPHAPX_REA_RoW = 0;
+                RHOSIG_REA_RoW = 0;                        
+
+
+
+        
+     shocks;  //see remarks from Marco where stderr come from // done in recalibration.dyn
+        
+        var EPS_APC_@{co};
+        stderr  0.01;
+
+        var EPS_APG_@{co};
+        stderr  0.01;
+
+        var  EPS_API_@{co};
+        stderr  0.01;
+                                               
+        var EPS_APIG_@{co};
+        stderr  0.01;
+        
+        //var EPS_B_@{co};
+        //stderr 0;                 
+
+        //var EPS_S_@{co};
+        //stderr 0;
+     
+        var EPS_BW_@{co};
+        //stderr 0.005; 
+        stderr 0; 
+        
+        var EPS_AY_@{co};
+        stderr 0; 
+
+        var EPS_CU_@{co};
+        stderr 0; //0.01; 
+
+        var EPS_FQ_@{co};
+        stderr 0;
+        //stderr 0.002; 
+        //stderr 0.005; 
+        
+        var EPS_G_@{co};
+        stderr 0.01; 
+
+        var EPS_ACTR_@{co};
+        stderr 0.001; 
+        
+        var EPS_LAYTREND_@{co};
+        stderr 0;
+
+        var EPS_GAYTREND_@{co};
+        stderr 0;
+
+        //var EPS_HPERE_@{co};
+        //stderr 0; 
+
+        //var EPS_PARTR_@{co};
+        //stderr 0; 
+
+        var EPS_POP_@{co};
+        stderr 0.0007;
+
+        var EPS_IG_@{co};
+        stderr 0.01; 
+
+//        var EPS_INOM_@{co};
+//        stderr 0.01; 
+
+        var EPS_M_@{co};
+        stderr 0.01; 
+ 
+        var EPS_MUY_@{co};
+        stderr 0.01; 
+
+        var  EPS_ND_@{co};
+        stderr  0;
+
+
+        var EPS_PX_@{co};
+        stderr 0; 
+
+        var EPS_T_@{co};
+        stderr 0.01; 
+            
+        var EPS_TAX_@{co};
+        stderr 0.01; 
+
+        var EPS_UC_@{co};
+        stderr 0.01;             
+
+        var EPS_U_@{co};
+        stderr 0.01; 
+
+        @#if co == "DE"
+                var EPS_BU_@{co};
+                stderr 0.01; 
+        @#endif
+
+     end;
+
+   // Begin bilateral
+
+                shocks;
+                var EPS_B_@{co}_@{co};
+                stderr 0;  
+                    
+                var EPS_S_@{co}_@{co};
+                stderr 0.01;                                     
+                end;
+       
+   // End bilateral
+   
+    
+    // co == "RoW" && "REA"
+
+        shocks; 
+        
+        var EPS_GAYTREND_REA;
+        stderr 0; 
+        //stderr 0.0001; 
+
+        var EPS_LAYTREND_REA;
+        stderr 0; 
+        //stderr 0.0001; 
+
+        var EPS_POP_REA;
+        stderr 0.00003; 
+
+        var EPS_PX_REA;
+        stderr 0; 
+
+        var EPS_Y_REA;
+        stderr 0.001;
+
+       var EPS_BW_REA;
+        //stderr 0.005; 
+        //stderr 0.01; 
+        stderr 0; 
+   
+
+        var EPS_FQ_REA;
+        stderr 0; 
+        //stderr 0.005; 
+       
+
+   
+
+    end;
+
+ 
+        shocks; 
+        
+        var EPS_GAYTREND_RoW;
+        stderr 0; 
+        //stderr 0.0001; 
+
+        var EPS_LAYTREND_RoW;
+        stderr 0; 
+        //stderr 0.0001; 
+
+        var EPS_POP_RoW;
+        stderr 0.00003; 
+
+        var EPS_PX_RoW;
+        stderr 0; 
+
+        var EPS_Y_RoW;
+        stderr 0.001;
+
+   
+
+        var EPS_INOM_RoW;
+        stderr 0.01; 
+
+        //var EPS_LAPOILTREND_RoW;
+        //stderr 0;
+            var EPS_GAPOILTREND_RoW;
+            stderr 0.09;
+
+        //ROW
+        var EPS_FQ_RoW;
+        stderr 0; 
+
+        var EPS_GAY0_RoW;
+        stderr 0; 
+       
+
+   
+
+    end;
+
+                shocks;
+                   var EPS_M_@{co}_RoW;
+                   stderr 0; 
+                end;
+ 
+
+   shocks;
+   var EPS_INOM_EA;
+   stderr 0.01; 
+   end;

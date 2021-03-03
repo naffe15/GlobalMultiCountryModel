@@ -1,0 +1,1391 @@
+//
+// Global model steady state
+//
+//@#define COUNTRIES_SS = ["DE", "REA", "RoW"]  
+
+
+
+steady_state_model; 
+
+//tmp = set_trend_var(0);
+
+BETA0 = (((1+INT0)*exp(-GP0-GYTREND0)))^(-1);
+//BETA0 = ((1.01*exp(-GP0-GYTREND0)))^(-1);
+      NFA_@{co} = NFA0_@{co};
+      BW_@{co} = NFA_@{co};
+      POIL_@{co}  = 1;
+      POILOBS_@{co}  = 1;
+      ITR_@{co} = -TBY0_@{co};
+       GAPC0_@{co} = GP0-GPC0_@{co};
+       GAPG0_@{co} = GP0-GPG0_@{co};
+       GAPI0_@{co} = GP0-GPITOT0_@{co};
+       GAPIG0_@{co} = GAPI0_@{co};
+            CSNobs_@{co}=(1-G_SSobs_@{co}-ISNobs_@{co}-IG_SSobs_@{co}-TBY0_@{co});
+    
+    PX_@{co} = 1;
+    PXINT_@{co} = 1;
+    PC_@{co} = 1;
+    PM_@{co} = 1;
+    // PM1_@{co} = 1;
+    PO_@{co} = 1;
+    BETA_@{co} = BETA0*exp(-GYTREND0-GP0)/exp((1-THETA_@{co})*(GAPC0_@{co})-THETA_@{co}*(GYTREND0-GPOP0)-GPOP0-GP0);  
+    SDF_@{co} = BETA_@{co}*exp((1-THETA_@{co})*(GAPC0_@{co})-THETA_@{co}*(GYTREND0-GPOP0)-GPOP0-GP0);
+    INOM_SPREAD_@{co} = INOM_SS_@{co}-((BETA_@{co}*exp((1-THETA_@{co})*(GAPC0_@{co})-THETA_@{co}*(GYTREND0-GPOP0)-GPOP0-GP0))^(-1)-1);
+
+    INOM_@{co} = INOM_SS_@{co};
+    R_@{co} = INOM_SS_@{co}-GP0;
+    BETAT_@{co} = BETA_@{co};
+
+
+      NFA_REA = NFA0_REA;
+      BW_REA = NFA_REA;
+      POIL_REA  = 1;
+      POILOBS_REA  = 1;
+      ITR_REA = -TBY0_REA;
+       GAPC0_EA = GP0-GPC0_EA;
+    
+    PX_REA = 1;
+    PXINT_REA = 1;
+    PC_REA = 1;
+    PM_REA = 1;
+    // PM1_REA = 1;
+    PO_REA = 1;
+    BETA_REA = BETA0*exp(-GYTREND0-GP0)/exp((1-THETA_REA)*(GAPC0_REA)-THETA_REA*(GYTREND0-GPOP0)-GPOP0-GP0);  
+    SDF_REA = BETA_REA*exp((1-THETA_REA)*(GAPC0_REA)-THETA_REA*(GYTREND0-GPOP0)-GPOP0-GP0);
+    INOM_SPREAD_REA = INOM_SS_REA-((BETA_REA*exp((1-THETA_REA)*(GAPC0_REA)-THETA_REA*(GYTREND0-GPOP0)-GPOP0-GP0))^(-1)-1);
+
+    INOM_REA = INOM_SS_REA;
+    R_REA = INOM_SS_REA-GP0;
+    BETAT_REA = BETA_REA;
+
+
+    
+    PX_RoW = 1;
+    PXINT_RoW = 1;
+    PC_RoW = 1;
+    PM_RoW = 1;
+    // PM1_RoW = 1;
+    PO_RoW = 1;
+    BETA_RoW = BETA0*exp(-GYTREND0-GP0)/exp((1-THETA_RoW)*(GAPC0_RoW)-THETA_RoW*(GYTREND0-GPOP0)-GPOP0-GP0);  
+    SDF_RoW = BETA_RoW*exp((1-THETA_RoW)*(GAPC0_RoW)-THETA_RoW*(GYTREND0-GPOP0)-GPOP0-GP0);
+    INOM_SPREAD_RoW = INOM_SS_RoW-((BETA_RoW*exp((1-THETA_RoW)*(GAPC0_RoW)-THETA_RoW*(GYTREND0-GPOP0)-GPOP0-GP0))^(-1)-1);
+
+    INOM_RoW = INOM_SS_RoW;
+    R_RoW = INOM_SS_RoW-GP0;
+    BETAT_RoW = BETA_RoW;
+
+
+
+   
+
+
+
+
+    APC_@{co}   =1;
+    APM_@{co}    =1;
+         APOIL_@{co} = 1;
+    POP_@{co}    =1;
+	PY_@{co}     =1;
+    YTREND_@{co} =1;
+    
+        ACTR_@{co} = 1;
+        LTREND_@{co} = L_SS_@{co};
+        PARTR_@{co} = 1; 
+        NTREND_@{co} = L_SS_@{co}; 
+
+        APG_@{co} = 1;   
+        API_@{co} = 1;   
+        APO_@{co} = 1;           
+    APC_REA   =1;
+    APM_REA    =1;
+         APOIL_REA = 1;
+    POP_REA    =1;
+	PY_REA     =1;
+    YTREND_REA =1;
+    
+    APC_RoW   =1;
+    APM_RoW    =1;
+         APOIL_RoW = 1;
+    POP_RoW    =1;
+	PY_RoW     =1;
+    YTREND_RoW =1;
+    
+
+
+        SIGMAC_@{co} = SIGMAZ_@{co};   
+        SIGMAG_@{co} = SIGMAZ_@{co};   
+        SIGMAI_@{co} = SIGMAZ_@{co};   
+        SIGMAIG_@{co} = SIGMAZ_@{co};   
+        SIGMAX_@{co} = SIGMAZ_@{co};   
+        TAUOIL_@{co} = TAUOIL; 
+        SIGMAX_REA = SIGMAC_REA;   
+        SIGMAX_RoW = SIGMAC_RoW;   
+
+
+//trendvar
+    GE_@{co}_REA = 0;
+        E_@{co}_@{co} = 1;   
+        E_REA_@{co} = 1;   
+        E_RoW_@{co} = 1;   
+    GE_REA_REA = 0;
+        E_@{co}_REA = 1;   
+        E_REA_REA = 1;   
+        E_RoW_REA = 1;   
+    GE_RoW_REA = 0;
+        E_@{co}_RoW = 1;   
+        E_REA_RoW = 1;   
+        E_RoW_RoW = 1;   
+
+SIZE1_RoW = SIZEobs_RoW
+    - SIZEobs_@{co}*SOILobs_@{co}   
+    - SIZEobs_REA*SOILobs_REA   
+;
+
+
+     MTREND_@{co} =1;
+     ZTREND_@{co} =1;
+
+       OTREND_@{co} =1;
+       STOT_@{co} = 1;
+       //PYOBS_@{co} = ((1+TAUC_@{co})*(1-INV_SS_@{co}))/((1+TAUC_@{co})*(1-INV_SS_@{co})-CSNobs_@{co}*TAUC_@{co});
+       PYOBS_@{co} = 1/(1-CSNobs_@{co}*TAUC_@{co}/(1+TAUC_@{co})-TAUOIL*SOILobs_@{co}/(1-TAUOIL));
+       //YOBS_@{co} = 1/(1 - INV_SS_@{co});
+       YOBS_@{co} = 1;
+
+       YOBSN_@{co} = YOBS_@{co}*PYOBS_@{co};
+       BG_@{co} = BGTAR_@{co}*PYOBS_@{co}*YOBS_@{co};
+       DEFTAR_@{co} = BGTAR_@{co}*(1-exp(-GYTREND0-GP0));
+
+       SIZE1_@{co} = SIZEobs_@{co}/YOBS_@{co}/PYOBS_@{co};
+       //SOIL_@{co} = SOILobs_@{co}*YOBS_@{co}*PYOBS_@{co};
+      SOIL_@{co} = (SOILobs_@{co}*YOBS_@{co}*PYOBS_@{co}/(1-TAUOIL))/(1+SOILobs_@{co}*YOBS_@{co}*PYOBS_@{co}/(1-TAUOIL));
+       TB_@{co} = -ITR_@{co}*PYOBS_@{co}*YOBS_@{co};
+
+       ISN_@{co}=ISNobs_@{co}*PYOBS_@{co}*YOBS_@{co};
+      
+       //for Spain we set the KY ratio equal to EA average 
+       //@#if co=="ES"     
+       //K_@{co}=11.32;      
+       //I_@{co} =  ISN_@{co};
+       //DELTAK_@{co} = I_@{co}/K_@{co};
+       //DELTA_@{co} = 1-exp(GYTREND0+GAPI0_@{co})+DELTAK_@{co};
+       //@#endif
+       
+       G_SS_@{co}=G_SSobs_@{co}*PYOBS_@{co}*YOBS_@{co};
+       IG_SS_@{co}=IG_SSobs_@{co}*PYOBS_@{co}*YOBS_@{co};
+       T_SS_@{co}=T_SSobs_@{co}*PYOBS_@{co}*YOBS_@{co};
+       SMTOT_@{co}=SMobs_@{co}*PYOBS_@{co}*YOBS_@{co};
+       //SM_@{co}=(SMobs_@{co}*PYOBS_@{co}*YOBS_@{co}-SOIL_@{co}/(1-SOIL_@{co}))/(1-TB_@{co});
+        //@#if commodities!=0 && no_services 
+           // DD_@{co} = (1-TB_@{co}-YRESID_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}));
+           // SM_@{co}=(SMobs_@{co}*PYOBS_@{co}*YOBS_@{co}-SOIL_@{co}/(1-SOIL_@{co})*(1-TAUOIL))/(1-TB_@{co}-YRESID_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}));
+       // @#else
+            DD_@{co} = (1-TB_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}));
+            SM_@{co}=(SMobs_@{co}*PYOBS_@{co}*YOBS_@{co}-SOIL_@{co}/(1-SOIL_@{co})*(1-TAUOIL))/(1-TB_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}));
+       // @#endif
+      
+    YOBS_REA = 1;
+    PYOBS_REA =1/(1-TAUOIL*SOILobs_REA/(1-TAUOIL));
+    SIZE1_REA = SIZEobs_REA/YOBS_REA/PYOBS_REA;
+    YOBSN_REA = YOBS_REA*PYOBS_REA;
+    
+    SOIL_REA = (SOILobs_REA*YOBS_REA*PYOBS_REA/(1-TAUOIL))/(1+SOILobs_REA*YOBS_REA*PYOBS_REA/(1-TAUOIL));
+    
+    YPOT_REA = 1;
+    TB_REA = -ITR_REA*PYOBS_REA*YOBS_REA; 
+    SMTOT_REA=SMobs_REA*PYOBS_REA*YOBS_REA;
+    O_REA = 1/(1-SOIL_REA);
+    OIL_REA = SOIL_REA*O_REA;
+    C_REA = 1+TAUOIL*OIL_REA-TB_REA;
+    //SM_REA=(SMobs_REA*PYOBS_REA*YOBS_REA-SOIL_REA/(1-SOIL_REA))/(1-TB_REA);
+    SM_REA=(SMobs_REA*PYOBS_REA*YOBS_REA-SOIL_REA/(1-SOIL_REA)*(1-TAUOIL))/(1-TB_REA+TAUOIL*SOIL_REA/(1-SOIL_REA));
+    M_REA = (1-TB_REA+TAUOIL*SOIL_REA/(1-SOIL_REA))*SM_REA;
+    //X_REA = (1-TB_REA)*SMC_REA+(SOIL_REA/(1-SOIL_REA)*(1-TAUOIL)) + TB_REA;
+    X_REA = M_REA+(SOIL_REA/(1-SOIL_REA)*(1-TAUOIL)) + TB_REA;
+    MY_REA = (X_REA-OIL_REA-TB_REA)/PYOBS_REA;  
+    XY_REA = X_REA/PYOBS_REA;  
+    TAUOIL_REA = TAUOIL;
+
+        SMC_REA = (M_REA-(SMXobs_REA*X_REA))/C_REA;
+        SMX_REA = SMXobs_REA;
+    MC_REA = SMC_REA*C_REA;
+    MX_REA = SMX_REA*X_REA;
+    //M_REA = MC_REA + MX_REA;
+    OC_REA = (1-SMC_REA)*C_REA;
+    OX_REA = (1-SMX_REA)*X_REA;
+    
+    ZEPS_PX_REA = 0;
+         
+
+     MTREND_REA =1;
+     ZTREND_REA =1;
+
+
+     MTREND_RoW =1;
+     ZTREND_RoW =1;
+
+
+sss=
++SIZE1_@{co}
++SIZE1_REA
++SIZE1_RoW
+;
+
+ SIZE_@{co} = 100*SIZE1_@{co}/sss;
+ SIZE_REA = 100*SIZE1_REA/sss;
+ SIZE_RoW = 100*SIZE1_RoW/sss;
+
+        NFA_RoW = 
+                    - NFA_@{co}*SIZE_@{co}/SIZE_RoW
+                    - NFA_REA*SIZE_REA/SIZE_RoW
+        ;
+        BW_RoW = NFA_RoW;
+        INOMBW = INOM_RoW + RPBW_RoW;
+        ALPHABW0_RoW = (1+INOMBW)-1/SDF_RoW-ALPHABW1_RoW*BW_RoW;
+        POIL_RoW  = 1-TAUOIL;
+        PBRENTOBS_RoW  = 1;
+        LPBRENTOBS_RoW  = 0;
+
+
+    INOM_EA = INOM_SS_EA;
+
+    ALPHABW0_EA = INOMBW-INOM_EA;
+       
+    //ALPHABW0_US= -1/SDF_US+(1+INOMBW)-ALPHABW1_US*BW_US;
+    
+            //ALPHABW0_@{co} = (1+INOMBW)-1/SDF_@{co}+ALPHABW1_@{co}*(-BW_@{co});  
+            ALPHABW0_@{co} = (1+INOM_EA)-1/SDF_@{co};  
+            //ALPHABW0_REA = (1+INOMBW)-1/SDF_REA+ALPHABW1_REA*(-BW_REA);  
+            ALPHABW0_REA = (1+INOM_EA)-1/SDF_REA;  
+        
+
+
+                    //SM_REA_@{co} = SMTOT_REA_@{co}/(1-SOIL_@{co}/(1-SOIL_@{co})/SMobs_@{co});
+                    SM_REA_@{co} = SMTOT_REA_@{co}/(SM_@{co}*(1-TB_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}))/SMTOT_@{co});
+                    //SM_@{co}_REA = SMTOT_@{co}_REA/(1-SOIL_REA/(1-SOIL_REA)/SMobs_REA);
+                    SM_@{co}_REA = SMTOT_@{co}_REA/(SM_REA*(1-TB_REA+TAUOIL*SOIL_REA/(1-SOIL_REA))/SMTOT_REA);
+
+        SM_RoW_@{co} = (1
+                    -SM_REA_@{co}
+        );
+        SM_RoW_REA = (1
+                    -SM_@{co}_REA
+        );
+
+ 
+// Here variables used across COUNTRIES_SS' variables definition
+
+
+    GAY0_@{co} = GYTREND0 - (GPOP0 + (GAPI0_@{co})*((1-ALPHA_@{co})/ALPHA_@{co}));
+    APIG_@{co} = 1;   
+    HPERE_@{co} = 1;
+    HPEREQA_@{co} = 4;
+    PARTRQA_@{co} = 1;
+  
+    HPERETREND_@{co} = 1;
+    PARTRTREND_@{co} = 1;
+
+    PG_@{co} = 1;
+    PI_@{co} = 1;
+    PIG_@{co} = 1;
+    PITOT_@{co}=1;
+    PO_@{co} = 1;
+    PZ_@{co}= 1;
+    // Adjustment costs
+        ADJ_@{co} = 0;
+        ADJ_PY_@{co} = 0;
+        ADJ_PM_@{co} = 0;
+        ADJ_PX_@{co} = 0;
+        ADJ_N_@{co} = 0;
+        ADJ_CU_@{co} = 0;
+        ADJ_I_@{co} = 0;
+    	DIVM_@{co} = 0;
+
+    CU_@{co} = 1;
+    CU0_@{co} = 1;
+    CUOBS_@{co} = 1;
+	FNt_@{co} = FN_@{co};
+	FN0_@{co} = FN_@{co};
+	N0_@{co} = 1-FN_@{co};
+	DELTAK_@{co} = exp(GYTREND0+GAPI0_@{co})-(1-DELTA_@{co});
+    G_@{co} = G_SS_@{co};
+    I_@{co} = ISN_@{co};
+    IG_@{co} = IG_SS_@{co};
+    ITOT_@{co} = I_@{co}+IG_@{co};
+    L_@{co} = L_SS_@{co};
+    Q_@{co} = 1;
+    T_@{co} = T_SS_@{co};
+    Y_@{co} = 1;     
+    YPOT_@{co} = 1;
+    Ystar_@{co} = Y_@{co} + FC_@{co};
+
+    // Growth rates
+        
+        GAPC_@{co} = GAPC0_@{co};
+        GAPG_@{co} = GAPG0_@{co};
+        GAPI_@{co} = GAPI0_@{co};
+        GAPIG_@{co} = GAPI0_@{co};
+        GAPM_@{co} = 0;
+        
+        GAPOIL_@{co} = 0;
+        
+        GAPO_@{co} = 0;
+        GACTR_@{co} = 0;
+        GHPERE_@{co} = 0;
+        GPARTR_@{co} = 0;
+        GPOP_@{co} = GPOP0;
+        GLTREND_@{co} = 0;
+        DLLTREND_@{co} = 0;
+        GNTREND_@{co} = GACTR_@{co}+GPOP_@{co}+GPARTR_@{co}+GLTREND_@{co}+GHPERE_@{co}; 
+        GN_@{co} = GPOP0;
+        GMTREND_@{co} = GYTREND0 ;
+        GOTREND_@{co} = GYTREND0;
+        GYTREND_@{co} = GYTREND0;
+        GZTREND_@{co} = GYTREND0 ;
+        GAYTREND_@{co} = GAY0_@{co};
+        GACTRTREND_@{co} = 0;
+        GHPERETREND_@{co} = 0;
+        GPARTRTREND_@{co} = 0;
+        GPOPTREND_@{co} = GPOP0;
+        GTFPTREND_@{co} = GAYTREND_@{co}*ALPHA_@{co};
+        GAY_@{co} = GAY0_@{co};   
+        GTFP_@{co} = GAY_@{co}*ALPHA_@{co};
+        MOX_@{co}=0;
+        MOC_@{co}=0;
+        MOI_@{co}=0;
+        MOZ_@{co}=0;
+
+         // Inflation rates
+        PHISTAR_@{co} = 0;
+        PHIY_@{co} = GP0;
+        PHIYOBS_@{co} = GP0;
+        PHIRULC_@{co} = 0;
+        PHIC_@{co} = GP0-GAPC0_@{co};
+        PHICVAT_@{co} = GP0-GAPC0_@{co} ;
+        PHICVAT_SS_@{co} = PHICVAT_@{co};
+        PHICVATQA_@{co} = PHICVAT_@{co}*4;
+        PHICVATQA_SS_@{co} = PHICVATQA_@{co};
+        // PHICPI_@{co} = PHICPI_SS_@{co};
+        PHIG_@{co} = GP0-GAPG0_@{co};
+        PHII_@{co} = GP0-GAPI0_@{co};
+        PHIIG_@{co} = GP0-GAPI0_@{co};
+        PHIITOT_@{co} = GP0-GAPI0_@{co};
+        PHIM_@{co} = GP0;
+        PHIMTOT_@{co} = GP0;
+        PHIOIL_@{co} = GP0;
+        PHIX_@{co} = GP0;
+        PHIW_@{co} = GP0 + GYTREND0 - GNTREND_@{co};
+        PHIWR_@{co} = 0;
+        PHIWRC_@{co} = GP0 + GYTREND0 - GNTREND_@{co} -( GP0-GAPC0_@{co});
+     
+
+        TC_@{co} = T_@{co};
+        TS_@{co} = T_@{co};
+        EMPL_@{co} = L_@{co};
+        N_@{co} = L_@{co};
+        NC_@{co} = N_@{co};
+        NS_@{co} = N_@{co};
+        WY_@{co} = WS_@{co};
+        LWY_@{co} = log(WS_@{co});       
+        YL_@{co} = YOBS_@{co}/N_@{co};
+        K_@{co} = I_@{co}/DELTAK_@{co};
+        
+        // KG_@{co} = (1-DELTAG_@{co})*KG_@{co}(-1)+IG_@{co};
+        KG_@{co} = IG_@{co}/(exp(GYTREND0+GAPI0_@{co})-(1-DELTAG_@{co}));
+
+        // KTOT_@{co} = K_@{co}+KG_@{co};
+        KTOT_@{co} = K_@{co}+KG_@{co};
+
+        //  O_@{co} = ((1-SOIL_@{co})^(1/SIGMAO_@{co})*(Y_@{co})^((SIGMAO_@{co}-1)/SIGMAO_@{co})
+        //            +(SOIL_@{co})^(1/SIGMAO_@{co})*(APOIL_@{co}*OIL_@{co})^((SIGMAO_@{co}-1)/SIGMAO_@{co}))^(SIGMAO_@{co}/(SIGMAO_@{co}-1));  
+        Z_@{co} = 1/(1-SOIL_@{co});
+        
+        // OIL_@{co} = (APOIL_@{co})^(SIGMAO_@{co}-1)*SOIL_@{co}*(POIL_@{co}/PO_@{co})^(-SIGMAO_@{co})*O_@{co};
+        OIL_@{co} = SOIL_@{co}*Z_@{co};
+            OILY_@{co} = OIL_@{co}/(PYOBS_@{co}*YOBS_@{co});
+        LOILY_@{co} = log(OILY_@{co});
+        
+        // PCVAT_@{co} = (1+TAUC_@{co})*PC_@{co};     
+        PCVAT_@{co} = 1+TAUC_@{co};
+
+        // PYOBS_@{co}*Y_@{co} = PCVAT_@{co}*C_@{co}+PI_@{co}*I_@{co}+PG_@{co}*G_@{co}+PIG_@{co}*IG_@{co}+PY_@{co}*ADJ_@{co};
+        // PYOBS_@{co}*Y_@{co} = PY_@{co}*Y_@{co}+TAUC_@{co}*PC_@{co}*C_@{co};
+        // PCVAT_@{co} = (1+TAUC_@{co})*PC_@{co};  
+            C_@{co} = 1+TAUOIL_@{co}*OIL_@{co}-(I_@{co}+G_@{co}+IG_@{co}+TB_@{co});
+        CX_@{co} = C_@{co}*exp(-GYTREND0-GAPC0_@{co})^(RHOCX_@{co}/(1-RHOCX_@{co}));
+
+        // PHICPI Inflation        
+        PHICPI_SS_@{co} = GP0-(GAPC0_@{co})*(C_@{co}/(C_@{co}+G_@{co}))-(GAPG0_@{co})*(G_@{co}/(C_@{co}+G_@{co}));
+        PHICPI_@{co} = PHICPI_SS_@{co};
+       
+
+        RULC_@{co} = WS_@{co}*PYOBS_@{co}*YOBS_@{co};
+        W_@{co} = RULC_@{co}/N_@{co};
+
+        // From TB equation 
+        //@#if commodities!=0 && no_services 
+          //  X_@{co} = (1-TB_@{co}-YRESID_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}))*SM_@{co}+SOIL_@{co}/(1-SOIL_@{co})*(1-TAUOIL_@{co}) + TB_@{co};
+       // @#else
+            X_@{co} = (1-TB_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}))*SM_@{co}+SOIL_@{co}/(1-SOIL_@{co})*(1-TAUOIL_@{co}) + TB_@{co};
+        //@#endif
+        SMGTOT = SM_@{co}*DD_@{co}/(SMCobs_@{co}/SMGobs_@{co}*C_@{co} +SMIobs_@{co}/SMGobs_@{co}*I_@{co}+G_@{co}+SMIGobs_@{co}/SMGobs_@{co}*IG_@{co}+SMXobs_@{co}/SMGobs_@{co}*X_@{co});
+        SMZ = 0;
+        SMSCALE = SMGTOT/SMGobs_@{co};
+        SMC_@{co}  = (SMCobs_@{co}*SMSCALE-SMZ)/(1-SMZ);
+        SMG_@{co} =  (SMGobs_@{co}*SMSCALE-SMZ)/(1-SMZ);
+        SMI_@{co}  = (SMIobs_@{co}*SMSCALE-SMZ)/(1-SMZ);
+        SMIG_@{co} = (SMIGobs_@{co}*SMSCALE-SMZ)/(1-SMZ);
+        SMX_@{co}  = (SMXobs_@{co}*SMSCALE-SMZ)/(1-SMZ);
+
+       // SMC_@{co} = (SM_@{co}*DD_@{co}-(SMI_@{co}*I_@{co}+SMG_@{co}*G_@{co}+SMIG_@{co}*IG_@{co}+SMX_@{co}*X_@{co}))/C_@{co};
+        tmp1 = (SM_@{co}*DD_@{co}-(SMC_@{co}*C_@{co} +SMI_@{co}*I_@{co}+SMG_@{co}*G_@{co}+SMIG_@{co}*IG_@{co}+SMX_@{co}*X_@{co}));
+        SMZ_@{co} = tmp1/Z_@{co}/(1+tmp1/Z_@{co});
+        O_@{co} = Z_@{co}/(1-SMZ_@{co});
+        MZ_@{co} = (SMZ_@{co}*O_@{co});
+
+            OC_@{co} = ((1-SMC_@{co})*C_@{co});
+            MC_@{co} = (SMC_@{co}*C_@{co});
+            OI_@{co} = ((1-SMI_@{co})*I_@{co});
+            MI_@{co} = (SMI_@{co}*I_@{co});
+            OG_@{co} = ((1-SMG_@{co})*G_@{co});
+            MG_@{co} = (SMG_@{co}*G_@{co});
+            OIG_@{co} = ((1-SMIG_@{co})*IG_@{co});
+            MIG_@{co} = (SMIG_@{co}*IG_@{co});
+            OX_@{co} = ((1-SMX_@{co})*X_@{co});
+            MX_@{co} = (SMX_@{co}*X_@{co});
+
+        M_@{co}= (MC_@{co} + MI_@{co} + MG_@{co} + MIG_@{co} + MX_@{co} + MZ_@{co});
+       
+
+        
+
+        
+          
+        // (1+INOMG_@{co}) = (1+INOM_@{co})*(1+RPREMG_@{co});
+        IB_@{co} = IB_SS_@{co}*YOBS_@{co}*PYOBS_@{co};
+        INOMG_@{co} = IB_@{co}/(BG_@{co}*exp(-GYTREND0-GP0));
+        RPREMG_@{co} = INOMG_@{co} - INOM_@{co};
+        INOMGLT_@{co} = INOMG_@{co};
+            
+        // BG_@{co} = (1+INOMG_@{co})*BG_@{co}(-1)-RG_@{co}+PG_@{co}*G_@{co}+PIG_@{co}*IG_@{co}+T_@{co}*PY_@{co};
+        RG_@{co} = BG_@{co}*(1+INOMG_@{co})*exp(-GYTREND0-GP0)-BG_@{co}+ G_@{co}+IG_@{co}+T_@{co};
+
+       DFETOT_@{co} = RG_@{co}/(PYOBS_@{co}*YOBS_@{co});
+
+        // Endogenize TAUK
+        //INOMS_@{co} = INOM_@{co} + RPREMS_@{co};
+        //TAUK_@{co} = 1-((INOMS_@{co}+1)/exp(GP0-GAPI0_@{co})-1)/(W_@{co}*N_@{co}/ALPHA_@{co}*(1-ALPHA_@{co})/KTOT_@{co}-DELTA_@{co});
+        //TAUK_@{co} = TAUK0_@{co};
+        TAUKMAX_@{co} = 1-(exp(GYTREND0+GP0)/exp(GP0-GAPI0_@{co})-1)/(W_@{co}*N_@{co}/ALPHA_@{co}*(1-ALPHA_@{co})/KTOT_@{co}-DELTA_@{co});
+        
+        TAUKSAFE_@{co} = TAUKMAX_@{co}-0.0001;
+        TAUK_@{co} = min(TAUK0_@{co},TAUKSAFE_@{co});
+        //exp(GYTREND0+GP0)-INOM_@{co} < RPREMS_@{co} < ((W_@{co}*N_@{co}/ALPHA_@{co}*(1-ALPHA_@{co})/KTOT_@{co}-DELTA_@{co})+1)*exp(GP0-GAPI0_@{co})-1-INOM_@{co}
+        // RG_@{co} = TAUK_@{co}*(PY_@{co}*Y_@{co}-W_@{co}*N_@{co}-PI_@{co}*DELTA_@{co}*K_@{co}(-1))+TAUN_@{co}*(W_@{co}*N_@{co})+TAUC_@{co}*PC_@{co}*C_@{co};
+        //TAUK_@{co} = (RG_@{co}-TAUN_@{co}*(W_@{co}*N_@{co})-TAUC_@{co}*C_@{co})/(1-W_@{co}*N_@{co}-DELTA_@{co}*K_@{co}) ;
+
+        // Endogenize TAUN
+        // TAUN_@{co} = (RG_@{co}-TAUC_@{co}*C_@{co} - TAUK_@{co}*(1-W_@{co}*N_@{co}-DELTA_@{co}*K_@{co})-TAUOIL_@{co}*OIL_@{co})/(W_@{co}*N_@{co});
+        TAUN_@{co} = (RG_@{co}-TAUC_@{co}*C_@{co} - TAUK_@{co}*(1-W_@{co}*N_@{co}-DELTA_@{co}*K_@{co})-TAUOIL_@{co}*OIL_@{co})/(W_@{co}*N_@{co});
+
+                @#if co == "DE"
+                ZEPS_BU_@{co} = 0.36;
+                BEN_@{co} = ZEPS_BU_@{co} * W_@{co};
+                BU_Obs_@{co} =  ZEPS_BU_@{co}/(1-TAUN_@{co});
+                @#endif
+
+
+        // D_@{co} = (1-TAUK_@{co})*(Y_@{co}-W_@{co}/PY_@{co}*N_@{co})+TAUK_@{co}*DELTA_@{co}*(PI_@{co}/PY_@{co})*K_@{co}(-1)-(PI_@{co}/PY_@{co})*I_@{co}-ADJ_@{co};
+        D_@{co} = (1-TAUK_@{co})*(1-W_@{co}*N_@{co})+TAUK_@{co}*DELTA_@{co}*K_@{co}-I_@{co};
+
+        
+
+        // ALPHA_@{co} = ((1-TAUK_@{co})*W_@{co}/1)*N_@{co}/MUY_@{co};
+        //MUY_@{co} = ((1-TAUK_@{co})*W_@{co}/1)*N_@{co}/ALPHA_@{co};
+		MUY_@{co} = ((1-TAUK_@{co})*W_@{co}/Ystar_@{co})*(N_@{co}-FNt_@{co})/ALPHA_@{co};
+
+
+        // Endogenize  SIGMAY from SIGMAY_@{co}*MUY_@{co} = (1-TAUK_@{co})*(SIGMAY_@{co}-1)+GAMMAP_@{co}*(PHIY_@{co}-GP0)*(PY_@{co}/PY_@{co}(-1))
+        //         -Y_@{co}(1)/Y_@{co}*((PY_@{co}(1)/PY_@{co})/(1+INOMS_@{co}(1)))*GAMMAP_@{co}*(PHIY_@{co}(1)-GP0)*(PY_@{co}(1)/PY_@{co});
+        SIGMAY_@{co} =  (1-TAUK_@{co})/(1-TAUK_@{co}-MUY_@{co});
+      
+        
+        AY_@{co} = 1;
+        
+        AYTREND_@{co} = 1;
+
+        // From Tobins Q equation [endogenize spread]
+        //INOMS_@{co} = exp(GP0-GAPI0_@{co})*(MUY_@{co}*(1-ALPHA_@{co})/KTOT_@{co}+(TAUK_@{co}-1)*DELTA_@{co}+1)-1; 
+        INOMS_@{co} = exp(GP0-GAPI0_@{co})*(MUY_@{co}*(1-ALPHA_@{co})*Ystar_@{co}/KTOT_@{co}+(TAUK_@{co}-1)*DELTA_@{co}+1)-1; 
+        INOMS1_@{co} = INOMS_@{co};
+        RPREMS_@{co} = INOMS_@{co} - INOM_@{co};
+        RS_@{co} = INOMS_@{co} - PHII_@{co};
+        R_PI_@{co} = INOM_@{co} - PHII_@{co};
+
+        //(exp(GP0))/(1+INOMS_@{co})*(exp(GP0-GAPI0_@{co}))*(MUY_@{co}*(1-ALPHA_@{co})*(PY_@{co}(1)/PI_@{co}(1))*(Y_@{co}(1)/KTOT_@{co})+TAUK_@{co}*DELTA_@{co}+(1-DELTA_@{co})*Q_@{co}(1)) = Q_@{co}; 
+
+        // 1+INOMS_@{co} = (PS_@{co}+PY_@{co}*D_@{co})/(PS_@{co}(-1));    
+        PS_@{co} = (D_@{co})*exp(GP0+GYTREND0)/(1+INOMS_@{co}-exp(GYTREND0+GP0));
+
+        
+                // PCVAT_@{co}*CC_@{co} = (1-TAUN_@{co})*W_@{co}*NC_@{co}+TC_@{co};  
+                 CC_@{co} = ((1-TAUN_@{co})*W_@{co}*NC_@{co}+TC_@{co})/(PCVAT_@{co});  
+
+
+        // C_@{co} = OMEGAS_@{co}*CS_@{co}+(1-OMEGAS_@{co})*CC_@{co};
+        CS_@{co} = C_@{co}/OMEGAS_@{co}-(1-OMEGAS_@{co})/OMEGAS_@{co}*CC_@{co};
+
+        // LAMBDAS_@{co} = exp(ZEPS_P_@{co})*(CS_@{co}-H_@{co}*CS_@{co}(-1))^-THETA_@{co}; 
+        LAMBDAS_@{co} = ((1-H_@{co}*exp(-GYTREND0+GPOP0-GAPC0_@{co}))*CS_@{co})^-THETA_@{co};        
+        LAMBDAC_@{co} = ((1-H_@{co}*exp(-GYTREND0+GPOP0-GAPC0_@{co}))*CC_@{co})^-THETA_@{co};        
+
+        // Endogenize OMEGAN_@{co}
+        @#if co == "DE"
+        OMEGAN_@{co}  = (1-TAUN_@{co} -ZEPS_BU_@{co} )*W_@{co}/PY_@{co}*(OMEGAS_@{co}*LAMBDAS_@{co}+(1-OMEGAS_@{co})*LAMBDAC_@{co})/(OMEGAS_@{co}*(NS_@{co}-HL_@{co}*NS_@{co})^THETAN_@{co}+(1-OMEGAS_@{co})*(NC_@{co}-HL_@{co}*NC_@{co})^THETAN_@{co})/CX_@{co}^(1-THETA_@{co})/MUW_@{co}/PCVAT_@{co};
+        @#else
+        OMEGAN_@{co} = (1-TAUN_@{co})*W_@{co}/PY_@{co}*(OMEGAS_@{co}*LAMBDAS_@{co}+(1-OMEGAS_@{co})*LAMBDAC_@{co})/(OMEGAS_@{co}*(NS_@{co}-HL_@{co}*NS_@{co})^THETAN_@{co}+(1-OMEGAS_@{co})*(NC_@{co}-HL_@{co}*NC_@{co})^THETAN_@{co})/CX_@{co}^(1-THETA_@{co})/MUW_@{co}/PCVAT_@{co};
+        @#endif
+
+        VLS_@{co} = OMEGAN_@{co}*(NS_@{co}-HL_@{co}*NS_@{co})^THETAN_@{co}*CX_@{co}^(1-THETA_@{co});
+        VLC_@{co} = OMEGAN_@{co}*(NC_@{co}-HL_@{co}*NC_@{co})^THETAN_@{co}*CX_@{co}^(1-THETA_@{co});
+        VL_@{co} = OMEGAS_@{co}*VLS_@{co}+(1-OMEGAS_@{co})*VLC_@{co};
+ 
+        // Endogenize GAMMAU1_@{co}
+        //GAMMAU1_@{co} = MUY_@{co}*(1-ALPHA_@{co})/K_@{co};
+        GAMMAU1_@{co} = MUY_@{co}*(1-ALPHA_@{co})*Ystar_@{co}/KTOT_@{co};
+        
+		// Endogenize GAMMAFN1_@{co}
+		GAMMAFN1_@{co} = -MUY_@{co}*ALPHA_@{co}/(N_@{co}-FNt_@{co});
+
+
+        //  Endogenize ASCALE  From Y_@{co} = ASCALE_@{co}*(AY_@{co}*N_@{co})^(ALPHA_@{co})*(CU_@{co}*KTOT_@{co}(-1))^(1-ALPHA_@{co});
+		ASCALE_@{co} = Ystar_@{co}/((AY_@{co}*(N_@{co}-FNt_@{co}))^(ALPHA_@{co})*(CU_@{co}*KTOT_@{co})^(1-ALPHA_@{co}));
+
+        // TFP_@{co} = AY_@{co}^ALPHA_@{co}; 
+        //TFP_@{co} = ASCALE_@{co}*(AY_@{co}/4)^ALPHA_@{co}*(YOBS_@{co}*PYOBS_@{co})^(1-ALPHA_@{co});
+        //TFP_@{co} = ASCALE_@{co}*(AY_@{co})^ALPHA_@{co}/(YOBS_@{co}*PYOBS_@{co})^ALPHA_@{co}*(exp(GYTREND0)*exp(GAPI0_@{co}))^(ALPHA_@{co}-1);
+        TFP_@{co} = ASCALE_@{co}*(AY_@{co})^ALPHA_@{co}*(YOBS_@{co}*PYOBS_@{co})^(1-ALPHA_@{co})*(exp(GYTREND0)*exp(GAPI0_@{co}))^(ALPHA_@{co}-1)/(1+FC_@{co})*(1-FN_@{co})^ALPHA_@{co};
+
+       
+
+
+// Trade
+               //PM_REA_@{co} = (SIGMAM_@{co}/(SIGMAM_@{co}-1)) *PX_REA;    //same across co2
+               PM_REA_@{co} = 1;
+               PM1_REA_@{co} = 1;
+               PX_REA_@{co} = 1;   
+
+               PHIM_REA_@{co} = GP0; 
+               //PM_RoW_@{co} = (SIGMAM_@{co}/(SIGMAM_@{co}-1)) *PX_RoW;    //same across co2
+               PM_RoW_@{co} = 1;
+               PM1_RoW_@{co} = 1;
+               PX_RoW_@{co} = 1;   
+
+               PHIM_RoW_@{co} = GP0; 
+
+               M_REA_@{co} = SM_REA_@{co} * ((PM_REA_@{co})/PM_@{co})^-SIGMAFM_@{co}*SIZE_@{co}/SIZE_REA*M_@{co};
+               M_RoW_@{co} = SM_RoW_@{co} * ((PM_RoW_@{co})/PM_@{co})^-SIGMAFM_@{co}*SIZE_@{co}/SIZE_RoW*M_@{co};
+
+        // PMMTOT_@{co} = PM_@{co}*M_@{co} + POIL_@{co}*OIL_@{co};
+        //PMMTOT_@{co} = PM_@{co}*M_@{co} + POIL_@{co}*OIL_@{co};
+        //PMTOT_@{co} = 1;
+        PMTOT_@{co} = PM_@{co}*PM_@{co}*M_@{co}/SMTOT_@{co} + POIL_RoW^2*OIL_@{co}/SMTOT_@{co};
+        MTOT_@{co} = (PM_@{co}*M_@{co} + E_RoW_@{co}*POIL_RoW*OIL_@{co})/PMTOT_@{co};
+
+
+                ZEPS_B_@{co}_@{co} = 0;
+                ZEPS_S_@{co}_@{co} = 0;
+                ZEPS_B_REA_@{co} = 0;
+                ZEPS_S_REA_@{co} = 0;
+
+                ZEPS_M_REA_@{co} = 0;
+                ZEPS_M_RoW_@{co} = 0;
+ 
+
+// Trade
+               //PM_@{co}_REA = (SIGMAM_REA/(SIGMAM_REA-1)) *PX_@{co};    //same across co2
+               PM_@{co}_REA = 1;
+               PM1_@{co}_REA = 1;
+               PX_@{co}_REA = 1;   
+
+               PHIM_@{co}_REA = GP0; 
+               //PM_RoW_REA = (SIGMAM_REA/(SIGMAM_REA-1)) *PX_RoW;    //same across co2
+               PM_RoW_REA = 1;
+               PM1_RoW_REA = 1;
+               PX_RoW_REA = 1;   
+
+               PHIM_RoW_REA = GP0; 
+
+               M_@{co}_REA = SM_@{co}_REA * ((PM_@{co}_REA)/PM_REA)^-SIGMAFM_REA*SIZE_REA/SIZE_@{co}*M_REA;
+               M_RoW_REA = SM_RoW_REA * ((PM_RoW_REA)/PM_REA)^-SIGMAFM_REA*SIZE_REA/SIZE_RoW*M_REA;
+
+        // PMMTOT_REA = PM_REA*M_REA + POIL_REA*OIL_REA;
+        //PMMTOT_REA = PM_REA*M_REA + POIL_REA*OIL_REA;
+        //PMTOT_REA = 1;
+        PMTOT_REA = PM_REA*PM_REA*M_REA/SMTOT_REA + POIL_RoW^2*OIL_REA/SMTOT_REA;
+        MTOT_REA = (PM_REA*M_REA + E_RoW_REA*POIL_RoW*OIL_REA)/PMTOT_REA;
+
+
+                ZEPS_B_@{co}_REA = 0;
+                ZEPS_S_@{co}_REA = 0;
+                ZEPS_B_REA_REA = 0;
+                ZEPS_S_REA_REA = 0;
+
+                ZEPS_M_@{co}_REA = 0;
+                ZEPS_M_RoW_REA = 0;
+ 
+
+
+    
+                S_@{co}_@{co} = STOT_@{co};    
+                S_@{co} = STOT_@{co};
+                B_@{co}_@{co} = BG_@{co};
+                B_@{co} = BG_@{co};   
+                A_@{co} = PS_@{co}*S_@{co}_@{co}+B_@{co}_@{co}+BW_@{co};
+                ALPHAB0_@{co}_@{co} = ((1+INOMG_@{co})-1/SDF_@{co})/SB_@{co} - ALPHAB1_@{co}_@{co}*(B_@{co}_@{co});
+                ALPHAS0_@{co}_@{co} =((1+INOMS_@{co})-1/SDF_@{co})/SS_@{co} - ALPHAS1_@{co}_@{co}*(PS_@{co}*S_@{co}_@{co});       
+
+
+        ZEPS_P_@{co} = 0;
+        ZEPS_A_@{co} = 0;
+        ZEPS_AY_@{co} = 0;
+        ZEPS_FQ_@{co} = 0;
+        ZEPS_FN_@{co} = 0;
+        ZEPS_ND_@{co} = 0;
+        ZEPS_APC_@{co} = 0;
+        ZEPS_APG_@{co} = 0;
+        ZEPS_API_@{co} = 0;
+        ZEPS_APIG_@{co} = 0;
+        ZEPS_APM_@{co} = 0;
+        ZEPS_APO_@{co} = 0;
+        ZEPS_SOIL_@{co} = 0;
+        ZEPS_B_@{co} = 0;
+        ZEPS_BW_@{co} = 0; 
+        ZEPS_CU_@{co} = 0;
+        ZEPS_G_@{co} = 0;
+       
+        ZEPS_ACTR_@{co} = 0;
+        ZEPS_HPERE_@{co} = 0;
+        ZEPS_PARTR_@{co} = 0;
+        ZEPS_POP_@{co} = 0;
+
+        ZEPS_I_@{co} = 0;
+        ZEPS_INOM_@{co} = 0;
+        ZEPS_IG_@{co} = 0;
+        ZEPS_M_@{co} = 0;
+        ZEPS_MUM_@{co} = 0;                    
+        ZEPS_MUY_@{co} = 0;                    
+        ZEPS_NFA_@{co} = 0;
+        ZEPS_PMTOT_@{co} = 0;
+        ZEPS_PX_@{co} = 0;
+        ZEPS_S_@{co} = 0;
+        ZEPS_T_@{co} = 0;
+        ZEPS_TAX_@{co} = 0;
+        ZEPS_U_@{co} = 0;
+        ZEPS_W_@{co} = 0;
+        ZEPS_UC_@{co} = 0;
+        
+            
+        GBG_@{co} = GYTREND0 + GP0;
+
+        GMTOTN_@{co} = GYTREND0 + GP0;
+        GM_@{co} = GYTREND0;
+        GMTOT_@{co} = GYTREND0;
+        GXN_@{co} = GYTREND0 + GP0;
+		GX_@{co} = GYTREND0;
+        GY_@{co} =GYTREND0;
+
+        GYOBS_@{co} =GYTREND0;
+
+        GC_@{co} = GYTREND0 + GAPC0_@{co};
+
+        GCC_@{co} = GYTREND0 + GAPC0_@{co} ;
+
+        GCS_@{co} = GYTREND0 + GAPC0_@{co} ;
+
+        GG_@{co} = GYTREND0 + GAPG0_@{co} ;
+        
+		GITOT_@{co} =  GYTREND0 + GAPI0_@{co} ;
+
+        GI_@{co} =  GYTREND0 + GAPI0_@{co} ;
+
+        GKTOT_@{co} = GYTREND0 + GAPI0_@{co} ;
+ 
+        GIG_@{co} = GYTREND0 + GAPI0_@{co} ;
+
+        GL_@{co} = 0;
+
+        
+        NFAY_@{co} = NFA_@{co}/YOBS_@{co}/PYOBS_@{co};
+
+        CY_@{co} = CSNobs_@{co};
+        LCY_@{co} = log(CY_@{co});
+
+        CGY_@{co} = G_SSobs_@{co};
+        LCGY_@{co} = log(CGY_@{co});
+
+        MTOTY_@{co} = SMobs_@{co};                         
+        LMTOTY_@{co} = log(MTOTY_@{co});
+        TBY_@{co} = TB_@{co}/(YOBS_@{co}*PYOBS_@{co});
+        XY_@{co} = SMobs_@{co}+TBY_@{co};                         
+        LXY_@{co} = log(XY_@{co});
+        LPXPYOBS_@{co} = 0;  // log(PX_@{co}/PYOBS_@{co});
+        
+        LITOTY_@{co} = log(PITOT_@{co}*ITOT_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+
+        IY_@{co} = ISNobs_@{co};
+        LIY_@{co} = log(IY_@{co});        
+        
+        IGY_@{co} = IG_SSobs_@{co};
+        LIGY_@{co} = log(IGY_@{co});
+        LPIGPI_@{co} = 0;
+                
+        PIGQA_@{co} = (PIG_@{co}*(1+exp(-GP0+GAPI0_@{co})+exp(-2*(GP0-GAPI0_@{co}))+exp(-3*(GP0-GAPI0_@{co}))))/4;
+
+        PYOBSQA_@{co} = (PYOBS_@{co}*(1+exp(-GP0)+exp(-2*GP0)+exp(-3*GP0)))/4;
+        
+        BY_@{co} = B_@{co};
+        
+        BGY_@{co} = BG_@{co}/YOBS_@{co}/PYOBS_@{co};
+        LBGY_@{co} = log(BGY_@{co});
+        IBY_@{co} = IB_@{co}/YOBS_@{co}/PYOBS_@{co};
+        LIBY_@{co} = log(IBY_@{co});
+        LIB_@{co} = log(IBY_@{co});
+        TY_@{co} = T_@{co}*PY_@{co}/YOBS_@{co}/PYOBS_@{co};
+        LTY_@{co} = log(TY_@{co});
+        LTYQA_@{co} = log(TY_@{co});
+		
+
+            LAPC_@{co} = 0;
+            LAPG_@{co} = 0;
+            LAPI_@{co} = 0;
+            LAPIG_@{co} = 0;
+            LAPM_@{co} = 0;
+            LAPO_@{co} = 0;
+           
+            LAPOIL_@{co} = 0;
+            
+            LACTR_@{co} = 0;
+            LNTREND_@{co} = 0;
+            LLTREND_@{co} = 0;
+            LPARTR_@{co} =  0;
+            LPARTRTREND_@{co} =  0;
+            LHPERE_@{co} = 0;
+            LHPERETREND_@{co} = 0;
+            LHPEREQA_@{co} = log(HPEREQA_@{co});
+            LPARTRQA_@{co} = log(PARTRQA_@{co});
+            LPOP_@{co} = 0;
+            LPY_@{co} = 0;
+            LTFPTREND_@{co} = log(TFP_@{co});
+            LMTREND_@{co} = 0;
+            LOTREND_@{co} = 0;
+            LYTREND_@{co} = 0;
+            LZTREND_@{co} = 0;
+            //LAYTREND_@{co} = 0;
+            LC_@{co} = log(C_@{co}/(YOBS_@{co}*PYOBS_@{co}/PCVAT_@{co}));
+            LCN_@{co} = LC_@{co};
+          //  LCN_@{co} = log(CY_@{co});
+          //  LCN_@{co} = log(C_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LCS_@{co} = log(CS_@{co}/(YOBS_@{co}*PYOBS_@{co}/PCVAT_@{co}));
+            LCC_@{co} = log(CC_@{co}/(YOBS_@{co}*PYOBS_@{co}/PCVAT_@{co}));
+            LG_@{co} = log(G_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LCGN_@{co} = log(G_@{co}*PG_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LIG_@{co} = log(IG_@{co}/(YOBS_@{co}*PYOBS_@{co})); 
+            LIGN_@{co} = log(IG_@{co}*PIG_@{co}/(YOBS_@{co}*PYOBS_@{co})); 
+            LI_@{co} = log(I_@{co}/(YOBS_@{co}*PYOBS_@{co})); 
+            LITOT_@{co} = log(ITOT_@{co}/(YOBS_@{co}*PYOBS_@{co})); 
+            LITOTN_@{co} = log(ITOT_@{co}*PITOT_@{co}/(YOBS_@{co}*PYOBS_@{co})); 
+            LKTOT_@{co} = log(KTOT_@{co}/(YOBS_@{co}*PYOBS_@{co})) + (GYTREND0+GAPI0_@{co}); 
+            LY_@{co} = log(Y_@{co});
+            LO_@{co} = log(O_@{co});
+            LYOBS_@{co} = 0; //log(YOBS_@{co});
+            LA_@{co} = log(A_@{co});                 
+            //LB_@{co} = log(B_@{co});
+            LEMPL_@{co} = log(EMPL_@{co});
+            LEMPLQA_@{co} = log(EMPL_@{co}*(1+1/exp(GPOP0)+1/exp(GPOP0)^2+1/exp(GPOP0)^3)/4);
+            LNQA_@{co} = log(N_@{co}*(1+1/exp(GPOP0)+1/exp(GPOP0)^2+1/exp(GPOP0)^3));
+            LL_@{co} = log(L_@{co});
+            LN_@{co} = log(N_@{co});
+            LBG_@{co} = log(BG_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LRG_@{co} = log(RG_@{co}/(YOBS_@{co}*PYOBS_@{co}));        
+            LNFA_@{co} = log(NFA_@{co});
+            LW_@{co} = log(W_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LWR_@{co} = log(W_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LBW_@{co}  = log(BW_@{co});
+                LOIL_@{co} = log(OIL_@{co});    
+            LPOIL_@{co} = log(POIL_@{co});
+            LPX_@{co} = log(PX_@{co});
+            LPMTOT_@{co} = 0; //log(PMTOT_@{co});
+            LPO_@{co} = log(PO_@{co});
+            LPCVAT_@{co} = 0;
+            LPC_@{co} = log(PC_@{co});    
+            LPG_@{co} = log(PG_@{co});       
+            LPI_@{co} = log(PI_@{co});       
+            LPIG_@{co} = log(PIG_@{co});       
+            LPCPYOBS_@{co} = 0;
+            LPCVATPYOBS_@{co} = 0;
+            LPGPYOBS_@{co} = 0;
+            LPIPYOBS_@{co} = 0;
+            LPIGPYOBS_@{co} = 0;
+            LPMTOTPYOBS_@{co} = 0;
+            LPYOBS_@{co} = 0;
+            LPITOTPYOBS_@{co}=0;
+            
+            LPIGPYOBSQA_@{co} = log(PIGQA_@{co});
+
+            LTB_@{co} = log(TB_@{co});
+            LM_@{co} = log(M_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LMTOT_@{co} = log(MTOT_@{co}/(YOBS_@{co}*PYOBS_@{co}/PMTOT_@{co}));
+            LMTOTN_@{co} = LMTOT_@{co}+LPMTOT_@{co};
+            LX_@{co} = log(X_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LXN_@{co} = log(X_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+            LT_@{co} =  log(T_@{co}/(YOBS_@{co}*PYOBS_@{co}));     
+            LTC_@{co} =  log(TC_@{co}/(YOBS_@{co}*PYOBS_@{co}));  
+            LTS_@{co} =  log(TS_@{co}/(YOBS_@{co}*PYOBS_@{co})); 
+        //
+        // co = RoW, REA
+        //
+        GAY0_REA = GYTREND0 - GPOP0;
+
+        PHITREND_REA = GP0;
+        PHIY_REA = GP0;
+        PHIYOBS_REA = GP0;
+        PHIM_REA = GP0;
+        PHIOIL_REA = GP0;
+        PHIX_REA = GP0;
+
+        ADJ_PM_REA = 0;
+        DIVM_REA = 0;
+
+        GYTREND_REA = GYTREND0;
+        
+       
+
+        GAY_REA =  GAY0_REA;
+        GAYTREND_REA = GAY0_REA;
+        GAYTRENDQA_REA = GAY0_REA; //*4;
+        GAPC_REA = GAPC0_REA;
+        GAPM_REA = 0;
+        MOX_REA=0;
+        MOC_REA=0;
+            GAPOIL_REA = 0;
+            GAPOILTREND_REA = 0;
+            LAPOIL_REA = 0;
+        GPOP_REA =  GPOP0;                      
+        GPOPTREND_REA =  GPOP0;                      
+        POPTREND_REA =  1;                      
+        AYTREND_REA = 1;
+        
+        A_REA = BW_REA;
+
+        // Trend-var
+        Y_REA=1;
+        
+
+        YOBSQA_REA = YOBS_REA*(1+exp(-GYTREND0-GP0)+exp(-2*(GYTREND0+GP0))+exp(-3*(GYTREND0+GP0)))
+            /(1+exp(-GP0)+exp(-2*GP0)+exp(-3*GP0))*4;
+
+        LYOBSQA_REA = log(YOBSQA_REA/YOBS_REA);
+
+        APOILTREND_REA = 1;
+        AY_REA = 1/APOP_REA;
+        
+        
+
+        LPYQA_REA = log(PYOBS_REA*(1+exp(-GP0)+exp(-2*GP0)+exp(-3*GP0))/4);
+
+        INOMQA_REA = 4*INOM_REA;
+
+       //@#if co == "RoW"
+
+        // AR1 
+        ZEPS_A_REA = 0;
+        ZEPS_APOIL_REA = 0;
+        ZEPS_AY_REA = 0;
+        ZEPS_APIG_REA = 0;
+        ZEPS_B_REA = 0;                    
+        ZEPS_BW_REA = 0;                   
+        ZEPS_I_REA = 0;                    
+        ZEPS_INOM_REA = 0;
+        ZEPS_LAYTREND_REA = 0;
+        ZEPS_M_REA = 0;                    
+        ZEPS_P_REA = 0;                   
+        ZEPS_POP_REA = 0;                   
+        ZEPS_PM_REA = 0;                   
+          
+                      
+        ZEPS_S_REA = 0;                    
+        ZEPS_Y_REA = 0;       
+        ZEPS_UC_REA = 0;
+        
+
+
+        //bilateral imports from other COUNTRIES_SS in the units of exporter COUNTRIES_SS co2
+
+       OILY_REA = OIL_REA*POIL_REA/YOBS_REA/PYOBS_REA;
+
+       LOILY_REA = log(OILY_REA);
+
+       
+
+       // LAMBDAS_REA = ((1-H_REA*exp(-GYTREND0-GAPC0_REA))*C_REA)^-THETA_REA;
+       LAMBDAS_REA = ((1-H_REA*exp(-GYTREND0+GPOP0-GAPC0_REA))*C_REA)^-THETA_REA;
+       
+       
+        GY_REA = GYTREND0;
+
+        GYOBS_REA = GYTREND0;
+
+        GC_REA = GYTREND0 + GAPC0_REA ;        
+     
+        NFAY_REA = NFA_REA/YOBS_REA/PYOBS_REA;
+
+        CY_REA = C_REA/YOBS_REA/PYOBS_REA;                              
+                
+        TBY_REA = TB_REA/YOBS_REA/PYOBS_REA;
+                                            
+
+            LAPC_REA = 0;       
+            LAPM_REA = 0;  
+            LAPO_REA = 0;  
+            LPOP_REA = 0;
+            LPY_REA = 0;
+            LPYOBS_REA = 0;
+            LPX_REA = 0;
+            LPM_REA = 0;
+            LMTREND_REA = 0;
+            LYTREND_REA = 0;
+       
+              
+            LC_REA = log(C_REA);
+
+            LY_REA = log(Y_REA);
+            LYOBS_REA = 0; //log(YOBS_REA);
+
+            LX_REA = log(X_REA);
+
+            LM_REA =  log(M_REA);   
+            LPOIL_REA = 0; //log(POIL_REA);     
+                LOIL_REA = log(OIL_REA);         
+        //
+        // co = RoW, REA
+        //
+        GAY0_RoW = GYTREND0 - GPOP0;
+
+        PHITREND_RoW = GP0;
+        PHIY_RoW = GP0;
+        PHIYOBS_RoW = GP0;
+        PHIC_RoW = GP0-GAPC0_RoW;
+        PHIC_SS_RoW = (GP0-GAPC0_RoW);
+        PHICQA_RoW = 4*(GP0-GAPC0_RoW);
+        PHICQA_SS_RoW = 4*(GP0-GAPC0_RoW);
+        GAPC_RoW = GAPC0_RoW;
+        PHIM_RoW = GP0;
+        PHIOIL_RoW = GP0;
+        PHIX_RoW = GP0;
+
+        ADJ_PM_RoW = 0;
+        DIVM_RoW = 0;
+
+        GYTREND_RoW = GYTREND0;
+        
+       
+
+        GAY_RoW =  GAY0_RoW;
+        GAYTREND_RoW = GAY0_RoW;
+        GAYTRENDQA_RoW = GAY0_RoW; //*4;
+        GAPC_RoW = GAPC0_RoW;
+        GAPM_RoW = 0;
+        MOX_RoW=0;
+        MOC_RoW=0;
+            GAPOIL_RoW = 0;
+            GAPOILTREND_RoW = 0;
+            LAPOIL_RoW = 0;
+        GPOP_RoW =  GPOP0;                      
+        GPOPTREND_RoW =  GPOP0;                      
+        POPTREND_RoW =  1;                      
+        AYTREND_RoW = 1;
+        
+        A_RoW = BW_RoW;
+        AYTREND1_RoW = 1;
+        AYTRENDQA_RoW = 1+exp(-GAY0_RoW)+exp(-2*GAY0_RoW)+exp(-3*GAY0_RoW);
+         TB_RoW = BW_RoW*(1-(1+INOMBW)*exp(-GYTREND0-GP0))
+                  +ITR_@{co}*PYOBS_@{co}*YOBS_@{co}*SIZE_@{co}/SIZE_RoW
+                  //  @#if commodities!=0
+                  //      -TBSERV_@{co}*PYOBS_@{co}*YOBS_@{co}*SIZE_@{co}/SIZE_RoW
+                  //  @#endif
+                  +ITR_REA*PYOBS_REA*YOBS_REA*SIZE_REA/SIZE_RoW
+                  //  @#if commodities!=0
+                  //      -TBSERV_REA*PYOBS_REA*YOBS_REA*SIZE_REA/SIZE_RoW
+                  //  @#endif
+                ;
+
+        // Trend-var
+        Y_RoW=1;
+        
+        OIL_RoW = 
+                + OIL_@{co}*SIZE_@{co}/SIZE_RoW
+                + OIL_REA*SIZE_REA/SIZE_RoW
+        ; 
+        YOBSN_RoW = 1+OIL_RoW*POIL_RoW;
+        PYOBS_RoW = PY_RoW*PY_RoW*Y_RoW/YOBSN_RoW+POIL_RoW*OIL_RoW*POIL_RoW/YOBSN_RoW;
+        YOBS_RoW = YOBSN_RoW/PYOBS_RoW;
+        
+       //  YOBS_RoW= 1+OIL_RoW;
+       //  PYOBS_RoW= 1;
+
+
+        
+         E_RoW_EA = 1;
+
+        YOBSQA_RoW = YOBS_RoW*(1+exp(-GYTREND0-GP0)+exp(-2*(GYTREND0+GP0))+exp(-3*(GYTREND0+GP0)))
+            /(1+exp(-GP0)+exp(-2*GP0)+exp(-3*GP0))*4;
+
+        LYOBSQA_RoW = log(YOBSQA_RoW/YOBS_RoW);
+
+        APOILTREND_RoW = 1;
+        AY_RoW = 1/APOP_RoW;
+        
+        
+
+        LPYQA_RoW = log(PYOBS_RoW*(1+exp(-GP0)+exp(-2*GP0)+exp(-3*GP0))/4);
+
+        INOMQA_RoW = 4*INOM_RoW;
+
+       //@#if co == "RoW"
+
+                EQA_RoW_REA = E_RoW_REA;
+
+                LEQA_RoW_REA = log(EQA_RoW_REA);
+    
+                EQA_REA_RoW = (1/E_RoW_REA+1/E_RoW_REA+1/E_RoW_REA+1/E_RoW_REA)/4;
+
+                LEQA_REA_RoW = -log(EQA_RoW_REA);
+
+
+                ZEPS_PX_RoW = 0;   
+        
+
+        // AR1 
+        ZEPS_A_RoW = 0;
+        ZEPS_APOIL_RoW = 0;
+        ZEPS_AY_RoW = 0;
+        ZEPS_APIG_RoW = 0;
+        ZEPS_B_RoW = 0;                    
+        ZEPS_BW_RoW = 0;                   
+        ZEPS_I_RoW = 0;                    
+        ZEPS_INOM_RoW = 0;
+        ZEPS_LAYTREND_RoW = 0;
+        ZEPS_M_RoW = 0;                    
+        ZEPS_P_RoW = 0;                   
+        ZEPS_POP_RoW = 0;                   
+        ZEPS_PM_RoW = 0;                   
+          
+                      
+        ZEPS_S_RoW = 0;                    
+        ZEPS_Y_RoW = 0;       
+        ZEPS_UC_RoW = 0;
+        
+
+                ZEPS_M_@{co}_RoW = 0;                
+                ZEPS_PX_@{co}_RoW = 0;                
+                TZEPS_PXAY_@{co}_RoW = 0;                
+                TZEPS_PX_@{co}_RoW = 0;                
+                ZEPS_M_REA_RoW = 0;                
+                ZEPS_PX_REA_RoW = 0;                
+                TZEPS_PXAY_REA_RoW = 0;                
+                TZEPS_PX_REA_RoW = 0;                
+
+        //bilateral imports from other COUNTRIES_SS in the units of exporter COUNTRIES_SS co2
+                M_@{co}_RoW = SM_@{co}*(1-TB_@{co}+TAUOIL*SOIL_@{co}/(1-SOIL_@{co}))+ SOIL_@{co}/(1-SOIL_@{co})*(1-TAUOIL)+TB_@{co}
+                            -M_@{co}_REA
+                ;
+                M_REA_RoW = SM_REA*(1-TB_REA+TAUOIL*SOIL_REA/(1-SOIL_REA))+ SOIL_REA/(1-SOIL_REA)*(1-TAUOIL)+TB_REA
+                            -M_REA_@{co}
+                ;
+
+       OILY_RoW = OIL_RoW*POIL_RoW/YOBS_RoW/PYOBS_RoW;
+
+       LOILY_RoW = log(OILY_RoW);
+
+       
+
+               
+                PM_@{co}_RoW = 1;   
+                PM1_@{co}_RoW = 1;
+                PX_@{co}_RoW = 1;   
+                
+               
+                PM_REA_RoW = 1;   
+                PM1_REA_RoW = 1;
+                PX_REA_RoW = 1;   
+                
+
+        M_RoW =  
+                + PM_@{co}_RoW*M_@{co}_RoW*SIZE_@{co}/SIZE_RoW
+                + PM_REA_RoW*M_REA_RoW*SIZE_REA/SIZE_RoW
+        ;
+        
+        
+                    SM_@{co}_RoW =  M_@{co}_RoW/M_RoW*SIZE_@{co}/SIZE_RoW ; 
+                    SM_REA_RoW =  M_REA_RoW/M_RoW*SIZE_REA/SIZE_RoW ; 
+
+        
+        X_RoW = M_RoW - OIL_RoW*POIL_RoW/PX_RoW+ TB_RoW;        
+        
+        C_RoW =  M_RoW - X_RoW + 1 
+        ;
+
+            SMX_RoW = SMXobs_RoW;
+
+        SMC_RoW = (M_RoW-SMX_RoW*X_RoW)/C_RoW;
+
+        MC_RoW =  SMC_RoW*C_RoW;
+        OC_RoW =  (1 - SMC_RoW)*C_RoW;
+        MX_RoW =  SMX_RoW*X_RoW;
+        OX_RoW =  (1 - SMX_RoW)*X_RoW;
+
+        MY_RoW = (PX_RoW*X_RoW+POIL_RoW*OIL_RoW-TB_RoW)/(YOBS_RoW*PYOBS_RoW);  
+                      
+        XY_RoW = (X_RoW+POIL_RoW*OIL_RoW)/YOBS_RoW/PYOBS_RoW;   
+           
+
+       // LAMBDAS_RoW = ((1-H_RoW*exp(-GYTREND0-GAPC0_RoW))*C_RoW)^-THETA_RoW;
+       LAMBDAS_RoW = ((1-H_RoW*exp(-GYTREND0+GPOP0-GAPC0_RoW))*C_RoW)^-THETA_RoW;
+       
+       
+        GY_RoW = GYTREND0;
+
+        GYOBS_RoW = GYTREND0;
+
+        GC_RoW = GYTREND0 + GAPC0_RoW ;        
+     
+        NFAY_RoW = NFA_RoW/YOBS_RoW/PYOBS_RoW;
+
+        CY_RoW = C_RoW/YOBS_RoW/PYOBS_RoW;                              
+                
+        TBY_RoW = TB_RoW/YOBS_RoW/PYOBS_RoW;
+                                            
+
+            LAPC_RoW = 0;       
+            LAPM_RoW = 0;  
+            LAPO_RoW = 0;  
+            LPOP_RoW = 0;
+            LPY_RoW = 0;
+            LPYOBS_RoW = 0;
+            LPX_RoW = 0;
+            LPM_RoW = 0;
+            LMTREND_RoW = 0;
+            LYTREND_RoW = 0; //log((YTREND_RoW+OIL_RoW*POIL_RoW)/YOBS_RoW/PYOBS_RoW);  
+       
+              
+            LC_RoW = log(C_RoW);
+
+            LY_RoW = log(Y_RoW);
+            LYOBS_RoW = 0; //log(YOBS_RoW);
+
+            LX_RoW = log(X_RoW);
+
+            LM_RoW =  log(M_RoW);   
+            LPOIL_RoW = 0; //log(POIL_RoW);     
+                LOIL_RoW = log(OIL_RoW);         
+
+
+        LE_@{co} = 0;
+        LRER_@{co} = 0;
+        LTOT_@{co} = 0;
+                LRER_REA_@{co} = 0;
+                    WT_REA_@{co} = 0.5 * (PX_@{co}*M_@{co}_REA/(PX_@{co}*X_@{co}) + 
+                (E_REA_@{co}*PX_REA)*(SIZE_REA/SIZE_@{co})*M_REA_@{co}/(PMTOT_@{co}*MTOT_@{co}) );
+                LE_REA_@{co} = 0; 
+                LRER_RoW_@{co} = 0;
+                    WT_RoW_@{co} = 0.5 * (PX_@{co}*M_@{co}_RoW/(PX_@{co}*X_@{co}) + 
+                E_RoW_@{co}*(PX_@{co}_RoW*(SIZE_RoW/SIZE_@{co})*M_RoW_@{co} + POIL_RoW*OIL_@{co})/(PMTOT_@{co}*MTOT_@{co}) );
+                LE_RoW_@{co} = 0; 
+        LE_REA = 0;
+        LRER_REA = 0;
+        LTOT_REA = 0;
+                LRER_@{co}_REA = 0;
+                    WT_@{co}_REA = 0.5 * (PX_REA*M_REA_@{co}/(PX_REA*X_REA) + 
+                (E_@{co}_REA*PX_@{co})*(SIZE_@{co}/SIZE_REA)*M_@{co}_REA/(PMTOT_REA*MTOT_REA) );
+                LE_@{co}_REA = 0; 
+                LRER_RoW_REA = 0;
+                    WT_RoW_REA = 0.5 * (PX_REA*M_REA_RoW/(PX_REA*X_REA) + 
+                E_RoW_REA*(PX_REA_RoW*(SIZE_RoW/SIZE_REA)*M_RoW_REA + POIL_RoW*OIL_REA)/(PMTOT_REA*MTOT_REA) );
+                LE_RoW_REA = 0; 
+        LE_RoW = 0;
+        LRER_RoW = 0;
+        LTOT_RoW = 0;
+                LRER_@{co}_RoW = 0;
+                    WT_@{co}_RoW = 0.5 * ((PX_RoW*M_RoW_@{co}+POIL_RoW*OIL_@{co}*(SIZE_@{co}/SIZE_RoW))/(PX_RoW*X_RoW+POIL_RoW*OIL_RoW) + E_@{co}_RoW*PX_@{co}*(SIZE_@{co}/SIZE_RoW)*M_@{co}_RoW/(PM_RoW*M_RoW) );
+                LE_@{co}_RoW = 0; 
+                LRER_REA_RoW = 0;
+                    WT_REA_RoW = 0.5 * ((PX_RoW*M_RoW_REA+POIL_RoW*OIL_REA*(SIZE_REA/SIZE_RoW))/(PX_RoW*X_RoW+POIL_RoW*OIL_RoW) + E_REA_RoW*PX_REA*(SIZE_REA/SIZE_RoW)*M_REA_RoW/(PM_RoW*M_RoW) );
+                LE_REA_RoW = 0; 
+
+
+
+ BW_EA = (SIZE_REA*BW_REA
+                           +(SIZE_@{co})*BW_@{co}
+          )/(SIZE_REA
+                        +SIZE_@{co}
+           );  
+
+PC_EA = 1; 
+PCVAT_EA = 1+TAUC_EA; 
+
+PY_EA = 1;    
+
+PHIC_EA = GP0-GAPC0_EA;
+   
+Y_EA = ((SIZE_REA)*Y_REA
+                             +(SIZE_@{co})*Y_@{co}     
+           )/(SIZE_REA
+                        +SIZE_@{co}
+           );    
+
+YOBSN_EA = 
+
+((SIZE_REA)*YOBS_REA*PYOBS_REA
+                           +(SIZE_@{co})*YOBS_@{co}*PYOBS_@{co}     
+           )/(SIZE_REA
+                        +SIZE_@{co}
+           );   
+
+PYOBS_EA = (((SIZE_REA)*YOBS_REA*PYOBS_REA*PYOBS_REA
+                           +(SIZE_@{co})*YOBS_@{co}*PYOBS_@{co}*PYOBS_@{co}     
+           )/(SIZE_REA
+                        +SIZE_@{co}
+           ))/YOBSN_EA;
+
+YOBS_EA = YOBSN_EA/PYOBS_EA;     
+
+ 
+YPOT_EA = 
+((SIZE_REA)*YPOT_REA*PY_REA
+                           +(SIZE_@{co})*YPOT_@{co}*PY_@{co}
+           )/(SIZE_REA
+                        +SIZE_@{co}
+           );    
+
+C_EA =
+
+((SIZE_REA)*C_REA*PC_REA
+                             +(SIZE_@{co})*C_@{co}*PC_@{co}
+           )/(SIZE_REA
+                        +SIZE_@{co}
+           );    
+
+MTOTN_EA = 
+((SIZE_REA)*PMTOT_REA*MTOT_REA
+                           -(M_@{co}_REA*PM_@{co}_REA)*(SIZE_@{co})
+                           +(SIZE_@{co})*PMTOT_@{co}*MTOT_@{co}
+                            -(M_REA_@{co}*PM_REA_@{co})*(SIZE_REA)
+                       )/(SIZE_REA
+                        +SIZE_@{co}
+                      );  
+
+/*
+TB_EA = (SIZE_REA*TB_REA
+                           +(SIZE_@{co})*TB_@{co}
+            )/(SIZE_REA
+                        +SIZE_@{co}
+               );  
+*/
+
+X_EA = 
+((SIZE_REA)*PX_REA*X_REA
+                           -(M_REA_@{co}*PM_REA_@{co})*(SIZE_REA)
+                           +(SIZE_@{co})*PX_@{co}*X_@{co}
+                           -(M_@{co}_REA*PM_@{co}_REA)*(SIZE_@{co})
+                       )/(SIZE_REA
+                        +SIZE_@{co}
+                      );  
+
+
+
+
+ PMTOT_EA = ((SIZE_REA)*(SMTOT_REA/(MTOTN_EA))*PMTOT_REA
+                    	-(M_@{co}_REA/(MTOTN_EA))*(SIZE_@{co})
+                        +(SIZE_@{co})*(PMTOT_@{co}*MTOT_@{co}/(MTOTN_EA))*PMTOT_@{co}
+                                -(M_REA_@{co}*PM_REA_@{co}/(MTOTN_EA))*(SIZE_REA)*PM_REA_@{co}
+            )/(SIZE_REA
+                    	+SIZE_@{co}
+            );  
+
+MTOT_EA = MTOTN_EA/PMTOT_EA;
+PX_EA = 1;
+POP_EA = 1;
+PHIMTOT_EA = GP0;
+PHIX_EA = GP0;
+LYOBS_EA = 0;  
+LPOP_EA = 0;  
+LPY_EA = 0;  
+LPYOBS_EA = 0;  
+LE_EA = 0;
+LPMTOTPYOBS_EA = 0;
+LPXPYOBS_EA = 0;  
+MTOTY_EA = PMTOT_EA*MTOT_EA/(YOBS_EA*PYOBS_EA);                         
+LMTOTY_EA = log(MTOTY_EA);
+LMTOT_EA = log(MTOTY_EA);
+XY_EA = X_EA/(YOBS_EA*PYOBS_EA);                         
+LXY_EA = log(XY_EA);
+LX_EA = log(XY_EA);
+LXN_EA = log(XY_EA);
+ZEPS_BW_EA = 0;
+ZEPS_INOM_EA = 0;
+PY_SS_EA = PY_EA;
+PHIC_SS_EA = PHIC_EA;
+
+YOBSQA_EA = YOBS_EA*(1+exp(-GYTREND0-GP0)+exp(-2*(GYTREND0+GP0))+exp(-3*(GYTREND0+GP0)))
+            /(1+exp(-GP0)+exp(-2*GP0)+exp(-3*GP0))*4;
+GPOP_EA = GPOP0;
+TB_EA = PX_EA*X_EA - PMTOT_EA*MTOT_EA;
+TBY_EA = TB_EA/(PYOBS_EA*YOBS_EA);
+
+PHIYOBS_EA = GP0;
+GYOBS_EA = GYTREND0;
+PHICVAT_EA = GP0-GAPC0_EA;
+
+PHICVATQA_EA = PHICVAT_EA*4;
+PHICVATQA_SS_EA = PHICVATQA_EA;
+PHICVAT_SS_EA = PHICVAT_EA;
+GXN_EA = GYTREND0 + GP0;
+
+// re-define REA APC!
+
+SIZE_EA = 
+    +SIZE_@{co}
+    +SIZE_REA
+;
+     SC_@{co} = (PC_@{co}*C_@{co}/(PC_EA*C_EA))*(SIZE_@{co}/SIZE_EA);
+     SC_REA = (PC_REA*C_REA/(PC_EA*C_EA))*(SIZE_REA/SIZE_EA);
+
+GAPC0_REA = (GAPC0_EA - (
+     +SC_@{co} *GAPC0_@{co}
+))/SC_REA;
+
+
+// fix REA for GAPC0
+        PHIC_REA = GP0-GAPC0_REA;
+        PHIC_SS_REA = (GP0-GAPC0_REA);
+        PHICQA_REA = 4*(GP0-GAPC0_REA);
+        PHICQA_SS_REA = 4*(GP0-GAPC0_REA);
+        GAPC_REA = GAPC0_REA;
+        LAMBDAS_REA = ((1-H_REA*exp(-GYTREND0+GPOP0-GAPC0_REA))*C_REA)^-THETA_REA;
+        GC_REA = GYTREND0 + GAPC0_REA ;        
+
+
+
+
+             TB_@{co}_REA = M_@{co}_REA*PX_@{co} - M_REA_@{co}*PM_REA_@{co}*SIZE_REA/SIZE_@{co};
+    	// "REA" in COUNTRIES
+        //@#if co == "RoW" 
+    	// "REA" in COUNTRIES
+        //@#if co == "RoW" 
+    	// "REA" in COUNTRIES
+        //@#if co == "RoW" 
+            LE_RoW_EA = 0;
+            GE_RoW_EA = 0;
+
+end;

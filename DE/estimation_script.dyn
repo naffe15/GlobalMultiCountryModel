@@ -1,0 +1,47 @@
+varobs 
+// LIST OF STATIONARY VARIABLES
+    // first observables fixing non stationary trends
+                LTFPTREND_@{co} 
+            LPOP_@{co} LACTR_@{co} 
+            LPYOBS_@{co} LYOBS_@{co} LPCVATPYOBS_@{co} LPITOTPYOBS_@{co} LPXPYOBS_@{co} LPMTOTPYOBS_@{co}
+                LPOP_EA LPYOBS_EA LYOBS_EA 
+
+                    LYTREND_EA
+                LPOP_RoW LPYOBS_RoW LYOBS_RoW 
+                        PBRENTOBS_RoW
+                    LYTREND_RoW 
+
+            LN_@{co} LCGY_@{co} LIGY_@{co} LTY_@{co} LBGY_@{co} LPIGPYOBS_@{co} LPGPYOBS_@{co} 
+            LCY_@{co} LITOTY_@{co}  LWY_@{co} LXY_@{co} LIBY_@{co}  //IBY_@{co} BGY_@{co}
+            LKTOT_@{co}
+            INOM_EA TBY_EA XY_EA LPXPYOBS_EA LPMTOTPYOBS_EA 
+            LE_EA
+            INOM_RoW 
+            TBY_@{co} NFAY_@{co} 
+        @#if co == "DE"
+            BU_Obs_@{co}
+        @#endif
+;
+
+
+para0=M_.params;
+options_.ftol=1.e-5;
+options_.hess=0;
+
+options_.estimation.moments_posterior_density.indicator=0;
+
+estimation(
+     datafile=dataobs,
+    first_obs=16, presample=5, posterior_nograph, 
+    lik_init=3, kalman_algo=3, use_univariate_filters_if_singularity_is_detected=0,
+        mode_compute=0,plot_priors=0, mh_replic=0, mode_file = gemc_auto_mode, 
+        nobs=75, nodisplay, graph_format=(eps,fig), smoother, 
+        forecast=0, filter_step_ahead=[1:8], tex);
+
+
+options_.parameter_set = 'calibration';
+print_params_shocks;
+
+plot_smooth(options_.varobs{:})
+
+

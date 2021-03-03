@@ -1,0 +1,1874 @@
+//
+//Global countries
+//
+
+countries=[{
+    @#for co in COUNTRIES 
+        '@{co}' 
+    @#endfor 
+}];
+            
+
+parameters
+
+
+//*****************//
+//Global parameters//     
+//*****************//
+
+sss
+
+
+        //EA parameters to be defined only if REA
+        INOM_SS_EA
+        RHOINOM_EA
+        TAUC_EA                     ${\tau^{C}_{EA}}$                (long_name = 'Consumption (VAT) tax EA')
+        PHICVATQA_SS_EA             ${\bar{{\pi_QA}^{CVAT}_EA}}$      (long_name = 'Steady State Consumption VAT inflation QA EA')  
+		PHICVAT_SS_EA               ${\bar{{\pi}^{CVAT}_EA}}$      (long_name = 'Steady State Consumption VAT inflation QA EA')  
+        ETAIPHI_EA
+        ETADPHI_EA
+        PHIC_SS_EA
+        ETADY_EA
+        ETAIY_EA
+        MA_INOM_EA
+        RHO_BW_EA
+        RHO_INOM_EA
+        ALPHABW1_EA
+        ALPHABW0_EA
+        YOBSN_EA
+
+GPOP0                               ${\bar{g^{POP0}}}$                  (long_name = 'Constant for growth of population')    
+GP0                                 ${\bar{\pi}}$                       (long_name = 'Constant for inflation of GDP price')    
+GYTREND0                            ${\bar{g^{Y0}}}$                    (long_name = 'Constant for growth of GDP trend')
+BETA0                               ${\beta_0}$                         (long_name = 'Global Discount factor')
+INT0                               ${INT_0}$                         (long_name = 'Global Discount factor')
+//BGTAR                             ${\bar{BG}}$                        (long_name = 'Target BG (total nominal government debt) value')
+TAUOIL                              ${\tau^{oil}}$                      (long_name = 'Global excise duty')
+
+//***************************//
+//Detailed Country specific parameters// 
+//***************************//
+
+	//@#if co == COUNTRIES[1]  
+        // Declarations of country-specific parameters
+
+        
+        APC_FLAG_@{co}              ${A^{pC}_{@{co}}}$                  (long_name = 'Private consumption specific productivity shock @{co}')
+        APG_FLAG_@{co}              ${A^{pG}_{@{co}}}$                  (long_name = 'Gov consumption specific productivity shock @{co}')
+        API_FLAG_@{co}              ${A^{pI}_{@{co}}}$                  (long_name = 'Private investment specific productivity shock @{co}')
+        APM_FLAG_@{co}              ${A^{pM}_{@{co}}}$                  (long_name = 'Import specific productivity shock @{co}')
+        APOIL_FLAG_@{co}            ${A^{pOIL}_{@{co}}}$                (long_name = 'Oil specific productivity shock @{co}')
+        APO_FLAG_@{co}              ${A^{pOIL}_{@{co}}}$                (long_name = 'Total output productivity shock @{co}')
+        AY_FLAG_@{co}               ${A^{Y}_{@{co}}}$                   (long_name = 'productivity shock @{co}')
+        ACTR_FLAG_@{co}             ${{ACTR}_{@{co}}}$                  (long_name = 'Active population rate @{co}')
+        HPERE_FLAG_@{co}            ${{HPERE}_{@{co}}}$                 (long_name = 'Employment rate @{co}')
+        L_FLAG_@{co}                ${{LTREND}_{@{co}}}$                (long_name = 'Employment rate @{co}')
+        PARTR_FLAG_@{co}            ${{PARTR}_{@{co}}}$                 (long_name = 'Participation rate @{co}')
+        POP_FLAG_@{co}              ${{POP}_{@{co}}}$                   (long_name = 'Population @{co}')
+        // AY_@{co}                 ${A^Y_{@{co}}}$                     (long_name = 'Private consumption specific productivity shock @{co}') //to check
+        ALPHA_@{co}                 ${\alpha_{@{co}}}$                  (long_name = 'Cobb-Douglas labor elasticity @{co}')
+        ALPHA_G_@{co}               ${\alpha_{G,@{co}}}$                (long_name = 'error correction param for G DEF @{co}')
+        ALPHA_IG_@{co}              ${\alpha_{IG,@{co}}}$               (long_name = 'error correction param for IG DEF @{co}')
+        ALPHA_T_@{co}               ${\alpha_{T,@{co}}}$                (long_name = 'error correction param for T DEF @{co}')
+
+        ALPHABW0_@{co}              ${\alpha^{bw,0}_{@{co}}}$           (long_name = 'Parameter 0 for Int bond held in @{co}')
+        ALPHABW1_@{co}              ${\alpha^{bw}_{@{co}}}$             (long_name = 'Parameter 1 for Int bond held in @{co}')                
+        //APO_@{co}                 ${A^{{p}^{O}}_{@{co}}}$             (long_name = 'Total output productivity @{co}')
+        //APOIL_@{co}               ${A^{{p}^{OIL}}_{@{co}}}$           (long_name = 'Oil specific productivity @{co}')
+        ASCALE_@{co}                ${ASCALE}_{@{co}}$                  (long_name = 'Scaling parameter for production function @{co}')
+        BGTAR_@{co}                 ${\bar{BG_@{co}}}$                  (long_name = 'Target BG (total nominal government debt) value @{co}')
+        BETA_@{co}                  ${\beta_{@{co}}}$                   (long_name = 'Intertemporal Discount Factor @{co}')
+        CUSCALE_@{co}               ${CUSCALE}_{@{co}}$                  (long_name = 'Scaling parameter for CU @{co}')
+        DELTA_@{co}                 ${\delta_{@{co}}}$                  (long_name = 'Private capital depreciation rate @{co}')
+        DELTAG_@{co}                ${\delta^{G}_{@{co}}}$              (long_name = 'Gov capital depreciation rate @{co}')
+        DEFTAR_@{co}                ${def^{T}_{@{co}}}$                 (long_name = 'Deficit target @{co}')
+        ETABG_@{co}                 ${\eta^{BG}_{@{co}}}$               (long_name = 'Debt coefficient in the G fiscal rule @{co}')
+        ETABIG_@{co}                ${\eta^{BIG}_{@{co}}}$              (long_name = 'Debt coefficient in the IG fiscal rule @{co}')
+        ETABT_@{co}                 ${\eta^{BT}_{@{co}}}$               (long_name = 'Debt coefficient in the transfers fiscal rule @{co}')
+        ETADEFG_@{co}               ${\eta^{DEFG}_{@{co}}}$             (long_name = 'Deficit coefficient in the transfers fiscal rule @{co}')
+        ETADEFIG_@{co}              ${\eta^{DEFIG}_{@{co}}}$            (long_name = 'Deficit coefficient in the transfers fiscal rule @{co}')
+        ETADEFT_@{co}               ${\eta^{DEFT}_{@{co}}}$             (long_name = 'Deficit coefficient in the transfers fiscal rule @{co}')
+
+            // Do nothing
+
+        ETAGY_@{co}                 ${\eta^{G,y}_{@{co}}}$              (long_name = 'Output gap coefficient in the G fical rule @{co}')
+        ETAIGY_@{co}                ${\eta^{IG,y}_{@{co}}}$             (long_name = 'Output gap coefficient in the IG fical rule @{co}') 
+        ETATY_@{co}                 ${\eta^{T,y}_{@{co}}}$              (long_name = 'Output gap coefficient in the transfers fical rule @{co}') 
+        FC_@{co}                    ${FC_{@{co}}}$                      (long_name = 'Fixed costs in production @{co}') 
+        FN_@{co}                    ${FN_{@{co}}}$                      (long_name = 'steady state value of labor hoarding @{co}')
+        GAMMAN_@{co}                ${\gamma^{n}_{@{co}}}$              (long_name = 'Employment adj costs parameter @{co}')
+		GAMMAN4_@{co}               ${\gamma^{n,yearly}_{@{co}}}$       (long_name = 'Employment adj costs parameter DE, over yearly changes')
+        GAMMAN2_@{co}               ${\gamma^{n}_{@{co}}}$              (long_name = 'Employment adj costs parameter @{co}')
+        GAMMAP_@{co}                ${\gamma^{p}_{@{co}}}$              (long_name = 'Pricing adj cost parameter @{co}')
+		GAMMAP4_@{co}               ${\gamma^{p, yearly}_{@{co}}}$      (long_name = 'Pricing adj cost parameter DE, over yearly changes')
+        GAMMAP2_@{co}               ${\gamma^{p,2}_{@{co}}}$              (long_name = 'Pricing adj cost parameter @{co}')
+        GAMMAPM_@{co}               ${\gamma^{PM}_{@{co}}}$             (long_name = 'Import pricing adj cost parameter @{co}')
+        GAMMAPX_@{co}               ${\gamma^{PX}_{@{co}}}$             (long_name = 'Export pricing adj cost parameter @{co}')
+        GAMMAPX1_@{co}               ${\gamma^{PX1}_{@{co}}}$             (long_name = 'Export pricing adj cost parameter @{co}')
+        GAMMAPY_@{co}                ${\gamma^{py}_{@{co}}}$              (long_name = 'real price rigidity @{co}')
+        GAMMAPY2_@{co}                ${\gamma^{py}_{@{co}}}$              (long_name = 'real price rigidity @{co}')
+        ALPHAPM_@{co}               ${\alpha^{PM}_{@{co}}}$             (long_name = 'Weight parameter of stategic complementarity in import sector @{co}')
+        ALPHAPX_@{co}               ${\alpha^{PX}_{@{co}}}$             (long_name = 'Weight parameter of PTM in export price @{co}')
+        GAMMAM_@{co}                ${\gamma^{M}_{@{co}}}$              (long_name = 'Import adjustment cost @{co}')
+        GAMMAU1_@{co}               ${\gamma^{u,1}_{@{co}}}$            (long_name = 'Capacity Utilization linear adj cost parameter @{co}')
+        GAMMAU2_@{co}               ${\gamma^{u,2}_{@{co}}}$            (long_name = 'Capacity Utilization quadratic adj cost parameter @{co}')
+        GAMMAU3_@{co}               ${\gamma^{u,2}_{@{co}}}$            (long_name = 'Capacity Utilization quadratic adj cost parameter @{co}')
+        GAMMAI1_@{co}               ${\gamma^{I,1}_{@{co}}}$            (long_name = 'Investment linear adj cost parameter @{co}')
+        GAMMAI2_@{co}               ${\gamma^{I,2}_{@{co}}}$            (long_name = 'Investment quadratic adj cost parameter @{co}')
+        GAMMAI3_@{co}               ${\gamma^{I,2}_{@{co}}}$            (long_name = 'Investment quadratic adj cost parameter @{co}')
+		GAMMAFN1_@{co}              ${\gamma^{FN,1}_{@{co}}}$           (long_name = 'Labor hoarding linear adj cost parameter @{co}')
+        GAMMAFN2_@{co}              ${\gamma^{FN,2}_{@{co}}}$           (long_name = 'Labor hoarding quadratic adj cost parameter @{co}')
+        GAMMARULC_@{co}             ${\gamma^{rulc}_{@{co}}}$           (long_name = 'Real unit labor cost rigidity @{co}')
+        GAMMAW_@{co}                ${\gamma^{w}_{@{co}}}$              (long_name = 'Nominal wage adj cost parameter @{co}')
+        GAMMAWR_@{co}               ${\gamma^{wr}_{@{co}}}$             (long_name = 'Real wage rigidity @{co}')
+        GAY0_@{co}                  ${g^{AY0}_{@{co}}}$                 (long_name = 'Constant for growth of productivity production fct RW @{co}')
+        GAPC0_@{co}                 ${g^{APC0}_{@{co}}}$                (long_name = 'Constant for growth of private consumption specific productivity RW @{co}')
+        GAPG0_@{co}                 ${g^{APG0}_{@{co}}}$                (long_name = 'Constant for growth of government consumption specific productivity RW @{co}')
+        GAPI0_@{co}                 ${g^{API0}_{@{co}}}$                (long_name = 'Constant for  growth of private investment specific productivity RW @{co}')        
+        GAPIG0_@{co}                ${g^{APIG0}_{@{co}}}$               (long_name = 'Constant for  growth of gov. private investment specific productivity RW @{co}')                               
+        GPC0_@{co}                  ${\pi^{{p}^{C0}}_{@{co}}}$          (long_name = 'Mean of inflation of private consumption @{co}')
+        GPG0_@{co}                  ${\pi^{{p}^{G0}}_{@{co}}}$          (long_name = 'Mean of inflation of government consumption @{co}')
+        GPITOT0_@{co}               ${\pi^{{p}^{ITOT0}}_{@{co}}}$       (long_name = 'Mean of inflation of total investment  @{co}')   
+        GPM0_@{co}                  ${\pi^{{p}^{M0}}_{@{co}}}$          (long_name = 'Mean of inflation of import price @{co}')   
+        G_SS_@{co}                  ${\bar{G}_{@{co}}}$                 (long_name = 'Steady-state Government consumption observed @{co}') 
+        G_SSobs_@{co}               ${\bar{Gobs}_{@{co}}}$              (long_name = 'Steady-state Government consumption observed @{co}') 
+        // GAPOIL0_@{co}            ${gA^{{p}^{OIL0}}_{@{co}}}$         (long_name = 'Constant for growth of  oil specific productivity RW @{co}')                        
+        H_@{co}                     ${h_{@{co}}}$                       (long_name = 'Consumption habit @{co}')
+        HL_@{co}                    ${h_{@{co}}}$                       (long_name = 'Labor supply habit @{co}')
+        IB_SS_@{co}                 ${\bar{IB}_{@{co}}}$                (long_name = 'Steady-state Government interest payments @{co}') 
+        IG_SS_@{co}                 ${\bar{IG}_{@{co}}}$                (long_name = 'Steady-state Government investment @{co}') 
+        IG_SSobs_@{co}              ${\bar{IGobs}_{@{co}}}$             (long_name = 'Steady-state Government investment observed @{co}') 
+        INOM_SS_@{co}               ${\bar{i}_{@{co}}}$                 (long_name = 'Steady-state nominal interest rate @{co}')
+        INOM_SPREAD_@{co}           ${\bar{i}_{@{co}}}$                 (long_name = 'Steady-state nominal interest rate @{co}')
+        ISN_@{co}                   ${ISN_{@{co}}}$                     (long_name = 'Steady-state nominal corporate investment share @{co}')
+        ISNobs_@{co}                ${ISNobs_{@{co}}}$                  (long_name = 'Steady-state nominal corporate investment share observed @{co}')      
+        ITR_@{co}                   ${ITr_{@{co}}}$                     (long_name = 'International transfer to @{co}')
+        //CSN_@{co}                 ${CSN_{@{co}}}$                     (long_name = 'Steady-state nominal consumption share @{co}')
+        CSNobs_@{co}                ${CSNobs_{@{co}}}$                  (long_name = 'Steady-state nominal consumption share observed @{co}')
+        //ITOTSN_@{co}              ${ITOTSN_{@{co}}}$                  (long_name = 'Steady-state nominal total investment share @{co}')
+        MUW_@{co}                   ${\mu^{w}_{@{co}}}$                 (long_name = 'Wage mark-up @{co}')
+        NFA0_@{co}                  ${\bar{NFA}_{@{co}}}$               (long_name = 'Steady-state NFA @{co}')
+        L_SS_@{co}                  ${\bar{L}_{@{co}}}$                 (long_name = 'Steady-state of employment  @{co}') 
+        OMEGAS_@{co}                ${\omega^{s}_{@{co}}}$              (long_name = 'Savers share @{co}')
+        OMEGAN_@{co}                ${\omega^{N}_{@{co}}}$              (long_name = 'Weight of the disutility of labour @{co}')
+		OMEGATAXCC_@{co}            ${\omega^{TAXCC}_{@{co}}}$          (long_name = 'Tax share of CC households @{co}')
+        PHI_U_@{co}                 ${\phi^{u}_{@{co}}}$                (long_name = 'Phillips Curve coefficient @{co}')        
+        PHICVAT_SS_@{co}            ${\bar{\pi}^{cpi}_{@{co}}}$         (long_name = 'Steady state CPI inflation @{co}')
+        PHICVATQA_SS_@{co}          ${\bar{{\pi_QA}^{CVAT}_{@{co}}}}$    (long_name = 'Steady State Consumption VAT inflation QA @{co}')   
+        RHOCX_@{co}                 ${\rho^{CX}_{@{co}}}$               (long_name = 'Inertia C trend in VL @{co}')
+
+            // Do nothing
+
+        RHOCU_@{co}                 ${\rho^{CU}_{@{co}}}$                (long_name = 'Inertia parameter CU trend @{co}') 
+        RHOFN_@{co}                 ${\rho^{CU}_{@{co}}}$                (long_name = 'Inertia parameter CU trend @{co}') 
+        RHOINOMG_@{co}              ${\rho^{iG}_@{co}}$                 (long_name = 'Government bonds interest rate inertia parameter @{co}') 
+        RHOIG_@{co}                 ${\rho^{IG}_{@{co}}}$               (long_name = 'Gov investment inertia parameter @{co}')
+        //RHOIM_@{co}               ${\rho^{IM}_{@{co}}}$               (long_name = 'Imports demand inertia parameter @{co}')
+        //RHOO_@{co}                ${\rho^{O}_{@{co}}}$                (long_name = 'Domestic demand inertia parameter @{co}')
+        RHOZ_@{co}                  ${\rho^{Z}_{@{co}}}$                (long_name = 'Aggregate demand inertia parameter @{co}')
+        RHOSIG_@{co}                ${\rho^{SIG}_{@{co}}}$              (long_name = 'Autoregressive prmt import demand @{co}')
+        RHOG_@{co}                  ${\rho^{G}_{@{co}}}$                (long_name = 'Gov consumption expenditure inertia parameter @{co}')
+        RHOOIL_@{co}                ${\rho^{Oil}_{@{co}}}$              (long_name = 'Oil demand inertia parameter @{co}')
+        RHOT_@{co}                  ${\rho^{T}_{@{co}}}$                (long_name = 'Transfers inertia parameter @{co}')
+        RHO_A_@{co}                 ${\rho_{A,@{co}}}$                  (long_name = 'Autoregressive prmt Preference for financial assets shock  @{co}')
+        RHO_APC_@{co}               ${\rho_{APC,@{co}}}$                (long_name = 'Autoregressive prmt Private consumption specific productivity shock  @{co}')
+        RHO_APG_@{co}               ${\rho_{APG,@{co}}}$                (long_name = 'Autoregressive prmt Government consumption specific productivity shock  @{co}')
+        RHO_API_@{co}               ${\rho_{API,@{co}}}$                (long_name = 'Autoregressive prmt Private investment specific productivity shock  @{co}')
+        RHO_APIG_@{co}              ${\rho_{APIG,@{co}}}$               (long_name = 'Autoregressive prmt Government investment specific productivity shock  @{co}')
+        RHO_APM_@{co}               ${\rho_{APM,@{co}}}$                (long_name = 'Autoregressive prmt Import specific productivity shock  @{co}')
+        RHO_APO_@{co}               ${\rho_{APO,@{co}}}$                (long_name = 'Autoregressive prmt Total output productivity shock  @{co}')
+        RHO_AY_@{co}                ${\rho_{AY,@{co}}}$                 (long_name = 'Autoregressive prmt Technology shock  @{co}')
+        RHO_ND_@{co}                ${\rho_{ND,@{co}}}$                 (long_name = 'Autoregressive prmt labor demand shock  @{co}') 
+        RHO_FQ_@{co}                ${\rho_{FQ,@{co}}}$                 (long_name = 'Autoregressive prmt Fly to Quality  @{co}')
+        RHO_FN_@{co}                ${\rho_{FN,@{co}}}$                 (long_name = 'Autoregressive prmt Fixed labor shock  @{co}')
+        RHO_B_@{co}                 ${\rho_{B,@{co}}}$                  (long_name = 'Autoregressive prmt Preference for bonds shock  @{co}')
+        RHO_BW_@{co}                ${\rho_{BW,@{co}}}$                 (long_name = 'Autoregressive prmt Preference for international bonds shock  @{co}')
+        RHO_CU_@{co}                ${\rho_{CU,@{co}}}$                 (long_name = 'Autoregressive prmt capacity utilization shock  @{co}')
+        RHO_G_@{co}                 ${\rho_{G,@{co}}}$                  (long_name = 'Autoregressive prmt Governmental consumption  shock  @{co}')
+        RHO_GAYTREND_@{co}          ${\rho_{GAYTREND,@{co}}}$           (long_name = 'Autoregressive prmt Technology trend shock  @{co}')
+      
+        RHO_ACTR_@{co}              ${\rho_{ACTR,@{co}}}$               (long_name = 'Autoregressive prmt temporary ACTR shock  @{co}')
+        RHO_GACTR_@{co}             ${\rho_{GACTRTREND,@{co}}}$         (long_name = 'Autoregressive prmt ACTR shock  @{co}')
+        RHO_HPERE_@{co}             ${\rho_{HPERE,@{co}}}$              (long_name = 'Autoregressive prmt temporary HPERE shock  @{co}')
+        RHO_GHPERETREND_@{co}       ${\rho_{GHPERE,@{co}}}$             (long_name = 'Autoregressive prmt HPERE trend shock  @{co}')
+        RHO_PARTR_@{co}             ${\rho_{PARTR,@{co}}}$              (long_name = 'Autoregressive prmt temporary PARTR shock  @{co}')
+        RHO_GPARTRTREND_@{co}       ${\rho_{GPARTR,@{co}}}$             (long_name = 'Autoregressive prmt PARTR trend shock  @{co}')
+        RHO_POP_@{co}               ${\rho_{POP,@{co}}}$                (long_name = 'Autoregressive prmt temporary POP shock  @{co}')
+        RHO_GPOP_@{co}              ${\rho_{GPOPTREND,@{co}}}$          (long_name = 'Autoregressive prmt POP shock  @{co}')
+        RHO_GLTREND_@{co}           ${\rho_{GLTREND,@{co}}}$            (long_name = 'Autoregressive prmt employment trend shock  @{co}')
+
+            // Do nothing
+
+        RHO_IG_@{co}                ${\rho_{U,@{co}}}$                  (long_name = 'Autoregressive prmt Governmental investment shock @{co}')
+        //RHO_INV_@{co}             ${\rho_{INV,@{co}}}$                (long_name = 'Autoregressive prmt inventories shock  @{co}')                
+        RHO_M_@{co}                 ${\rho^{M}_{@{co}}}$                (long_name = 'Autoregressive prmt import shock @{co}')
+        RHO2_M_@{co}                 ${\rho^{2M}_{@{co}}}$                (long_name = 'Autoregressive prmt import shock @{co}')
+        RHO_MUM_@{co}               ${\rho^{MUM}_{@{co}}}$              (long_name = 'Autoregressive prmt import markup shock @{co}')  
+        RHO_MUY_@{co}               ${\rho^{MUY}_{@{co}}}$              (long_name = 'Autoregressive prmt GDP markup shock @{co}')
+        RHO_TZEPS_MUY_@{co}         ${\rho^{T,MUY}_{@{co}}}$            (long_name = 'Autoregressive prmt GDP markup endo component @{co}') 
+        RHO_TZEPS_M_@{co}           ${\rho_{T,M,@{co}}}$                (long_name = 'Autoregressive prmt trend imports country @{co}')                           
+        RHO_NFA_@{co}               ${\rho^{NFA}_{@{co}}}$              (long_name = 'Autoregressive prmt NFA shock @{co}')
+        
+        RHO_PHISTAR_@{co}           ${\rho_{{\phi^{*}},@{co}}}$          (long_name = 'Autoregressive prmt PHISTAR @{co}')            
+        RHO_MO_@{co}                ${\rho_{{\phi^{MO}},@{co}}}$         (long_name = 'Autoregressive prmt of MO @{co}')            
+
+        RHO_P_@{co}                 ${\rho_{P,@{co}}}$                  (long_name = 'Autoregressive prmt consumption preference shock @{co}')
+        RHO_PMTOT_@{co}             ${\rho_{PMtot,@{co}}}$              (long_name = 'Autoregressive prmt Total import price shock @{co}')
+        RHO_PX_@{co}                ${\rho_{PX,@{co}}}$                 (long_name = 'Autoregressive prmt Export price shock @{co}')
+        RHO_S_@{co}                 ${\rho_{S,@{co}}}$                  (long_name = 'Autoregressive prmt Preference for stocks shock  @{co}')        
+        RHO_SOIL_@{co}              ${\rho_{SOIL,@{co}}}$               (long_name = 'Autoregressive prmt oil share shock  @{co}')
+        RHO_T_@{co}                 ${\rho_{T,@{co}}}$                  (long_name = 'Autoregressive prmt Transfers shock @{co}')
+        RHO_TAX_@{co}               ${\rho_{TAX,@{co}}}$                (long_name = 'Autoregressive prmt Tax shock @{co}')
+        RHO_U_@{co}                 ${\rho_{U,@{co}}}$                  (long_name = 'Autoregressive prmt Phillips curve shock @{co}')
+        RHO_W_@{co}                 ${\rho_{W,@{co}}}$                  (long_name = 'Autoregressive prmt Labor demand shock  @{co}')        
+        RPREMG_@{co}                ${{rprem}^{g}_{@{co}}}$             (long_name = 'Risk premium on gov bonds over policy rate @{co}')
+        RPREMS_@{co}                ${{rprem}^{s}_{@{co}}}$             (long_name = 'Risk premium on stocks over policy rate @{co}')
+        SDF_@{co}                   ${{sdf}_{@{co}}}$                   (long_name = 'st. state stroch discount factor @{co}')
+        SFH_@{co}                   ${{sfh}_{@{co}}}$                   (long_name = 'Share of forward-looking HH @{co}')
+        SFH1_@{co}                  ${{sfh1}_{@{co}}}$                   (long_name = 'Share of forward-looking HH @{co}')
+        SFI_@{co}                   ${{sfi}_{@{co}}}$                   (long_name = 'Share of forward-looking firms @{co}')
+        SFI1_@{co}                  ${{sfi1}_{@{co}}}$                   (long_name = 'Share of forward-looking firms @{co}')
+        SFP_@{co}                   ${{sfp}_{@{co}}}$                   (long_name = 'Share of forward-looking price expectations @{co}')
+        SFPM_@{co}                  ${{sfpm}_{@{co}}}$                  (long_name = 'Share of forward-looking import price expectations @{co}')
+        SFPMO_@{co}                 ${{sfpmO}_{@{co}}}$                 (long_name = 'Share of forward-looking import share expectations @{co}')
+
+        SFPX_@{co}                  ${{sfpx}_{@{co}}}$                  (long_name = 'Share of forward-looking export price expectations @{co}')
+        SFRULC_@{co}                ${{sfrulc}_{@{co}}}$                (long_name = 'Share of forward looking PHIRULC expectations @{co}')
+        SFW_@{co}                   ${{sfw}_{@{co}}}$                   (long_name = 'Share of forward looking PHIW expectations @{co}')
+        SIGMAC_@{co}                ${\sigma^{C}_{@{co}}}$              (long_name = 'Constant elasticity of private consumption production fct @{co}')
+        SIGMAG_@{co}                ${\sigma^{G}_{@{co}}}$              (long_name = 'Constant elasticity of government consumption production fct @{co}')
+        SIGMAM_@{co}                ${\sigma^{M}_{@{co}}}$              (long_name = 'Constant Elasticity of the Import Price function @{co}')
+        SIGMAPX_@{co}                ${\sigma^{PX}_{@{co}}}$              (long_name = 'Constant Elasticity of the Export Price function @{co}')
+        SIGMAPX1_@{co}                ${\sigma^{PX1}_{@{co}}}$              (long_name = 'Constant Elasticity of the Export Price function @{co}')
+        SIGMAFM_@{co}               ${\sigma^{FM}_{@{co}}}$             (long_name = 'Constant Elasticity of the Import Price function @{co}')
+        SIGMAI_@{co}                ${\sigma^{I}_{@{co}}}$              (long_name = 'Constant elasticity of private investment production fct @{co}')
+        SIGMAIG_@{co}               ${\sigma^{IG}_{@{co}}}$             (long_name = 'Constant elasticity of government investment production fct @{co}')   
+        SIGMAO_@{co}                ${\sigma^{o}_{@{co}}}$              (long_name = 'Total Factor production fct elasticity of substitution @{co}')
+        SIGMAY_@{co}                ${\sigma^{y}_{@{co}}}$              (long_name = 'Demand elasticity DE - to check better')
+        SIGMAX_@{co}                ${\sigma^{x}_{@{co}}}$              (long_name = 'Import elasticity for X goods @{co}')
+        SIGMAZ_@{co}                ${\sigma^{z}_{@{co}}}$              (long_name = 'Import elasticity common to all final goods @{co}')
+        SIZE_@{co}                  ${size_{@{co}}}$                    (long_name = 'Size @{co}')     
+        SIZEobs_@{co}               ${size_{@{co}}}$                    (long_name = 'Size @{co}')     
+        SIZE1_@{co}
+        SB_@{co}                    ${s^{B}_{@{co}}}$                   (long_name = 'Preference for gov bonds of Savers in @{co}')
+        // SBW_@{co}                ${s^{bw}_{@{co}}}$                  (long_name = 'Preference for international bonds held in @{co}')
+        SMC_@{co}                   ${s^{M,C}}$                         (long_name = 'Share of private consumption imports in the total demand @{co}')
+        SMG_@{co}                   ${s^{M,G}}$                         (long_name = 'Share of government consumption imports in the total demand @{co}')
+        SMI_@{co}                   ${s^{M,I}}$                         (long_name = 'Share of private investment imports in the total demand @{co}')
+        SMIG_@{co}                  ${s^{M,IG}}$                        (long_name = 'Share of government investment imports in the total demand @{co}')
+        SMX_@{co}                   ${s^{M,X}}$                        (long_name =  'Share of imports in exports @{co}')
+        SMCobs_@{co}                   ${s^{M,C}}$                         (long_name = 'Share of private consumption imports in the total demand @{co}')
+        SMGobs_@{co}                   ${s^{M,G}}$                         (long_name = 'Share of government consumption imports in the total demand @{co}')
+        SMIobs_@{co}                   ${s^{M,I}}$                         (long_name = 'Share of private investment imports in the total demand @{co}')
+        SMIGobs_@{co}                  ${s^{M,IG}}$                        (long_name = 'Share of government investment imports in the total demand @{co}')
+        SMXobs_@{co}                   ${s^{M,X}}$                        (long_name =  'Share of imports in exports @{co}')
+        SMZ_@{co}                   ${s^{M,X}}$                        (long_name =  'Share of imports in exports @{co}')
+        SOIL_@{co}                  ${s^{Oil}}$                         (long_name = 'Share of oil in the Total Factor Production fct @{co}')
+        SOILobs_@{co}               ${s^{Oil,obs}}$                     (long_name = 'Observed Share of oil in the Total Factor Production fct @{co}')
+        SPM_@{co}                   ${{spm}_{@{co}}}$                   (long_name = 'Share of PM in PY @{co}')
+        SPOIL_@{co}                 ${s^{POil}}$                        (long_name = 'Share of oil price in Total import price aggregation @{co}')
+        SM_@{co}                    $s^{M}$                             (long_name = 'Degree of Openess @{co}')
+        SMTOT_@{co}                 $s^{Mtot}$                                 
+        SMobs_@{co}                 $s^{Mobs}$                          (long_name = 'Observed Degree of Openess @{co}')
+        SS_@{co}                    ${s^{s}_{@{co}}}$                   (long_name = 'Preference for stocks of Savers in @{co}')
+        TAUC_@{co}                  ${\tau^{C}_{@{co}}}$                (long_name = 'Consumption (VAT) tax @{co}')
+        TAUK_@{co}                  ${\tau^{k}_{@{co}}}$                (long_name = 'Capital taxation @{co}')
+        TAUK0_@{co}                 ${\tau^{k0}_{@{co}}}$               (long_name = 'Calibrated Capital taxation @{co}')
+        TAUN_@{co}                  ${\tau^{N}_{@{co}}}$                (long_name = 'Labor tax @{co}')
+        TAUOIL_@{co}                ${\tau^{oil}_{@{co}}}$              (long_name = 'Excise duty @{co}')
+        TBY0_@{co}                  ${TBY0_@{co}}$                      (long_name = 'mean value of TB from data of @{co}')
+        THETA_@{co}                 ${\theta_{@{co}}}$                  (long_name = 'Risk aversion @{co}')     
+        THETAN_@{co}                ${\theta^{N}_{@{co}}}$              (long_name = 'Inverse of Frisch elasticity @{co}')     
+        RHO_MAY_@{co}                 ${\tau^{MAY}_{@{co}}}$              (long_name = 'Aggregate Import Competitiveness @{co}')  
+        T_MUY_PHI0_@{co}             ${\tau^{MUY0,\pi}_{@{co}}}$             (long_name = 'endogenous markup phi @{co}')  
+        T_MUY_PHI1_@{co}             ${\tau^{MUY1,\pi}_{@{co}}}$             (long_name = 'endogenous markup phi @{co}')  
+        T_MUY_PHI2_@{co}             ${\tau^{MUY2,\pi}_{@{co}}}$             (long_name = 'endogenous markup phi @{co}')  
+        T_MUY_PHI3_@{co}             ${\tau^{MUY3,\pi}_{@{co}}}$             (long_name = 'endogenous markup phi @{co}')  
+        T_MUY_PHI4_@{co}             ${\tau^{MUY4,\pi}_{@{co}}}$             (long_name = 'endogenous markup phi @{co}')  
+        T_MUY_PHI5_@{co}             ${\tau^{MUY5,\pi}_{@{co}}}$             (long_name = 'endogenous markup phi @{co}')   
+        T_MUY_Y0_@{co}               ${\tau^{MUY0,y}_{@{co}}}$             (long_name = 'endogenous markup y @{co}')  
+        T_MUY_Y1_@{co}               ${\tau^{MUY0,y}_{@{co}}}$             (long_name = 'endogenous markup y @{co}')  
+        T_MUY_Y2_@{co}               ${\tau^{MUY0,y}_{@{co}}}$             (long_name = 'endogenous markup y @{co}')  
+        T_MUY_Y3_@{co}               ${\tau^{MUY0,y}_{@{co}}}$             (long_name = 'endogenous markup y @{co}')  
+        T_MAY_@{co}                 ${\tau^{MAY}_{@{co}}}$              (long_name = 'Aggregate Import Competitiveness @{co}')  
+        T_MAY2_@{co}                ${\tau^{2,MAY}_{@{co}}}$            (long_name = 'Relative Import Competitiveness @{co}')  
+        T_MAY3_@{co}                ${\tau^{2,MAY}_{@{co}}}$            (long_name = 'Relative Import Competitiveness @{co}')  
+        T_MAY1_@{co}_@{co}          ${\tau^{MAY1}_{@{co},@{co}}}$       (long_name = 'Aggregate Import Competitiveness @{co}')  
+        T_MAY2_@{co}_@{co}          ${\tau^{MAY2}_{@{co},@{co}}}$       (long_name = 'Aggregate Import Competitiveness @{co}')  
+        T_MAY3_@{co}_@{co}          ${\tau^{MAY3}_{@{co},@{co}}}$       (long_name = 'Aggregate Import Competitiveness @{co}')  
+        T_PXAY_@{co}                ${\tau^{PXAY}_{@{co}}}$             (long_name = 'Relative RoW Export Dumping on country @{co}')  
+        T_PXE_@{co}                 ${\tau^{PXE}_{@{co}}}$              (long_name = 'Relative RoW Export market to price on country @{co}')  
+        T_SS_@{co}                  ${\bar{T}_{@{co}}}$                 (long_name = 'Steady state Transfers @{co}')   
+        T_SSobs_@{co}               ${\bar{T}_{@{co}}}$                 (long_name = 'Steady state Transfers @{co}')   
+        WS_@{co}                    ${WS_{@{co}}}$                      (long_name = 'Wage share @{co}')
+        INV_SS_@{co}                ${\bar{INV}_{@{co}}}$               (long_name = 'Steady-state of inventories shock @{co}') 
+        
+        // Bilateral parameters
+    
+                ALPHAB0_@{co}_@{co}	${\alpha^{b,0}_{@{co},@{co}}}$     (long_name = 'Parameter 0 for gov bonds of DE held in @{co}')
+                ALPHAB1_@{co}_@{co}    ${\alpha^{b}_{@{co},@{co}}}$       (long_name = 'Parameter 1 for gov bonds of DE held in @{co}')
+                ALPHAS0_@{co}_@{co}    ${\alpha^{s,0}_{@{co},@{co}}}$     (long_name = 'Parameter 0 for stocks of DE held in @{co}')
+                ALPHAS1_@{co}_@{co}    ${\alpha^{s}_{@{co},@{co}}}$       (long_name = 'Parameter 1 for stocks of DE held in @{co}')
+                SBG_@{co}_@{co}        ${s^{bg}_{@{co},@{co}}}$           (long_name = 'Share of gov bonds issued by DE held in @{co}')
+                SSTOT_@{co}_@{co}      ${s^{stot}_{@{co},@{co}}}$         (long_name = 'Share of tot stocks issued by DE held in @{co}')
+                RHO_B_@{co}_@{co}      ${\rho_{B,@{co},@{co}}}$           (long_name = 'Autoregressive prmt of shock to DE preferences in investing in bonds of country @{co}')
+                RHO_S_@{co}_@{co}      ${\rho_{S,@{co},@{co}}}$           (long_name = 'Autoregressive prmt of shock to DE preferences in investing in stocks of country @{co}')    
+                //SB_@{co}_@{co}       ${s^{B}_{@{co},@{co}}}$            (long_name = 'Preference for gov bonds of DE held in @{co}')
+                //SS_@{co}_@{co}       ${s^{s}_{@{co},@{co}}}$            (long_name = 'Preference for stocks of DE held in @{co}')
+                RHO_M_REA_@{co}      ${\rho_{M,REA,@{co}}}$           (long_name = 'Autoregressive prmt of shock to bilateral imports from country REA to country @{co}')                           
+                SM_REA_@{co}         ${s^{M}_{REA,@{co}}}$            (long_name = 'Preference for imports of REA in @{co}')                
+                SMTOT_REA_@{co}      ${s^{Mtot}_{REA,@{co}}}$         (long_name = 'Preference for imports of REA in @{co}')                
+                T_MAY2_REA_@{co}     ${\tau^{MAY2}_{REA,@{co}}}$      (long_name = 'Aggregate Import Competitiveness @{co}')  
+                GAMMAPM_REA_@{co}    ${\gamma^{PM}_{REA,@{co}}}$    (long_name = 'Bilateral Import pricing of DE from REA adj cost parameter')
+                GAMMAPX_REA_@{co}    ${\gamma^{PX}_{REA,@{co}}}$    (long_name = 'Bilateral Export pricing of DE to REA adj cost parameter')
+                ALPHAPM_REA_@{co}    ${\alpha^{PM}_{REA,@{co}}}$    (long_name = 'Weight parameter of stategic complementarity in import sector DE from REA')
+                ALPHAPX_REA_@{co}    ${\alpha^{PM}_{REA,@{co}}}$    (long_name = 'Weight parameter of PTM in export price DE to REA')
+                RHOSIG_REA_@{co}     ${\rho^{IM}_{REA, DE}}$      (long_name = 'AR filtered imports demand parameter DE from REA')
+                RHO_M_RoW_@{co}      ${\rho_{M,RoW,@{co}}}$           (long_name = 'Autoregressive prmt of shock to bilateral imports from country RoW to country @{co}')                           
+                SM_RoW_@{co}         ${s^{M}_{RoW,@{co}}}$            (long_name = 'Preference for imports of RoW in @{co}')                
+                SMTOT_RoW_@{co}      ${s^{Mtot}_{RoW,@{co}}}$         (long_name = 'Preference for imports of RoW in @{co}')                
+                T_MAY2_RoW_@{co}     ${\tau^{MAY2}_{RoW,@{co}}}$      (long_name = 'Aggregate Import Competitiveness @{co}')  
+                GAMMAPM_RoW_@{co}    ${\gamma^{PM}_{RoW,@{co}}}$    (long_name = 'Bilateral Import pricing of DE from RoW adj cost parameter')
+                GAMMAPX_RoW_@{co}    ${\gamma^{PX}_{RoW,@{co}}}$    (long_name = 'Bilateral Export pricing of DE to RoW adj cost parameter')
+                ALPHAPM_RoW_@{co}    ${\alpha^{PM}_{RoW,@{co}}}$    (long_name = 'Weight parameter of stategic complementarity in import sector DE from RoW')
+                ALPHAPX_RoW_@{co}    ${\alpha^{PM}_{RoW,@{co}}}$    (long_name = 'Weight parameter of PTM in export price DE to RoW')
+                RHOSIG_RoW_@{co}     ${\rho^{IM}_{RoW, DE}}$      (long_name = 'AR filtered imports demand parameter DE from RoW')
+
+	//@#if co == COUNTRIES[1]  
+        //
+        //Rest of the World and REA parameters            
+        //
+            
+        APC_FLAG_REA              ${A^{pC}_{REA}}$                  (long_name = 'Private consumption specific productivity shock REA')
+        APM_FLAG_REA              ${A^{pM}_{REA}}$                  (long_name = 'Import specific productivity shock REA')
+        APOIL_FLAG_REA            ${A^{pOIL}_{REA}}$                (long_name = 'Oil specific productivity shock REA')
+        AY_FLAG_REA               ${A^{Y}_{REA}}$                   (long_name = 'Productivity shock REA')
+        POP_FLAG_REA              ${{POP}_{REA}}$                   (long_name = 'Population REA')
+        // AY_REA                 ${A^{Y}_{REA}}$                   (long_name = 'Productivity production fct REA')
+        ALPHABW0_REA              ${\alpha^{bw,0}_{REA}}$           (long_name = 'Parameter 0 for Int bond held in REA')
+        ALPHABW1_REA              ${\alpha^{bw}_{REA}}$             (long_name = 'Parameter 1 for Int bond held in REA')            
+        APOP_REA                  ${apop_{REA}}$                    (long_name = 'active population rate in REA')            
+        BETA_REA                  ${\beta_{REA}}$                   (long_name = 'Intertemporal Discount Factor REA')
+
+
+        GAPC0_REA                 ${g^{APC0}_{REA}}$                (long_name = 'Constant for growth of private consumption specific productivity RW REA')
+            GAPC0_EA                ${g^{APC0}_{EA}}$                (long_name = 'Constant for growth of private consumption specific productivity RW EA')
+            GPC0_EA                ${g^{APC0}_{EA}}$                (long_name = 'Constant for growth of private consumption specific productivity RW EA')
+        GAY0_REA                  ${g^{AY0}_{REA}}$                 (long_name = 'Constant for growth of productivity production fct RW REA')
+        GAMMAPM_REA               ${\gamma^{PM}_{REA}}$             (long_name = 'Import pricing adj cost parameter REA')
+        GAMMAPX_REA               ${\gamma^{PX}_{REA}}$             (long_name = 'Export pricing adj cost parameter REA')
+        GAMMAPX1_REA               ${\gamma^{PX1}_{REA}}$             (long_name = 'Export pricing adj cost parameter REA')
+        ALPHAPM_REA               ${\alpha^{PM}_{REA}}$             (long_name = 'Weight parameter of stategic complementarity in import sector REA')
+        ALPHAPX_REA               ${\alpha^{PX}_{REA}}$             (long_name = 'Weight parameter of PTM in export price REA')
+        H_REA                     ${h_{REA}}$                       (long_name = 'Consumption habit REA')
+        INOM_SS_REA               ${\bar{i}_{REA}}$                 (long_name = 'Steady-state nominal interest rate REA')
+        INOM_SPREAD_REA           ${\bar{i}_{REA}}$                 (long_name = 'Steady-state nominal interest rate REA')
+        PHI_Y_REA                 ${\phi^{y}_{REA}}$                (long_name = 'Phillips Curve coefficient REA')
+        PHIY_SS_REA               ${\bar{\pi}^{Y}_{REA}}$           (long_name = 'Steady state GDP inflation REA')
+        PHIC_SS_REA               ${\bar{{\pi}^{C}_{REA}}}$         (long_name = 'Steady State Consumption  inflation  REA') 
+        RHO_A_REA                 ${\rho_{A,REA}}$                  (long_name = 'Autoregressive prmt Preference for financial assets shock  REA')
+        RHO_APOIL_REA             ${\rho^{POIL}_{REA}}$             (long_name = 'Temporary oil price shock persistence REA')
+        RHO_AY_REA                ${\rho_{AY,REA}}$                 (long_name = 'Autoregressive prmt Technology shock  REA')
+        RHO_B_REA                 ${\rho_{B,REA}}$                  (long_name = 'Autoregressive prmt Preference for bonds shock  REA')
+        RHO_BW_REA                ${\rho_{BW,REA}}$                 (long_name = 'Autoregressive prmt Preference for international bonds shock  REA')
+        
+
+
+        RHO_GAYTREND2_REA          ${\rho_{GAYTREND2,REA}}$           (long_name = '2nd Autoregressive prmt Technology trend shock  REA')
+        RHO_GAYTREND_REA          ${\rho_{GAYTREND,REA}}$           (long_name = 'Autoregressive prmt Technology trend shock  REA')
+        RHO_GPOP_REA              ${\rho_{GPOP,REA}}$               (long_name = 'Autoregressive prmt population trend shock  REA')
+        RHO_PHISTAR_REA           ${\rho_{{\phi^{*}},REA}}$          (long_name = 'Autoregressive prmt PHISTAR REA')            
+        RHO_MO_REA                ${\rho_{{\phi^{MO}},REA}}$         (long_name = 'Autoregressive prmt of MO REA')            
+        RHOZ_REA                  ${\rho^{Z}_{REA}}$                (long_name = 'Aggregate demand inertia parameter REA') 
+        RHO_FQ_REA                ${\rho_{FQ,REA}}$                 (long_name = 'Autoregressive prmt Fly to Quality shock  REA')
+
+
+        RHOIM_REA                 ${\rho^{IM}_{REA}}$               (long_name = 'Imports demand inertia parameter REA')
+        RHOSIG_REA                ${\rho^{IM}_{REA}}$               (long_name = 'AR filtered imports demand parameter REA')
+        GAMMAM_REA                ${\gamma^{M}_{REA}}$              (long_name = 'Import adjustment cost REA')
+        RHO_LAYTREND_REA          ${\rho_{LAYTREND,REA}}$           (long_name = 'Autoregressive prmt Technology trend shock  REA')
+        RHO_M_REA                 ${\rho^{M}_{REA}}$                (long_name = 'Autoregressive prmt consumption import shock REA')
+        //RHO_NFA_REA             ${\rho^{NFA}_{REA}}$              (long_name = 'Autoregressive prmt NFA shock REA') 
+        RHO2_M_REA                 ${\rho^{2M}_{REA}}$                (long_name = 'Autoregressive prmt consumption import shock REA')
+        RHO_P_REA                 ${\rho_{A,REA}}$                  (long_name = 'Autoregressive prmt consumption shock  REA')            
+        RHO_PHITREND_REA          ${\rho_{\bar{\phi},REA}}$         (long_name = 'Autoregressive prmt inflation target REA')            
+        RHO_POP_REA               ${\rho^{POP}_{REA}}$              (long_name = 'Temporary population shock persistence REA')
+        RHO_PX_REA                ${\rho_{PX,REA}}$                 (long_name = 'Autoregressive prmt for export price shock REA')
+        RHO_S_REA                 ${\rho_{S,REA}}$                  (long_name = 'Autoregressive prmt Preference for stocks shock  REA')        
+        RHO_Y_REA                 ${\rho_{Y,REA}}$                  (long_name = 'Autoregressive prmt Phillips curve shock REA')
+
+        RHO_MAY_REA                 ${\tau^{MAY}_{REA}}$              (long_name = 'Aggregate Import Competitiveness REA')
+        T_MAY_REA                 ${\tau^{MAY}_{REA}}$              (long_name = 'Aggregate Import Competitiveness REA')
+        T_MAY2_REA                ${\tau^{2,MAY}_{REA}}$            (long_name = 'Relative Import Competitiveness REA') 
+        T_MAY3_REA                ${\tau^{2,MAY}_{REA}}$            (long_name = 'Relative Import Competitiveness REA') 
+        T_MUY_PHI0_REA             ${\tau^{MUY0,\pi}_{REA}}$             (long_name = 'endogenous markup phi REA')  
+        T_MUY_PHI1_REA             ${\tau^{MUY1,\pi}_{REA}}$             (long_name = 'endogenous markup phi REA')  
+        T_MUY_PHI2_REA             ${\tau^{MUY2,\pi}_{REA}}$             (long_name = 'endogenous markup phi REA')  
+        T_MUY_PHI3_REA             ${\tau^{MUY3,\pi}_{REA}}$             (long_name = 'endogenous markup phi REA')  
+        T_MUY_PHI4_REA             ${\tau^{MUY4,\pi}_{REA}}$             (long_name = 'endogenous markup phi REA')  
+        T_MUY_PHI5_REA             ${\tau^{MUY5,\pi}_{REA}}$             (long_name = 'endogenous markup phi REA')   
+
+        SDF_REA                   ${{sdf}_{REA}}$                   (long_name = 'st. state stoch discount factor REA')
+        SFH_REA                   ${{sfh}_{REA}}$                   (long_name = 'Share of forward-looking HH REA')
+        SFH1_REA                  ${{sfh1}_{REA}}$                   (long_name = 'Share of forward-looking HH REA')
+        SFP_REA                   ${{sfp}_{REA}}$                   (long_name = 'Share of forward-looking price expectations REA')
+        SFPM_REA                  ${{sfpm}_{REA}}$                  (long_name = 'Share of forward-looking import price expectations REA')
+        SFPMO_REA                 ${{sfpmO}_{REA}}$                 (long_name = 'Share of forward-looking import share expectations REA')
+        SFPX_REA                  ${{sfpx}_{REA}}$                  (long_name = 'Share of forward-looking export price expectations REA')
+        // SBW_REA                ${s^{bw}_{REA}}$                  (long_name = 'Preference for international bonds held in REA')
+        SM_REA                    $s^{M}$                             (long_name = 'Degree of Openess REA')
+        SMC_REA                   ${s^{M,C}}$                         (long_name = 'Share of private consumption imports in the total demand REA')
+        SMX_REA                   ${s^{M,X}}$                         (long_name = 'Share of import content in X REA')
+        SMXobs_REA                   ${s^{M,X}}$                         (long_name = 'Share of import content in X REA')
+        SIGMAC_REA                ${\sigma^{C}_{REA}}$              (long_name = 'Constant Elasticity of Total Consumption Production fct REA')
+        SIGMAX_REA                ${\sigma^{X}_{REA}}$              (long_name = 'Constant Elasticity of X Production fct REA')
+        SIGMAM_REA                ${\sigma^{M}_{REA}}$              (long_name = 'Constant Elasticity of the Import Price function REA')
+        SIGMAPX_REA                ${\sigma^{PX}_{REA}}$              (long_name = 'Constant Elasticity of the Export Price function REA')
+        SIGMAPX1_REA                ${\sigma^{PX1}_{REA}}$              (long_name = 'Constant Elasticity of the Export Price function REA')
+        SIGMAFM_REA               ${\sigma^{FM}_{REA}}$             (long_name = 'Constant Elasticity of the Import Price function REA')
+        SIZE_REA                  ${size_{REA}}$                    (long_name = 'Size REA')
+        SIZEobs_REA               ${size_{REA}}$                    (long_name = 'Size REA')
+        SIZE1_REA
+        THETA_REA                 ${\theta_{REA}}$                  (long_name = 'Risk aversion REA')    
+        
+            SOIL_REA              ${s^{Oil}}$                         (long_name = 'Share of oil in the Total Factor Production fct REA')
+            SOILobs_REA           ${s^{Oil,obs}}$                     (long_name = 'Observed Share of oil in the Total Factor Production fct REA')
+            SPOIL_REA             ${s^{POil}}$                        (long_name = 'Share of oil price in Total import price aggregation REA')
+            SIGMAO_REA            ${\sigma^{o}_{REA}}$              (long_name = 'Total Factor production fct elasticity of substitution REA')
+            RHOOIL_REA            ${\rho^{Oil}_{REA}}$              (long_name = 'Oil demand inertia parameter REA')
+            NFA0_REA              ${\bar{NFA}_{REA}}$               (long_name = 'Steady-state NFA REA')
+            ITR_REA               ${ITr_{REA}}$                     (long_name = 'International transfer to REA')
+            SMobs_REA             $s^{Mobs}$                          (long_name = 'Observed Degree of Openess REA')
+            TAUOIL_REA            ${\tau^{oil}_{REA}}$              (long_name = 'Excise duty REA')
+            T_PXAY_REA                ${\tau^{PXAY}_{REA}}$             (long_name = 'Relative RoW Export Dumping on country REA ')  
+            T_PXE_REA                 ${\tau^{PXE}_{REA}}$              (long_name = 'Relative RoW Export market to price on country REA ')  
+            TBY0_REA                  ${TBY0_REA}$                      (long_name = 'mean value of TB from data of REA')
+        T_MAY1_REA_REA                 ${\tau^{MAY1}_{REA,REA}}$              (long_name = 'Aggregate Import Competitiveness REA')  
+        T_MAY2_REA_REA                 ${\tau^{MAY2}_{REA,REA}}$              (long_name = 'Aggregate Import Competitiveness REA')  
+        T_MAY3_REA_REA                 ${\tau^{MAY2}_{REA,REA}}$              (long_name = 'Aggregate Import Competitiveness REA')  
+        RHO_TZEPS_M_REA                 ${\tau^{MAY1}_{REA,REA}}$              (long_name = 'Aggregate Import Competitiveness REA')  
+
+        // Bilateral parameter for RoW-REA
+                RHO_M_@{co}_REA      ${\rho_{M,@{co},REA}}$       (long_name = 'Autoregressive prmt of shock to bilateral imports from country DE to country REA')                           
+                RHO_PX_@{co}_REA     ${\rho_{PX,@{co},REA}}$      (long_name = 'Autoregressive prmt for bilateral export price shock REA')
+                SM_@{co}_REA         ${s^{M}_{DE,REA}}$        (long_name = 'Import shares from country DE to country REA shock')  
+                    SMTOT_@{co}_REA  ${s^{Mtot}_{DE,REA}}$     (long_name = 'Total Import shares from country DE to country REA shock')
+                T_MAY2_@{co}_REA     ${\tau^{MAY2}_{DE,REA}}$       (long_name = 'Aggregate Import Competitiveness REA')  
+                GAMMAPM_@{co}_REA    ${\gamma^{PM}_{DE,REA}}$    (long_name = 'Bilateral Import pricing of REA from DE adj cost parameter')
+                GAMMAPX_@{co}_REA    ${\gamma^{PX}_{DE,REA}}$    (long_name = 'Bilateral Export pricing of REA to DE adj cost parameter')
+                ALPHAPM_@{co}_REA    ${\alpha^{PM}_{DE,REA}}$    (long_name = 'Weight parameter of stategic complementarity in import sector REA from @{co}')
+                ALPHAPX_@{co}_REA    ${\alpha^{PM}_{DE,REA}}$    (long_name = 'Weight parameter of PTM in export price REA to @{co}')
+                RHOSIG_@{co}_REA     ${\rho^{IM}_{DE, REA}}$      (long_name = 'AR filtered imports demand parameter REA from @{co}')
+                RHO_M_RoW_REA      ${\rho_{M,RoW,REA}}$       (long_name = 'Autoregressive prmt of shock to bilateral imports from country RoW to country REA')                           
+                RHO_PX_RoW_REA     ${\rho_{PX,RoW,REA}}$      (long_name = 'Autoregressive prmt for bilateral export price shock REA')
+                SM_RoW_REA         ${s^{M}_{RoW,REA}}$        (long_name = 'Import shares from country RoW to country REA shock')  
+                    SMTOT_RoW_REA  ${s^{Mtot}_{RoW,REA}}$     (long_name = 'Total Import shares from country RoW to country REA shock')
+                T_MAY2_RoW_REA     ${\tau^{MAY2}_{RoW,REA}}$       (long_name = 'Aggregate Import Competitiveness REA')  
+                GAMMAPM_RoW_REA    ${\gamma^{PM}_{RoW,REA}}$    (long_name = 'Bilateral Import pricing of REA from RoW adj cost parameter')
+                GAMMAPX_RoW_REA    ${\gamma^{PX}_{RoW,REA}}$    (long_name = 'Bilateral Export pricing of REA to RoW adj cost parameter')
+                ALPHAPM_RoW_REA    ${\alpha^{PM}_{RoW,REA}}$    (long_name = 'Weight parameter of stategic complementarity in import sector REA from RoW')
+                ALPHAPX_RoW_REA    ${\alpha^{PM}_{RoW,REA}}$    (long_name = 'Weight parameter of PTM in export price REA to RoW')
+                RHOSIG_RoW_REA     ${\rho^{IM}_{RoW, REA}}$      (long_name = 'AR filtered imports demand parameter REA from RoW')
+	//@#if co == COUNTRIES[1]  
+        //
+        //Rest of the World and REA parameters            
+        //
+            
+        APC_FLAG_RoW              ${A^{pC}_{RoW}}$                  (long_name = 'Private consumption specific productivity shock RoW')
+        APM_FLAG_RoW              ${A^{pM}_{RoW}}$                  (long_name = 'Import specific productivity shock RoW')
+        APOIL_FLAG_RoW            ${A^{pOIL}_{RoW}}$                (long_name = 'Oil specific productivity shock RoW')
+        AY_FLAG_RoW               ${A^{Y}_{RoW}}$                   (long_name = 'Productivity shock RoW')
+        POP_FLAG_RoW              ${{POP}_{RoW}}$                   (long_name = 'Population RoW')
+        // AY_RoW                 ${A^{Y}_{RoW}}$                   (long_name = 'Productivity production fct RoW')
+        ALPHABW0_RoW              ${\alpha^{bw,0}_{RoW}}$           (long_name = 'Parameter 0 for Int bond held in RoW')
+        ALPHABW1_RoW              ${\alpha^{bw}_{RoW}}$             (long_name = 'Parameter 1 for Int bond held in RoW')            
+        APOP_RoW                  ${apop_{RoW}}$                    (long_name = 'active population rate in RoW')            
+        BETA_RoW                  ${\beta_{RoW}}$                   (long_name = 'Intertemporal Discount Factor RoW')
+
+            ETAIPHI_RoW           ${\eta^{i,\pi}_{RoW}}$            (long_name = 'Taylor rule inflation coefficient RoW')
+            ETADY_RoW             ${\eta^{i,y}_{RoW}}$              (long_name = 'Taylor rule output gap coefficient RoW')
+            ETAIY_RoW             ${\eta^{i,y}_{RoW}}$              (long_name = 'Taylor rule output gap coefficient RoW')
+
+        GAPC0_RoW                 ${g^{APC0}_{RoW}}$                (long_name = 'Constant for growth of private consumption specific productivity RW RoW')
+        GAY0_RoW                  ${g^{AY0}_{RoW}}$                 (long_name = 'Constant for growth of productivity production fct RW RoW')
+        GAMMAPM_RoW               ${\gamma^{PM}_{RoW}}$             (long_name = 'Import pricing adj cost parameter RoW')
+        GAMMAPX_RoW               ${\gamma^{PX}_{RoW}}$             (long_name = 'Export pricing adj cost parameter RoW')
+        GAMMAPX1_RoW               ${\gamma^{PX1}_{RoW}}$             (long_name = 'Export pricing adj cost parameter RoW')
+        ALPHAPM_RoW               ${\alpha^{PM}_{RoW}}$             (long_name = 'Weight parameter of stategic complementarity in import sector RoW')
+        ALPHAPX_RoW               ${\alpha^{PX}_{RoW}}$             (long_name = 'Weight parameter of PTM in export price RoW')
+        H_RoW                     ${h_{RoW}}$                       (long_name = 'Consumption habit RoW')
+        INOM_SS_RoW               ${\bar{i}_{RoW}}$                 (long_name = 'Steady-state nominal interest rate RoW')
+        INOM_SPREAD_RoW           ${\bar{i}_{RoW}}$                 (long_name = 'Steady-state nominal interest rate RoW')
+        PHI_Y_RoW                 ${\phi^{y}_{RoW}}$                (long_name = 'Phillips Curve coefficient RoW')
+        PHIY_SS_RoW               ${\bar{\pi}^{Y}_{RoW}}$           (long_name = 'Steady state GDP inflation RoW')
+        PHIC_SS_RoW               ${\bar{{\pi}^{C}_{RoW}}}$         (long_name = 'Steady State Consumption  inflation  RoW') 
+            PHICQA_SS_RoW             ${\bar{{\pi}^{C,QA}_{RoW}}}$      (long_name = 'Steady State Consumption  inflation QA RoW') 
+        RHO_A_RoW                 ${\rho_{A,RoW}}$                  (long_name = 'Autoregressive prmt Preference for financial assets shock  RoW')
+        RHO_APOIL_RoW             ${\rho^{POIL}_{RoW}}$             (long_name = 'Temporary oil price shock persistence RoW')
+        RHO_AY_RoW                ${\rho_{AY,RoW}}$                 (long_name = 'Autoregressive prmt Technology shock  RoW')
+        RHO_B_RoW                 ${\rho_{B,RoW}}$                  (long_name = 'Autoregressive prmt Preference for bonds shock  RoW')
+        RHO_BW_RoW                ${\rho_{BW,RoW}}$                 (long_name = 'Autoregressive prmt Preference for international bonds shock  RoW')
+        
+
+                RHO_APOILTREND_RoW        ${\rho_{APOILTREND,RoW}}$         (long_name = 'Autoregressive prmt oil specific trend shock  RoW')
+                RHO_GAPOILTREND_RoW       ${\rho_{GAPOILTREND,RoW}}$        (long_name = 'Autoregressive prmt oil specific trend shock  RoW')
+
+        RHO_GAYTREND2_RoW          ${\rho_{GAYTREND2,RoW}}$           (long_name = '2nd Autoregressive prmt Technology trend shock  RoW')
+        RHO_GAYTREND_RoW          ${\rho_{GAYTREND,RoW}}$           (long_name = 'Autoregressive prmt Technology trend shock  RoW')
+        RHO_GPOP_RoW              ${\rho_{GPOP,RoW}}$               (long_name = 'Autoregressive prmt population trend shock  RoW')
+        RHO_PHISTAR_RoW           ${\rho_{{\phi^{*}},RoW}}$          (long_name = 'Autoregressive prmt PHISTAR RoW')            
+        RHO_MO_RoW                ${\rho_{{\phi^{MO}},RoW}}$         (long_name = 'Autoregressive prmt of MO RoW')            
+        RHOZ_RoW                  ${\rho^{Z}_{RoW}}$                (long_name = 'Aggregate demand inertia parameter RoW') 
+        RHO_FQ_RoW                ${\rho_{FQ,RoW}}$                 (long_name = 'Autoregressive prmt Fly to Quality shock  RoW')
+
+            RHO_INOM_RoW          ${\rho_{U,RoW}}$                  (long_name = 'Autoregressive prmt Taylor rule shock RoW') 
+            RHOINOM_RoW           ${\rho^{i}_{RoW}}$                (long_name = 'Interest rate inertia Taylor rule parameter RoW')
+			RHO_GAY0_RoW          ${\rho^{gay0}_{RoW}}$             (long_name = 'GAY0 process autoregressive parameter RoW')
+            RHO_PHIY_RoW          ${\rho^{\pi^{Y}}_{RoW}}$          (long_name = 'Autoregressive prmt GDP inflation RoW') 
+            RHO_GY_RoW            ${\rho^{GY}_{RoW}}$               (long_name = 'Autoregressive prmt GDP RoW') 
+        RHO_GAYTREND3_RoW          ${\rho_{GAYTREND3,RoW}}$           (long_name = '3rd Autoregressive prmt Technology trend shock  RoW')
+
+        RHOIM_RoW                 ${\rho^{IM}_{RoW}}$               (long_name = 'Imports demand inertia parameter RoW')
+        RHOSIG_RoW                ${\rho^{IM}_{RoW}}$               (long_name = 'AR filtered imports demand parameter RoW')
+        GAMMAM_RoW                ${\gamma^{M}_{RoW}}$              (long_name = 'Import adjustment cost RoW')
+        RHO_LAYTREND_RoW          ${\rho_{LAYTREND,RoW}}$           (long_name = 'Autoregressive prmt Technology trend shock  RoW')
+        RHO_M_RoW                 ${\rho^{M}_{RoW}}$                (long_name = 'Autoregressive prmt consumption import shock RoW')
+        //RHO_NFA_RoW             ${\rho^{NFA}_{RoW}}$              (long_name = 'Autoregressive prmt NFA shock RoW') 
+        RHO2_M_RoW                 ${\rho^{2M}_{RoW}}$                (long_name = 'Autoregressive prmt consumption import shock RoW')
+        RHO_P_RoW                 ${\rho_{A,RoW}}$                  (long_name = 'Autoregressive prmt consumption shock  RoW')            
+        RHO_PHITREND_RoW          ${\rho_{\bar{\phi},RoW}}$         (long_name = 'Autoregressive prmt inflation target RoW')            
+        RHO_POP_RoW               ${\rho^{POP}_{RoW}}$              (long_name = 'Temporary population shock persistence RoW')
+        RHO_PX_RoW                ${\rho_{PX,RoW}}$                 (long_name = 'Autoregressive prmt for export price shock RoW')
+        RHO_S_RoW                 ${\rho_{S,RoW}}$                  (long_name = 'Autoregressive prmt Preference for stocks shock  RoW')        
+        RHO_Y_RoW                 ${\rho_{Y,RoW}}$                  (long_name = 'Autoregressive prmt Phillips curve shock RoW')
+
+        RHO_MAY_RoW                 ${\tau^{MAY}_{RoW}}$              (long_name = 'Aggregate Import Competitiveness RoW')
+        T_MAY_RoW                 ${\tau^{MAY}_{RoW}}$              (long_name = 'Aggregate Import Competitiveness RoW')
+        T_MAY2_RoW                ${\tau^{2,MAY}_{RoW}}$            (long_name = 'Relative Import Competitiveness RoW') 
+        T_MAY3_RoW                ${\tau^{2,MAY}_{RoW}}$            (long_name = 'Relative Import Competitiveness RoW') 
+        T_MUY_PHI0_RoW             ${\tau^{MUY0,\pi}_{RoW}}$             (long_name = 'endogenous markup phi RoW')  
+        T_MUY_PHI1_RoW             ${\tau^{MUY1,\pi}_{RoW}}$             (long_name = 'endogenous markup phi RoW')  
+        T_MUY_PHI2_RoW             ${\tau^{MUY2,\pi}_{RoW}}$             (long_name = 'endogenous markup phi RoW')  
+        T_MUY_PHI3_RoW             ${\tau^{MUY3,\pi}_{RoW}}$             (long_name = 'endogenous markup phi RoW')  
+        T_MUY_PHI4_RoW             ${\tau^{MUY4,\pi}_{RoW}}$             (long_name = 'endogenous markup phi RoW')  
+        T_MUY_PHI5_RoW             ${\tau^{MUY5,\pi}_{RoW}}$             (long_name = 'endogenous markup phi RoW')   
+            RPBW_RoW              ${{rp}^{BW}_RoW}$                 (long_name = 'Risk premium on BW rate over policy rate RoW')
+
+        SDF_RoW                   ${{sdf}_{RoW}}$                   (long_name = 'st. state stoch discount factor RoW')
+        SFH_RoW                   ${{sfh}_{RoW}}$                   (long_name = 'Share of forward-looking HH RoW')
+        SFH1_RoW                  ${{sfh1}_{RoW}}$                   (long_name = 'Share of forward-looking HH RoW')
+        SFP_RoW                   ${{sfp}_{RoW}}$                   (long_name = 'Share of forward-looking price expectations RoW')
+        SFPM_RoW                  ${{sfpm}_{RoW}}$                  (long_name = 'Share of forward-looking import price expectations RoW')
+        SFPMO_RoW                 ${{sfpmO}_{RoW}}$                 (long_name = 'Share of forward-looking import share expectations RoW')
+        SFPX_RoW                  ${{sfpx}_{RoW}}$                  (long_name = 'Share of forward-looking export price expectations RoW')
+        // SBW_RoW                ${s^{bw}_{RoW}}$                  (long_name = 'Preference for international bonds held in RoW')
+        SM_RoW                    $s^{M}$                             (long_name = 'Degree of Openess RoW')
+        SMC_RoW                   ${s^{M,C}}$                         (long_name = 'Share of private consumption imports in the total demand RoW')
+        SMX_RoW                   ${s^{M,X}}$                         (long_name = 'Share of import content in X RoW')
+        SMXobs_RoW                   ${s^{M,X}}$                         (long_name = 'Share of import content in X RoW')
+        SIGMAC_RoW                ${\sigma^{C}_{RoW}}$              (long_name = 'Constant Elasticity of Total Consumption Production fct RoW')
+        SIGMAX_RoW                ${\sigma^{X}_{RoW}}$              (long_name = 'Constant Elasticity of X Production fct RoW')
+        SIGMAM_RoW                ${\sigma^{M}_{RoW}}$              (long_name = 'Constant Elasticity of the Import Price function RoW')
+        SIGMAPX_RoW                ${\sigma^{PX}_{RoW}}$              (long_name = 'Constant Elasticity of the Export Price function RoW')
+        SIGMAPX1_RoW                ${\sigma^{PX1}_{RoW}}$              (long_name = 'Constant Elasticity of the Export Price function RoW')
+        SIGMAFM_RoW               ${\sigma^{FM}_{RoW}}$             (long_name = 'Constant Elasticity of the Import Price function RoW')
+        SIZE_RoW                  ${size_{RoW}}$                    (long_name = 'Size RoW')
+        SIZEobs_RoW               ${size_{RoW}}$                    (long_name = 'Size RoW')
+        SIZE1_RoW
+        THETA_RoW                 ${\theta_{RoW}}$                  (long_name = 'Risk aversion RoW')    
+        
+        T_MAY1_RoW_RoW                 ${\tau^{MAY1}_{RoW,RoW}}$              (long_name = 'Aggregate Import Competitiveness RoW')  
+        T_MAY2_RoW_RoW                 ${\tau^{MAY2}_{RoW,RoW}}$              (long_name = 'Aggregate Import Competitiveness RoW')  
+        T_MAY3_RoW_RoW                 ${\tau^{MAY2}_{RoW,RoW}}$              (long_name = 'Aggregate Import Competitiveness RoW')  
+        RHO_TZEPS_M_RoW                 ${\tau^{MAY1}_{RoW,RoW}}$              (long_name = 'Aggregate Import Competitiveness RoW')  
+
+        // Bilateral parameter for RoW-REA
+                RHO_M_@{co}_RoW      ${\rho_{M,@{co},RoW}}$       (long_name = 'Autoregressive prmt of shock to bilateral imports from country DE to country RoW')                           
+                RHO_TZEPS_M_@{co}_RoW      ${\rho_{M,@{co},RoW}}$     (long_name = 'Autoregressive prmt of shock to bilateral imports from country DE to country RoW')                           
+                RHO_TZEPS_PXAY_@{co}_RoW      ${\rho_{PX,@{co},RoW}}$     (long_name = 'Autoregressive prmt of shock to bilateral PX from country RoW to country @{co}')                         
+                RHO_TZEPS_PX_@{co}_RoW      ${\rho_{PX,@{co},RoW}}$     (long_name = 'Autoregressive prmt of shock to bilateral PX from country RoW to country @{co}')                         
+                RHO_PX_@{co}_RoW     ${\rho_{PX,@{co},RoW}}$      (long_name = 'Autoregressive prmt for bilateral export price shock RoW')
+                SM_@{co}_RoW         ${s^{M}_{DE,RoW}}$        (long_name = 'Import shares from country DE to country RoW shock')  
+                T_MAY2_@{co}_RoW     ${\tau^{MAY2}_{DE,RoW}}$       (long_name = 'Aggregate Import Competitiveness RoW')  
+                GAMMAPM_@{co}_RoW    ${\gamma^{PM}_{DE,RoW}}$    (long_name = 'Bilateral Import pricing of RoW from DE adj cost parameter')
+                GAMMAPX_@{co}_RoW    ${\gamma^{PX}_{DE,RoW}}$    (long_name = 'Bilateral Export pricing of RoW to DE adj cost parameter')
+                ALPHAPM_@{co}_RoW    ${\alpha^{PM}_{DE,RoW}}$    (long_name = 'Weight parameter of stategic complementarity in import sector RoW from @{co}')
+                ALPHAPX_@{co}_RoW    ${\alpha^{PM}_{DE,RoW}}$    (long_name = 'Weight parameter of PTM in export price RoW to @{co}')
+                RHOSIG_@{co}_RoW     ${\rho^{IM}_{DE, RoW}}$      (long_name = 'AR filtered imports demand parameter RoW from @{co}')
+                RHO_M_REA_RoW      ${\rho_{M,REA,RoW}}$       (long_name = 'Autoregressive prmt of shock to bilateral imports from country REA to country RoW')                           
+                RHO_TZEPS_M_REA_RoW      ${\rho_{M,REA,RoW}}$     (long_name = 'Autoregressive prmt of shock to bilateral imports from country REA to country RoW')                           
+                RHO_TZEPS_PXAY_REA_RoW      ${\rho_{PX,REA,RoW}}$     (long_name = 'Autoregressive prmt of shock to bilateral PX from country RoW to country REA')                         
+                RHO_TZEPS_PX_REA_RoW      ${\rho_{PX,REA,RoW}}$     (long_name = 'Autoregressive prmt of shock to bilateral PX from country RoW to country REA')                         
+                RHO_PX_REA_RoW     ${\rho_{PX,REA,RoW}}$      (long_name = 'Autoregressive prmt for bilateral export price shock RoW')
+                SM_REA_RoW         ${s^{M}_{REA,RoW}}$        (long_name = 'Import shares from country REA to country RoW shock')  
+                T_MAY2_REA_RoW     ${\tau^{MAY2}_{REA,RoW}}$       (long_name = 'Aggregate Import Competitiveness RoW')  
+                GAMMAPM_REA_RoW    ${\gamma^{PM}_{REA,RoW}}$    (long_name = 'Bilateral Import pricing of RoW from REA adj cost parameter')
+                GAMMAPX_REA_RoW    ${\gamma^{PX}_{REA,RoW}}$    (long_name = 'Bilateral Export pricing of RoW to REA adj cost parameter')
+                ALPHAPM_REA_RoW    ${\alpha^{PM}_{REA,RoW}}$    (long_name = 'Weight parameter of stategic complementarity in import sector RoW from REA')
+                ALPHAPX_REA_RoW    ${\alpha^{PM}_{REA,RoW}}$    (long_name = 'Weight parameter of PTM in export price RoW to REA')
+                RHOSIG_REA_RoW     ${\rho^{IM}_{REA, RoW}}$      (long_name = 'AR filtered imports demand parameter RoW from REA')
+; 
+
+
+//****************//
+//Global variables//
+//****************//
+
+	trend_var(growth_factor = exp(GPOP0))  POP0;             //   ${{POP}}$          	(long_name = 'Global Population ')
+	trend_var(growth_factor = exp(GP0))    PY0;              //   ${P^{Y}}}$          	(long_name = 'Global GDP deflator')
+	trend_var(growth_factor = exp(GYTREND0)) YTREND0;        //   ${\bar{Y}}$           (long_name = 'Global GDP trend')   
+
+        //trend_var(growth_factor = exp(GAY0_@{co}))   AY0_@{co};    // ${A^{{p}^{C}}_{@{co}}}$        (long_name = 'Private consumption specific productivity shock @{co}')
+        trend_var(growth_factor = exp(GAPC0_@{co}))   APC0_@{co};    // ${A^{{p}^{C}}_{@{co}}}$        (long_name = 'Private consumption specific productivity shock @{co}')
+        //@#if co == COUNTRIES[1]
+            trend_var(growth_factor = exp(GAPG0_@{co}))   APG0_@{co};   //  ${A^{{p}^{G}}_{@{co}}}$        (long_name = 'Gov consumption specific productivity shock @{co}')
+            trend_var(growth_factor = exp(GAPI0_@{co}))   API0_@{co};   //  ${A^{{p}^{I}}_{@{co}}}$        (long_name = 'Private investment specific productivity shock @{co}')
+        //trend_var(growth_factor = exp(GAY0_REA))   AY0_REA;    // ${A^{{p}^{C}}_{REA}}$        (long_name = 'Private consumption specific productivity shock REA')
+        trend_var(growth_factor = exp(GAPC0_REA))   APC0_REA;    // ${A^{{p}^{C}}_{REA}}$        (long_name = 'Private consumption specific productivity shock REA')
+        trend_var(growth_factor = exp(GAPC0_EA))   APC0_EA;    // ${A^{{p}^{C}}_{EA}}$        (long_name = 'Private consumption specific productivity shock REA')
+        //@#if co == COUNTRIES[1]
+        //trend_var(growth_factor = exp(GAY0_RoW))   AY0_RoW;    // ${A^{{p}^{C}}_{RoW}}$        (long_name = 'Private consumption specific productivity shock RoW')
+        trend_var(growth_factor = exp(GAPC0_RoW))   APC0_RoW;    // ${A^{{p}^{C}}_{RoW}}$        (long_name = 'Private consumption specific productivity shock RoW')
+        //@#if co == COUNTRIES[1]
+    
+var
+    INOMBW                          ${i^{bw}}$                          (long_name = 'Nominal Interest rate on International bond')
+;
+
+        var
+            INOM_EA                 ${i^{_EA}}$                         (long_name = '_EA Nominal Interest rate') 
+            PHIC_EA                 ${\pi^{C}_{_EA}}$                   (long_name = '_EA Consumption inflation') 
+            PHICVAT_EA              ${\pi^{CVAT}_{EA}}$         	    (long_name = 'Consumption VAT inflation EA')  
+            PHICVATQA_EA             ${{\pi}QA^{CVAT}_EA}$          (long_name = 'Consumption VAT inflation QA EA') 
+			PHIYOBS_EA              ${\pi^{Yobs}_{_EA}}$                (long_name = '_EA Yobs inflation') 
+            PHIMTOT_EA              ${\pi^{Mtot}_{_EA}}$                (long_name = '_EA Total Import price inflation')   
+            PHIX_EA                 ${\pi^{X}_{_EA}}$                   (long_name = 'Export price inflation _EA')  
+            E_RoW_EA                ${E_{RoW,_EA}}$                     (long_name = 'Exchange rate from currency in RoW to currency in _EA')
+            ZEPS_BW_EA              ${\varepsilon^{BW}_EA}$             (long_name = '_EA Preference for international bonds shock')
+            ZEPS_INOM_EA            ${\varepsilon^{inom}_EA}$           (long_name = '_EA Monetary shock')
+             
+
+            DPHI_EA                 ${\delta,i^{p}_EA}$                 (long_name = 'Cumulated deviations of inflation from target EA')
+            LPXPYOBS_EA             ${LPXPYOBS_{_EA}}$                  (long_name = 'Log of export price to GDP price _EA')   
+            LPX_EA                  ${LPX_{_EA}}$                  (long_name = 'Log of export price to GDP price _EA')   
+            LPMTOTPYOBS_EA          ${LPMTOTPYOBS_{_EA}}$               (long_name = 'Log of import price to GDP price _EA')       
+            LPMTOT_EA               ${LPMTOT_{_EA}}$               (long_name = 'Log of import price to GDP price _EA')       
+            MTOTY_EA                ${MTOTY_{_EA}}$                     (long_name = 'Total Nominal import share _EA') 
+            LMTOTY_EA               ${LMTOTY_{_EA}}$                    (long_name = 'Log of Total Nominal import share _EA') 
+            LMTOT_EA                ${LMTOT_{_EA}}$                    (long_name = 'Log of Total Real import _EA') 
+            XY_EA                   ${XY_{_EA}}$                        (long_name = 'Nominal export share _EA') 
+            LXY_EA                  ${LXY_{_EA}}$                       (long_name = 'Log of Nominal export share _EA')   
+            LX_EA                   ${LX_{_EA}}$                       (long_name = 'Log of Nominal export share _EA')   
+            LXN_EA                  ${LXN_{_EA}}$                       (long_name = 'Log of Nominal export share _EA')   
+            LE_EA                   ${LE_{_EA}}$                        (long_name = 'Log-level effective nominal exchange rate _EA')
+            GPOP_EA                 ${g^{POP}_{_EA}}$                   (long_name = 'Growth rate of population _EA')                                            
+            TBY_EA                  ${TBY_{_EA}}$                       (long_name = 'Nominal trade balance to GDP _EA') 
+            GYOBS_EA                ${g^{Yobs}_{_EA}}$                  (long_name = 'Growth rate of observed GDP _EA')  
+            GXN_EA                  ${g^{XN}_{_EA}}$                    (long_name = 'Growth rate of total nominal exports _EA')  
+
+                    GE_RoW_EA    ${g^{e}_{RoW,_EA}}$              (long_name = 'Growth rate of exchange rate from RoW to _EA')
+
+        ;
+
+
+        var
+                (deflator = PY0*YTREND0)
+            BW_EA                   ${B^{w}_{_EA}}$                     (long_name = '_EA Aggregated International asset')    
+            TB_EA                   ${TB_{_EA}}$                        (long_name = '_EA Trade Balance')    
+        ;
+
+        var
+                (deflator = PY0)
+            PY_EA                   ${P^{Y}_{_EA}}$                     (long_name = '_EA GDP deflator')
+            PYOBS_EA                ${P^{Y,obs}_{_EA}}$                 (long_name = 'GDP deflator used by statistical offices REA')
+            PMTOT_EA                ${P^{C}_{_EA}}$                     (long_name = '_EA consumption deflator')
+            PX_EA                   ${P^{X}_{_EA}}$                     (long_name = 'Total export price _EA')   
+        ;
+
+        var
+                (deflator = PY0/APC0_EA)
+                //(deflator = PY0)
+            PC_EA                   ${P^{C}_{_EA}}$                     (long_name = '_EA consumption deflator')
+            PCVAT_EA                ${P^{C,vat}_{EA}}$                  (long_name = 'Final Consumption (VAT) price EA')
+        ;
+
+        varexo
+            EPS_BW_EA               ${\epsilon^BW_{_EA}}$               (long_name = '_EA Preference for international bond shock')
+            EPS_INOM_EA             ${\epsilon^INOM_{_EA}}$             (long_name = 'Monetary shock to Taylor EEA')
+        ;
+
+        var
+                (deflator = YTREND0)
+            Y_EA                    ${Y_{_EA}}$                         (long_name = '_EA GDP')
+            YOBS_EA                 ${Yobs_{_EA}}$                      (long_name = '_EA obs GDP')
+            YPOT_EA                 ${Y^{pot}_{_EA}}$                   (long_name = 'Potential GDP _EA')
+            MTOT_EA                 ${MTOT^{pot}_{_EA}}$                (long_name = 'Total imports _EA')
+            X_EA                    ${X_{_EA}}$                         (long_name = 'Total Exports _EA')        
+            YOBSQA_EA               ${YOBSQA_{_EA}}$                    (long_name = '_EA QA obs GDP')
+        ;   
+
+        var
+                (deflator = YTREND0*APC0_EA)
+                //(deflator = YTREND0)
+            C_EA                    ${C_EA}$                            (long_name = '_EA consumption')
+        ;
+
+
+                    var
+                        LYOBS_EA    ${y_{_EA}^{obs}}$                   (long_name = 'Log of observed GDP _EA')
+                        LYOBSN_EA   ${yn_{_EA}^{obs}}$                   (long_name = 'Log of observed GDP _EA')
+                        LPYOBS_EA   ${LPYOBS_{_EA}}$                    (long_name = 'Log of observed GDP price _EA')            
+                        LPY_EA      ${p^{y}_{_EA}}$                     (long_name = 'Log of GDP deflator _EA')    
+                        LPOP_EA     ${pop_{_EA}}$                       (long_name = 'Log of population _EA')  
+                        LPCVAT_EA   ${LPCVAT_{_EA}}$                    (long_name = 'Log of observed CVAT price deflator _EA')            
+
+                                LE_RoW_EA        ${e_{RoW,_EA}}$      (long_name = 'Log of exchange rate from RoW to _EA')
+                    ;
+
+       
+        var
+        LYTREND_EA
+        ;
+
+        var  
+                (deflator = POP0)
+            POP_EA                  ${{POP}_{_EA}}$                     (long_name = 'Population _EA')
+        ;
+
+
+//
+// Country specific variables 
+//
+
+    	var
+        	GAY_@{co}               ${g^{AY}_{@{co}}}$                  (long_name = 'Growth of productivity production fct @{co}')
+            GAPC_@{co}              ${g^{APC}_{@{co}}}$                 (long_name = 'Growth of private consumption specific productivity shock @{co}')
+            GAPG_@{co}              ${g^{APG}_{@{co}}}$                 (long_name = 'Growth of gov consumption specific productivity shock @{co}')
+            GAPI_@{co}              ${g^{API}_{@{co}}}$                 (long_name = 'Growth of private investment specific productivity shock @{co}')            
+            GAPIG_@{co}             ${g^{APIG}_{@{co}}}$                (long_name = 'Growth of gov investment specific productivity shock @{co}')
+            GAPOIL_@{co}            ${g^{APOIL}_{@{co}}}$               (long_name = 'Growth of oil specific productivity shock @{co}')                     
+
+            GACTR_@{co}             ${g^{\bar{ACTR}}_{@{co}}}$          (long_name = 'Growth of trend ACTR @{co}')
+            GHPERETREND_@{co}       ${g^{\bar{HPERE}}_{@{co}}}$         (long_name = 'Growth of trend HPERE @{co}')
+            GHPERE_@{co}            ${g^{\bar{HPERE}}_{@{co}}}$         (long_name = 'Growth of trend HPERE @{co}')
+            GPARTRTREND_@{co}       ${g^{\bar{PARTR}}_{@{co}}}$         (long_name = 'Growth of trend PARTR @{co}')
+            GPARTR_@{co}            ${g^{\bar{PARTR}}_{@{co}}}$         (long_name = 'Growth of trend PARTR @{co}')
+            GPOP_@{co}              ${g^{\bar{POP}}_{@{co}}}$           (long_name = 'Growth of trend POP @{co}')
+
+            //GMTREND_@{co}         ${g^{MTREND}_{@{co}}}$              (long_name = 'Growth of aggregate import trend @{co}')        
+            GNTREND_@{co}           ${g^{NTREND}_{@{co}}}$              (long_name = 'Growth of employment trend @{co}')        
+            //GOTREND_@{co}         ${g^{OTREND}_{@{co}}}$              (long_name = 'Growth of total output trend @{co}')        
+            GAYTREND_@{co}          ${g^{AYTREND}_{@{co}}}$             (long_name = 'Growth of productivity production fct trend @{co}')        
+            GTFP_@{co}              ${g^{TFP}_{@{co}}}$                 (long_name = 'Growth of actual TFP @{co}')        
+            GTFPTREND_@{co}         ${g^{TFPTREND}_{@{co}}}$            (long_name = 'Growth of TFP trend (potential TFP) @{co}')        
+            
+
+            //GZTREND_@{co}         ${g^{ZTREND}_{@{co}}}$              (long_name = 'Growth of final goods trend @{co}')        
+            PHIC_@{co}              ${\pi^{C}_{@{co}}}$                 (long_name = 'Consumption inflation @{co}')            
+            PHICVAT_@{co}           ${\pi^{CVAT}_{@{co}}}$              (long_name = 'Consumption VAT inflation @{co}') 
+            PHICVATQA_@{co}         ${{\pi}QA^{CVAT}_{@{co}}}$          (long_name = 'Consumption VAT inflation QA @{co}')   
+            PHIG_@{co}              ${\pi^{G}_{@{co}}}$                 (long_name = 'Government consumption inflation @{co}')
+            PHII_@{co}              ${\pi^{I}_{@{co}}}$                 (long_name = 'Private investment inflation @{co}')  
+            PHIIG_@{co}             ${\pi^{IG}_{@{co}}}$                (long_name = 'Government investment inflation @{co}')  
+            PHIITOT_@{co}           ${\pi^{ITOT}_{@{co}}}$              (long_name = 'Total investment inflation @{co}')  
+            PHISTAR_@{co}           ${\pi^{*}_{@{co}}}$                 (long_name = 'AR-filtered GDP inflation @{co}')
+            PHIY_@{co}              ${\pi^{Y}_{@{co}}}$                 (long_name = 'GDP inflation @{co}')  
+            PHIYOBS_@{co}           ${\pi^{YOBS}_{@{co}}}$              (long_name = 'GDP OBS inflation @{co}')  
+            PHIM_@{co}              ${\pi^{M}_{@{co}}}$                 (long_name = 'Non-oil Import price inflation @{co}')   
+            PHIMTOT_@{co}           ${\pi^{Mtot}_{@{co}}}$              (long_name = 'Total Import price inflation @{co}')   
+            PHIX_@{co}              ${\pi^{X}_{@{co}}}$                 (long_name = 'Export price inflation @{co}')  
+            PHIW_@{co}              ${\pi^{W}_{@{co}}}$                 (long_name = 'Wage inflation @{co}')  
+            PHIWR_@{co}             ${\pi^{WR}_{@{co}}}$                (long_name = 'Real wage inflation @{co}')  
+            PHIWRC_@{co}            ${\pi^{WRC}_{@{co}}}$               (long_name = 'Real wage over CPI inflation @{co}')  
+            ACTR_@{co}              ${{ACTR}_{@{co}}}$                  (long_name = 'Active population rate @{co}')
+            HPERE_@{co}             ${{HPERE}_{@{co}}}$                 (long_name = 'Hours worked per employed @{co}')
+            HPEREQA_@{co}           ${{HPEREQA}_{@{co}}}$               (long_name = 'Quarterly annualized hours worked per employed @{co}')
+            PARTR_@{co}             ${{PARTR}_{@{co}}}$                 (long_name = 'Participation rate @{co}')
+            PARTRQA_@{co}           ${{PARTRQA}_{@{co}}}$               (long_name = 'Quarterly annualized Participation rate @{co}')
+            APOIL_@{co}             ${A^{{p}^{OIL}}_{@{co}}}$           (long_name = 'Oil specific productivity shock @{co}')
+            HPERETREND_@{co}        ${\bar{HPERE_{@{co}}}}$             (long_name = 'Trend HPERE @{co}')
+            PARTRTREND_@{co}        ${\bar{PARTR_{@{co}}}}$             (long_name = 'Trend PARTR @{co}')
+            L_@{co}                 ${L_{@{co}}}$                       (long_name = 'Employment in @{co}')  
+       
+ 
+
+
+            // Stationary variables 
+            
+            BETAT_@{co}             ${\beta_{@{co}}}$                   (long_name = 'Time-varying intertemporal Discount Factor @{co}')
+            BY_@{co}                ${BY_{@{co}}}$                      (long_name = 'Nominal bonds share @{co}')
+            BGY_@{co}               ${BGY_{@{co}}}$                     (long_name = 'Nominal gov. bonds share @{co}')
+            DFE_@{co}               ${DFE_{@{co}}}$                     (long_name = 'Discretionary fiscal effort @{co}')
+            DFENOT_@{co}            ${DFE^{noT}_{@{co}}}$               (long_name = 'Discretionary fiscal effort net of transfers @{co}')
+            DFETOT_@{co}            ${DFE^{tot}_{@{co}}}$               (long_name = 'Discretionary fiscal effort incl revenues @{co}')
+            LBGY_@{co}              ${LBGY_{@{co}}}$                    (long_name = 'Log of Nominal gov. bonds share @{co}')
+            IBY_@{co}               ${BGY_{@{co}}}$                     (long_name = 'Nominal gov. interest payments share @{co}')
+            LIB_@{co}               ${LIB_{@{co}}}$                     (long_name = 'Log of Nominal gov. interest payments @{co}')
+            LIBY_@{co}              ${LIBY_{@{co}}}$                    (long_name = 'Log of Nominal gov. interest payments share @{co}')
+            LTY_@{co}               ${LTY_{@{co}}}$                     (long_name = 'Log of Nominal gov. transfers share @{co}')
+            LTYQA_@{co}             ${LTYQA_{@{co}}}$                   (long_name = 'Log of QA Nominal gov. transfers share @{co}')
+            CY_@{co}                ${CY_{@{co}}}$                      (long_name = 'Nominal consumption share @{co}')
+            OILY_@{co}              ${OILY_{@{co}}}$                    (long_name = 'Nominal oil share @{co}')
+            LCY_@{co}               ${LCY_{@{co}}}$                     (long_name = 'Log of Nominal consumption share @{co}')     
+            LOILY_@{co}             ${LOILY_{@{co}}}$                   (long_name = 'Log Nominal oil share @{co}')       
+            CGY_@{co}               ${GY_{@{co}}}$                      (long_name = 'Nominal gov. consumption share @{co}')
+            LCGY_@{co}              ${LGY_{@{co}}}$                     (long_name = 'Log of Nominal gov. consumption share @{co}')
+            IY_@{co}                ${IY_{@{co}}}$                      (long_name = 'Nominal investment share @{co}')
+            LIY_@{co}               ${LIY_{@{co}}}$                     (long_name = 'Log of Nominal investment share @{co}')
+            IGY_@{co}               ${IGY_{@{co}}}$                     (long_name = 'Nominal gov. investment share @{co}') 
+            LITOTY_@{co}            ${LIY_{@{co}}}$                     (long_name = 'Log of Nominal investment share @{co}')
+            LPIGPI_@{co}            ${LPIGPI_{@{co}}}$                  (long_name = 'Log of IG price to I price @{co}')   
+            LIGY_@{co}              ${LIGY_{@{co}}}$                    (long_name = 'Log of Nominal gov. investment share @{co}') 
+            MTOTY_@{co}             ${MTOTY_{@{co}}}$                   (long_name = 'Total Nominal import share @{co}') 
+            LMTOTY_@{co}            ${LMTOTY_{@{co}}}$                  (long_name = 'Log of Total Nominal import share @{co}') 
+            XY_@{co}                ${XY_{@{co}}}$                      (long_name = 'Nominal export share @{co}') 
+            LXY_@{co}               ${LXY_{@{co}}}$                     (long_name = 'Log of Nominal export share @{co}')   
+            LPXPYOBS_@{co}          ${LPXPYOBS_{@{co}}}$                (long_name = 'Log of export price to GDP price @{co}')   
+            WY_@{co}                ${WY_{@{co}}}$                      (long_name = 'Nominal wage share @{co}') 
+            LWY_@{co}               ${LWY_{@{co}}}$                     (long_name = 'Nominal wage share @{co}') 
+            GBG_@{co}               ${g^{BG}_{@{co}}}$                  (long_name = 'Growth rate of total Nominal Government Debt @{co}' )            
+            GC_@{co}                ${g^C_{@{co}}}$                     (long_name = 'Growth rate of private consumption @{co}')  
+            GCC_@{co}               ${g^{CC}_{@{co}}}$                  (long_name = 'Growth rate of private consumption of constrained @{co}')  
+            GCS_@{co}               ${g^{CS}_{@{co}}}$                  (long_name = 'Growth rate of private consumption of savers @{co}')  
+            GG_@{co}                ${g^G_{@{co}}}$                     (long_name = 'Growth rate of gov consumption @{co}')    
+            GI_@{co}                ${g^I_{@{co}}}$                     (long_name = 'Growth rate of private investment @{co}')  
+            GIG_@{co}               ${g^{IG}_{@{co}}}$                  (long_name = 'Growth rate of gov investment @{co}')  
+            GITOT_@{co}             ${g^{Itot}_{@{co}}}$                (long_name = 'Growth rate of total investment @{co}')  
+            GL_@{co}                ${g^L_{@{co}}}$                     (long_name = 'Growth rate of employment @{co}')  
+            GN_@{co}                ${g^N_{@{co}}}$                     (long_name = 'Growth rate of hours @{co}')  
+            GMTOTN_@{co}            ${g^{MTOTN}_{@{co}}}$               (long_name = 'Growth rate of total nominal imports @{co}')  
+            GXN_@{co}               ${g^{XN}_{@{co}}}$                  (long_name = 'Growth rate of total nominal exports @{co}')  
+            GM_@{co}                ${g^{M}_{@{co}}}$                   (long_name = 'Growth rate of imports @{co}')  
+            GMTOT_@{co}             ${g^{MTOT}_{@{co}}}$                (long_name = 'Growth rate of total  imports @{co}')  
+            GX_@{co}                ${g^{X}_{@{co}}}$                   (long_name = 'Growth rate of total exports @{co}')  
+            GY_@{co}                ${g^{Y}_{@{co}}}$                   (long_name = 'Growth rate of GDP @{co}')  
+            GE_@{co}                ${g^{E}_{@{co}}}$                   (long_name = 'Growth rate of LE @{co}') 
+            GYOBS_@{co}             ${g^{Yobs}_{@{co}}}$                (long_name = 'Growth rate of observed GDP @{co}')  
+            GKTOT_@{co}             ${g^{Ktot}_{@{co}}}$                (long_name = 'Growth rate of Ktot @{co}')  
+            NFAY_@{co}              ${NFAY_{@{co}}}$                    (long_name = 'Nominal net foreign assets share @{co}')
+            TBY_@{co}               ${TBY_{@{co}}}$                     (long_name = 'Nominal trade balance share @{co}')  
+            GTBY_@{co}              ${GTBY_{@{co}}}$                    (long_name = 'Change in nominal trade balance share @{co}')  
+            DELTAK_@{co}            ${\delta^{k}_{@{co}}}$              (long_name = 'Capital depreciation rate @{co}')
+            INOM_@{co}              ${i^{p}_{@{co}}}$                   (long_name = 'Nominal policy interest rate @{co}')
+            
+            R_@{co}                 ${r^{p}_{@{co}}}$                   (long_name = 'Real interest rate @{co}')
+            RS_@{co}                ${r^{s}_{@{co}}}$                   (long_name = 'Real interest rate on investment @{co}')
+            R_PI_@{co}              ${r^{pi}_{@{co}}}$                  (long_name = 'Real interest rate deflated with investment prices @{co}')
+            INOMG_@{co}             ${i^{g}_{@{co}}}$                   (long_name = 'Nominal Interest Rate on Domestic Bonds of @{co}') 
+            INOMGLT_@{co}           ${i^{g,LT}_@{co}}$                  (long_name = 'Long-term gov bonds nominal interest rate @{co}') 
+            INOMS_@{co}             ${i^{s}_{@{co}}}$                   (long_name = 'Nominal Interest Rate on Stocks of @{co}')
+            INOMS1_@{co}            ${i^{s}_{@{co}}}$                   (long_name = 'Expected Nominal Interest Rate on Stocks of @{co}')
+            MUY_@{co}               ${\mu^{Y}_{@{co}}}$                 (long_name = 'Production fct Lagrange multiplier @{co}')
+            PHICPI_@{co}            ${\pi^{CPI}_{@{co}}}$               (long_name = 'CPI inflation @{co}')
+            PHIOIL_@{co}            ${\pi^{oil}_{@{co}}}$               (long_name = 'Commodities price inflation rate in @{co}')            
+          //  PHIBRENT_@{co}          ${\pi^{brent}_{@{co}}}$             (long_name = 'Oil price inflation rate in @{co}')            
+            PHIRULC_@{co}           ${\pi^{rulc}_{@{co}}}$              (long_name = 'Real Unit Labour cost inflation rate in @{co}')            
+            Q_@{co}                 ${Q_{@{co}}}$                       (long_name = 'Tobins Q @{co}')
+            CU_@{co}                ${{cu}_{@{co}}}$                    (long_name = 'Capacity Utilization @{co}')
+            CU0_@{co}               ${{cu}_{@{co}}}$                    (long_name = 'Trend Capacity Utilization @{co}')
+            CUOBS_@{co}             ${{cu}_{@{co}}}$                    (long_name = 'Capacity Utilization @{co}')
+            RULC_@{co}              ${rulc_{@{co}}}$                    (long_name = 'Real Unit Labour cost in @{co}')            
+            S_@{co}                 ${S_{@{co}}}$                       (long_name = 'Total Share Holding by Savers in @{co}')
+            STOT_@{co}              ${STOT_{@{co}}}$                    (long_name = 'Total Supply of Domestic Stocks @{co}') 
+            GTOT_@{co}          ${g^{tot}_{@{co}}}$                     (long_name = 'Growth rate of terms of trade @{co}')    
+            GTOTNONOIL_@{co}    ${g^{tot,nonoil}_{@{co}}}$            (long_name = 'Growth rate of terms of trade non oil @{co}')   
+
+            ZEPS_APC_@{co}          ${\varepsilon^{APC}_{@{co}}}$       (long_name = 'Private consumption specific productivity shock @{co}')
+            ZEPS_APG_@{co}          ${\varepsilon^{APG}_{@{co}}}$       (long_name = 'Government consumption specific productivity shock @{co}')
+            ZEPS_API_@{co}          ${\varepsilon^{API}_{@{co}}}$       (long_name = 'Private investment specific productivity shock @{co}')
+            ZEPS_APIG_@{co}         ${\varepsilon^{APIG}_{@{co}}}$      (long_name = 'Government investment specific productivity shock @{co}')
+            ZEPS_AY_@{co}           ${\varepsilon^AY_{@{co}}}$          (long_name = 'Technology shock @{co}')
+            ZEPS_CU_@{co}           ${\varepsilon^FQ_{@{co}}}$          (long_name = 'Fly to quality shock @{co}')
+            ZEPS_FQ_@{co}           ${\varepsilon^FQ_{@{co}}}$          (long_name = 'Fly to quality shock @{co}')
+            ZEPS_FN_@{co}           ${\varepsilon^FN_{@{co}}}$          (long_name = 'Fixed labor shock @{co}')
+            ZEPS_ND_@{co}           ${\varepsilon^{ND}_{@{co}}}$        (long_name = 'Labor demand shock @{co}')
+            ZEPS_BW_@{co}           ${\varepsilon^{BW}_{@{co}}}$        (long_name = 'Preference for international bonds shock @{co}')
+            ZEPS_B_@{co}            ${\varepsilon^B_{@{co}}}$           (long_name = 'Preference for bonds shock @{co}')
+            ZEPS_G_@{co}            ${\varepsilon^G_{@{co}}}$           (long_name = 'Gov consumption shock @{co}')
+            ZEPS_ACTR_@{co}         ${\varepsilon^{ACTR}_{@{co}}}$      (long_name = 'Temporary ACTR @{co}')
+            ZEPS_HPERE_@{co}        ${\varepsilon^{HPERE}_{@{co}}}$     (long_name = 'Temporary HPERE @{co}')
+            ZEPS_PARTR_@{co}        ${\varepsilon^{PARTR}_{@{co}}}$     (long_name = 'Temporary PARTR @{co}')
+            ZEPS_POP_@{co}          ${\varepsilon^{POP}_{@{co}}}$       (long_name = 'Temporary POP @{co}')
+            ZEPS_IG_@{co}           ${\varepsilon^{IG}_{@{co}}}$        (long_name = 'Gov investment shock @{co}')
+
+                // Do nothing
+
+            ZEPS_M_@{co}            ${\varepsilon^M_{@{co}}}$           (long_name = 'Import shock @{co}')
+            TZENDO_M_@{co}          ${\varepsilon^{TM}_{@{co}}}$        (long_name = 'Total endogenous Import shock @{co}')
+            TZEPS_MC_@{co}          ${\varepsilon^{TMC}_{@{co}}}$        (long_name = 'Trend C Import content @{co}')
+            TZEPS_MI_@{co}          ${\varepsilon^{TMI}_{@{co}}}$        (long_name = 'Trend I Import content @{co}')
+            TZEPS_MX_@{co}          ${\varepsilon^{TMX}_{@{co}}}$        (long_name = 'Trend X Import content @{co}')
+            TZEPS_MZ_@{co}          ${\varepsilon^{TMZ}_{@{co}}}$        (long_name = 'Trend Z Import content @{co}')
+            TZEPS_M_@{co}           ${\varepsilon^{TM}_{@{co}}}$        (long_name = 'Trend Import shock @{co}')
+            TZEPS_M_@{co}_@{co}     ${\varepsilon^{TM}_{RoW,@{co}}}$	(long_name = 'Trend of imports country DE shock')
+            ZEPS_MUY_@{co}          ${\varepsilon^{MUY}_{@{co}}}$       (long_name = 'GDP markup shock @{co}')
+            TZEPS_MUY_@{co}         ${\varepsilon^{TMUY}_{@{co}}}$          (long_name = 'Trend Import shock @{co}')
+            ZEPS_PX_@{co}           ${\varepsilon^{PX}_{@{co}}}$        (long_name = 'Export price shock @{co}')
+            ZEPS_S_@{co}            ${\varepsilon^S_{@{co}}}$           (long_name = 'Preference for stocks shock @{co}')
+            ZEPS_T_@{co}            ${\varepsilon^T_{@{co}}}$           (long_name = 'transfers shock @{co}')
+            ZEPS_TAX_@{co}          ${\varepsilon^{TAX}_{@{co}}}$       (long_name = 'tax shock @{co}')
+            ZEPS_U_@{co}            ${\varepsilon^U_{@{co}}}$           (long_name = 'Labor supply shock @{co}')
+            ZEPS_UC_@{co}           ${\varepsilon^{UC}_{@{co}}}$        (long_name = 'Preference shock @{co}')  
+        ;
+ 
+        // Trend variables         
+
+        var 
+                (deflator = APC0_@{co})
+            APC_@{co}               ${A^{{p}^{C}}_{@{co}}}$             (long_name = 'Private consumption specific productivity shock @{co}')
+        ;
+        
+        var  
+            	(deflator = APG0_@{co})
+            APG_@{co}               ${A^{{p}^{G}}_{@{co}}}$             (long_name = 'Gov consumption specific productivity shock @{co}')
+        ;
+            
+        var  
+                (deflator = API0_@{co})            
+            API_@{co}               ${A^{{p}^{I}}_{@{co}}}$             (long_name = 'Private investment specific productivity shock @{co}')
+            APIG_@{co}              ${A^{{p}^{IG}}_{@{co}}}$            (long_name = 'Government investment specific productivity shock @{co}')
+        ;
+            
+        var  
+                (deflator = POP0)
+            NTREND_@{co}            ${\bar{N_{@{co}}}}$                 (long_name = 'Total employment trend @{co}')
+            POP_@{co}               ${{POP}_{@{co}}}$                   (long_name = 'Population @{co}')
+            EMPL_@{co}              ${N_{@{co}}}$                       (long_name = 'Total Employment @{co}')
+            N_@{co}                 ${N_{@{co}}}$                       (long_name = 'Total Employment in hours @{co}')
+            N0_@{co}                ${N0_{@{co}}}$                       (long_name = 'Total Employment in hours @{co}')
+            NS_@{co}                ${N^{s}_{@{co}}}$                   (long_name = 'Employment of Savers @{co}')
+            NC_@{co}                ${N^{c}_{@{co}}}$                   (long_name = 'Employment of Credit constrained hhs @{co}')
+			FNt_@{co}               ${fnt_{@{co}}}$                     (long_name = 'Labor overhead @{co}')        
+			FN0_@{co}               ${fn0_{@{co}}}$                     (long_name = 'Trend Labor overhead @{co}')        
+        ;
+                     
+        // Non-stationary variables 
+        // Nominal variables
+     
+       var 
+               (deflator = YTREND0/(POP0*(API0_@{co})^((1-ALPHA_@{co})/ALPHA_@{co})))    
+           AY_@{co}                 ${A^Y_{@{co}}}$                     (long_name = 'Technology shock @{co}')
+           AYTREND_@{co}            ${A^{\bar{Y_@{co}}}}$               (long_name = 'Trend of Technology shock @{co}')
+        ;            
+      
+        var
+                (deflator = PY0*YTREND0)
+            A_@{co}                 ${A_{@{co}}}$                       (long_name = 'Total Asset Holding @{co}')
+            B_@{co}                 ${B_{@{co}}}$                       (long_name = 'Total Bonds Holding @{co}')
+            BG_@{co}                ${B^{G}_{@{co}}}$                   (long_name = 'Total Nominal Government Debt @{co}' ) 
+            IB_@{co}                ${I^{G}_{@{co}}}$                   (long_name = 'Nominal Gov Interest payments @{co}') 
+            RG_@{co}                ${R^{G}_{@{co}}}$                   (long_name = 'Nominal Gov Revenues @{co}') 
+            PS_@{co}                $(P^{S}_{@{co}})$                   (long_name = 'Stock price in @{co}')
+            BW_@{co}                ${B^{w}_{@{co}}}$                   (long_name = 'International Bond held in @{co}')  
+            NFA_@{co}               ${NFA_{@{co}}}$                     (long_name = 'Net foreign Assets @{co}')
+            TB_@{co}                ${TB_{@{co}}}$                      (long_name = 'Trade Balance @{co}')          
+            YOBSN_@{co}             ${YobsN_{@{co}}}$                   (long_name = 'Nominal GDP @{co}')
+        ;
+
+        var
+                (deflator = PY0*YTREND0/POP0)
+            W_@{co}                 ${W_{@{co}}}$                       (long_name = 'Wages @{co}')
+            @#if co == "DE"
+                BEN_@{co}           ${BEN_{@{co}}}$                     (long_name = 'Benefits DE (only for DE)')
+            @#endif
+        ;
+        
+        // Prices
+        
+        var
+                (deflator = PY0/APC0_@{co})
+            PCVAT_@{co}             ${P^{C,vat}_{@{co}}}$               (long_name = 'Final Consumption (VAT) price @{co}')
+            PC_@{co}                ${P^{C}_{@{co}}}$                   (long_name = 'Consumption price @{co}')
+         ;
+        
+        var
+                (deflator = PY0/APG0_@{co})
+            PG_@{co}                ${P^{G}_{@{co}}}$                   (long_name = 'Public goods price @{co}')
+        ;
+                
+        var
+                (deflator = PY0/API0_@{co})
+            PIG_@{co}               ${P^{IG}_{@{co}}}$                  (long_name = 'Gov investment price @{co}')
+            PITOT_@{co}             ${P^{ITOT}_@{co}}$                  (long_name = 'Total investment price @{co}')
+            PIGQA_@{co}             ${P^{IGQA}_@{co}}$                  (long_name = 'Gov investment price QA @{co}')                                                     
+            PI_@{co}                ${P^{I}_{@{co}}}$                   (long_name = 'Investment price @{co}')
+        ;
+        
+        var
+            	(deflator = PY0)
+            PY_@{co}                ${P^{Y}_{@{co}}}$                   (long_name = 'GDP deflator @{co}')               
+            PM_@{co}                ${P^{M}_{@{co}}}$                   (long_name = 'Import price @{co}')
+            // PM1_@{co}               ${P^{M1}_{@{co}}}$                   (long_name = 'AR filtered Import price @{co}')
+            PMTOT_@{co}             ${P^{MTOT}_{@{co}}}$                (long_name = 'Import price @{co}')
+            POIL_@{co}              ${P^{Oil}_{@{co}}}$                 (long_name = 'Commodities price @{co}')
+            
+            PO_@{co}                ${P^{O}_{@{co}}}$                   (long_name = 'Total output price deflator @{co}')              
+            PX_@{co}                ${P^{X}_{@{co}}}$                   (long_name = 'Total export price @{co}')
+            PXINT_@{co}             ${P^{X,int}_{@{co}}}$               (long_name = 'Intermediate total export price @{co}')
+            PZ_@{co}                ${P^{Z}_{@{co}}}$                   (long_name = 'Intermediate good price @{co}')
+            PYOBS_@{co}             ${P^{Y,obs}_{@{co}}}$               (long_name = 'GDP deflator used by statistical offices @{co}')
+            PYOBSQA_@{co}           ${P^{Y,obsQA}_{@{co}}}$             (long_name = 'GDP deflator used by statistical offices QA @{co}')
+        ;
+
+        var
+                (deflator = (APC0_@{co}*YTREND0/POP0)^(-THETA_@{co})/POP0)
+            LAMBDAS_@{co}           ${\lambda^{s}_{@{co}}}$             (long_name = 'Savers Budget constraint Lagrange multiplier @{co}')
+            LAMBDAC_@{co}           ${\lambda^{c}_{@{co}}}$             (long_name = 'Credit-constrained households Budget constraint Lagrange multiplier @{co}')
+        ;
+       
+        var
+                (deflator = (APC0_@{co}*YTREND0/POP0)^(1-THETA_@{co})/POP0)
+            VLS_@{co}               ${v^{s}_{l,@{co}}}$                 (long_name = 'Savers marginal disutility of labour @{co}')
+            VLC_@{co}               ${v^{c}_{l,@{co}}}$                 (long_name = 'Credit-constrained households marginal disutility of labour @{co}')
+            VL_@{co}                ${v_{l,@{co}}}$                     (long_name = 'Weighted marginal disutility of labour @{co}')
+        ;
+        
+        var    
+                (deflator = YTREND0*APC0_@{co})
+            C_@{co}                 ${C_{@{co}}}$                       (long_name = 'Total Consumption @{co}')
+            CC_@{co}                ${C^{c}_{@{co}}}$                   (long_name = 'Consumption of cc hh in @{co}')  
+            CS_@{co}                ${C^{s}_{@{co}}}$                   (long_name = 'Consumption of Savers in @{co}')
+            CX_@{co}                ${C_{@{co}}}$                       (long_name = 'Total Consumption trend in VL @{co}')
+        ;   
+        
+        var    
+                (deflator = YTREND0*APG0_@{co})
+            G_@{co}                 ${G_{@{co}}}$                       (long_name = 'Government consumption @{co}')
+        ;
+        
+        var
+                (deflator = YTREND0*API0_@{co})
+            IG_@{co}                ${IG_{@{co}}}$                      (long_name = 'Government investment @{co}')
+            ITOT_@{co}              ${ITOT_{@{co}}}$                    (long_name = 'Total investment @{co}')
+        ;
+        
+        var    
+                (deflator = YTREND0)
+            //MTREND_@{co}          ${\bar{M_{@{co}}}}$                 (long_name = 'Trend Total non-oil imports @{co}')        
+            M_@{co}                 ${M_{@{co}}}$                       (long_name = 'Total non-oil imports @{co}')        
+            MC_@{co}                ${M^{C}_{@{co}}}$                   (long_name = 'Private consumption imports @{co}')    
+            MG_@{co}                ${M^{G}_{@{co}}}$                   (long_name = 'Government consumption imports @{co}')    
+            MI_@{co}                ${M^{I}_{@{co}}}$                   (long_name = 'Private investment imports @{co}')    
+            MIG_@{co}               ${M^{IG}_{@{co}}}$                  (long_name = 'Government investment imports @{co}')                                            
+            MX_@{co}                ${M^{X}_{@{co}}}$                   (long_name = 'Import content of exports @{co}')                                            
+            MZ_@{co}                ${M^{X}_{@{co}}}$                   (long_name = 'Import content of intermediate good @{co}')                                            
+            MTOT_@{co}              ${M^{tot}_{@{co}}}$                 (long_name = 'Total imports @{co}')
+            OIL_@{co}               ${OIL_{@{co}}}$                     (long_name = 'Commodities used in @{co}')  
+            O_@{co}                 ${O_{@{co}}}$                       (long_name = 'Total output in @{co}')            
+            OC_@{co}                ${OC_{@{co}}}$                      (long_name = 'Total private consumption output in @{co}')
+            OG_@{co}                ${OG_{@{co}}}$                      (long_name = 'Total government consumption output in @{co}')
+            OI_@{co}                ${OI_{@{co}}}$                      (long_name = 'Total private investment output in @{co}')
+            OIG_@{co}               ${OIG_{@{co}}}$                     (long_name = 'Total government investment output in @{co}')
+            OX_@{co}                ${OX_{@{co}}}$                     (long_name = 'Total export output in @{co}')
+            ADJ_@{co}               ${{adj}_{@{co}}}$                   (long_name = 'Aggregate Adjustment costs @{co}')
+            ADJ_PY_@{co}            ${{adj}^{py}_{@{co}}}$              (long_name = 'Pricing adjustment costs @{co}')
+            ADJ_PM_@{co}            ${{adj}^{PM}_{@{co}}}$              (long_name = 'Import Pricing adjustment costs @{co}')
+            ADJ_PX_@{co}            ${{adj}^{PX}_{@{co}}}$              (long_name = 'Export Pricing adjustment costs @{co}')
+            ADJ_N_@{co}             ${{adj}^{N}_{@{co}}}$               (long_name = 'Employment adjustment costs @{co}')
+            ADJ_CU_@{co}            ${{adj}^{cu}_{@{co}}}$              (long_name = 'Capacity Utilization adjustment costs @{co}')
+            ADJ_I_@{co}             ${{adj}^{I}_{@{co}}}$               (long_name = 'Investment adjustment costs @{co}')
+            D_@{co}                 ${d_{@{co}}}$                       (long_name = 'Dividends @{co}')
+            DIVM_@{co}              ${d^{M}_{@{co}}}$                   (long_name = 'Dividends of importers @{co}')
+            DIVX_@{co}              ${d^{X}_{@{co}}}$                   (long_name = 'Dividends of exporters @{co}')
+            T_@{co}                 ${T_{@{co}}}$                       (long_name = 'Transfers @{co}') 
+            TC_@{co}                ${T^{c}_{@{co}}}$                   (long_name = 'Government transfers for constrained households @{co}')
+            TS_@{co}                ${T^{s}_{@{co}}}$                   (long_name = 'Government transfers for Savers @{co}')
+            X_@{co}                 ${X_{@{co}}}$                       (long_name = 'Total Exports @{co}')        
+            Y_@{co}                 ${Y_{@{co}}}$                       (long_name = 'GDP @{co}')
+            Ystar_@{co}             ${Y^{*}_{@{co}}}$                   (long_name = 'GDP without fixed cost @{co}')
+            YOBS_@{co}              ${Yobs_{@{co}}}$                    (long_name = 'Observed real GDP @{co}')
+            YPOT_@{co}              ${Y^{pot}_{@{co}}}$                 (long_name = 'Potential GDP @{co}')
+            Z_@{co}                 ${Z_{@{co}}}$                       (long_name = 'Intermediate good @{co}')
+        ;
+      
+        var       
+                (deflator = (YTREND0/(POP0*(API0_@{co})^((1-ALPHA_@{co})/ALPHA_@{co})))^ALPHA_@{co})    
+            TFP_@{co}               ${{TFP}_{@{co}}}$                   (long_name = 'Total Factor Productivity @{co}')
+        ;
+       
+        var
+                (deflator = YTREND0*API0_@{co})
+            I_@{co}                 ${I_{@{co}}}$                       (long_name = 'Private Investment @{co}')
+        ;
+       
+        var
+                (deflator = YTREND0/POP0)
+            YL_@{co}                ${YL_{@{co}}}$                      (long_name = 'Labor productivity @{co}')
+        ;
+        
+        var
+                (deflator = YTREND0*API0_@{co}*exp(GYTREND0)*exp(GAPI0_@{co}))
+            K_@{co}                 ${K_{@{co}}}$                       (long_name = 'Private Capital @{co}')
+            KG_@{co}                ${K^{G}_{@{co}}}$                   (long_name = 'Governmental capital @{co}')
+            KTOT_@{co}              ${K^{tot}_{@{co}}}$                 (long_name = 'Total Capital @{co}')
+        ;
+ 
+ 
+        varexo
+            EPS_APC_@{co}           ${\epsilon^{APC}_{@{co}}}$              (long_name = 'Private consumption specific productivity shock WN @{co}')
+            EPS_APG_@{co}           ${\epsilon^{APG}_{@{co}}}$              (long_name = 'Government consumption specific productivity shock WN @{co}')
+            EPS_API_@{co}           ${\epsilon^{API}_{@{co}}}$              (long_name = 'Private investment specific productivity shock WN @{co}')
+            EPS_APIG_@{co}          ${\epsilon^{APIG}_{@{co}}}$             (long_name = 'Government investment specific productivity shock WN @{co}')
+            EPS_AY_@{co}            ${\epsilon^{AY}_{@{co}}}$               (long_name = 'Productivity production fct shock WN @{co}')
+            EPS_CU_@{co}            ${\epsilon^{AY}_{@{co}}}$               (long_name = 'Productivity production fct shock WN @{co}')
+            EPS_FQ_@{co}            ${\epsilon^{FQ}_{@{co}}}$               (long_name = 'Fly to quality shock WN @{co}')
+            EPS_FN_@{co}            ${\epsilon^{FN}_{@{co}}}$               (long_name = 'Fixed labor shock WN @{co}')
+            EPS_ND_@{co}            ${\epsilon^{ND}_{@{co}}}$               (long_name = 'Labor demand innovation @{co}')
+            EPS_ACTR_@{co}          ${\epsilon^{ACTR}_{@{co}}}$             (long_name = 'ACTR temporary shock WN @{co}')            
+            EPS_POP_@{co}           ${\epsilon^{POP}_{@{co}}}$              (long_name = 'POP temporary shock WN @{co}')            
+            EPS_BW_@{co}            ${\epsilon^{BW}_{@{co}}}$               (long_name = 'Preference for international bonds shock DE WN')
+            EPS_G_@{co}             ${\epsilon^G_{@{co}}}$                  (long_name = 'Gov consumption shock DE WN')
+            EPS_IG_@{co}            ${\epsilon^{IG}_{@{co}}}$               (long_name = 'Gov investment shock DE WN')
+
+                // Do nothing
+
+            EPS_LTFPTREND_@{co}     ${\epsilon^{AY}_{@{co}}}$               (long_name = 'Obs. error LTFPTREND @{co}')
+            EPS_M_@{co}             ${\epsilon^M_{@{co}}}$                  (long_name = 'Import shock DE WN')
+            EPS_MUY_@{co}           ${\epsilon^{MUY}_{@{co}}}$              (long_name = 'GDP markup shock DE WN')  
+            EPS_UC_@{co}            ${\epsilon^{UC}_{@{co}}}$               (long_name = 'Preference shock WN @{co}')
+            EPS_PX_@{co}            ${\epsilon^{PX}_{@{co}}}$               (long_name = 'Export price shock DE WN')   
+            EPS_T_@{co}             ${\epsilon^T_{@{co}}}$                  (long_name = 'transfers shock DE WN')
+            EPS_TAX_@{co}           ${\epsilon^{TAX}_{@{co}}}$              (long_name = 'tax shock DE WN')
+            EPS_GAYTREND_@{co}      ${\epsilon^{GAYTREND}_{@{co}}}$         (long_name = 'Productivity production fct trend growth shock DE WN')
+            EPS_LAYTREND_@{co}      ${\epsilon^{LAYTREND}_{@{co}}}$         (long_name = 'Log of trend productivity production shock DE WN')  
+            EPS_U_@{co}             ${\epsilon^U_{@{co}}}$                  (long_name = 'Phillips curve shock DE WN')                             
+        ;
+     
+            var
+                LE_@{co}            ${e_{@{co}}}$                       (long_name = 'Log of nominal effective exchange rate @{co}')                             
+                LRER_@{co}          ${rer_{@{co}}}$                     (long_name = 'Log of real effective exchange rate @{co}')                             
+                LTOT_@{co}          ${tot_{@{co}}}$                     (long_name = 'Log of terms of trade @{co}')    
+                LTOTNONOIL_@{co}    ${tot^{nonoil}_{@{co}}}$            (long_name = 'Log of terms of trade non oil @{co}')    
+                LAPC_@{co}          ${apc_{@{co}}}$                     (long_name = 'Log of consumption specific productivity shock @{co}')  
+                LAPG_@{co}          ${apg_{@{co}}}$                     (long_name = 'Log of gov. consumption specific productivity shock @{co}')  
+                LAPI_@{co}          ${api_{@{co}}}$                     (long_name = 'Log of private investment specific productivity shock @{co}')  
+                LAPIG_@{co}         ${apig_{@{co}}}$                    (long_name = 'Log of gov. investment specific productivity shock @{co}')  
+                LAPOIL_@{co}        ${apoil_{@{co}}}$                   (long_name = 'Log of oil specific productivity shock @{co}')  
+                LACTR_@{co}         ${actr_{@{co}}}$                    (long_name = 'Log of active rate population @{co}')  
+                LHPERE_@{co}        ${hpere_{@{co}}}$                   (long_name = 'Log of hours worked per employee @{co}')  
+                LHPEREQA_@{co}      ${hpereqa_{@{co}}}$                 (long_name = 'Log of QA hours worked per employee @{co}')  
+                LHPERETREND_@{co}   ${\bar{hpere_{@{co}}}}$             (long_name = 'Log of trend hours worked per employee @{co}')  
+                LNTREND_@{co}       ${\bar{n_{@{co}}}}$                 (long_name = 'Log of total employment trend @{co}')   
+                LPARTR_@{co}        ${partr_{@{co}}}$                   (long_name = 'Log of participation rate @{co}')  
+                LPARTRQA_@{co}      ${partrqa_{@{co}}}$                 (long_name = 'Log of QA participation rate @{co}')  
+                LPARTRTREND_@{co}   ${\bar{partr_{@{co}}}}$             (long_name = 'Log of trend participation rate @{co}')  
+                LPOP_@{co}          ${pop_{@{co}}}$                     (long_name = 'Log of population @{co}')  
+                LPY_@{co}           ${p^{y}_{@{co}}}$                   (long_name = 'Log of GDP deflator @{co}')                                       
+                LTFPTREND_@{co}     ${\bar{tfp_{@{co}}}}$               (long_name = 'Log of tfp trend @{co}')  
+                LC_@{co}            ${c_{@{co}}}$                       (long_name = 'Log of consumption @{co}')  
+                LCN_@{co}           ${cn_{@{co}}}$                       (long_name = 'Log of consumption @{co}')  
+                LCS_@{co}           ${cs_{@{co}}}$                      (long_name = 'Log of consumption of Savers @{co}') 
+                LCC_@{co}           ${cc_{@{co}}}$                      (long_name = 'Log of consumption of liquidity constrained @{co}')
+                LG_@{co}            ${g_{@{co}}}$                       (long_name = 'Log of gov. consumption @{co}')  
+                LCGN_@{co}          ${gn_{@{co}}}$                      (long_name = 'Log of nominal gov. consumption @{co}')  
+                LIG_@{co}           ${ig_{@{co}}}$                      (long_name = 'Log of gov. investment @{co}') 
+                LIGN_@{co}          ${ign_{@{co}}}$                      (long_name = 'Log of nominal gov. investment @{co}')  
+                LI_@{co}            ${i_{@{co}}}$                       (long_name = 'Log of private investment @{co}') 
+                LITOT_@{co}         ${itot_{@{co}}}$                    (long_name = 'Log of tot investment @{co}') 
+                LITOTN_@{co}        ${itotn_{@{co}}}$                    (long_name = 'Log of tot investment @{co}') 
+                LKTOT_@{co}         ${ktot_{@{co}}}$                    (long_name = 'Log of total capital @{co}') 
+                LY_@{co}            ${y_{@{co}}}$                       (long_name = 'Log of GDP @{co}')
+                LO_@{co}            ${o_{@{co}}}$                       (long_name = 'Log of total output @{co}')
+                LYOBS_@{co}         ${y_{@{co}}^{obs}}$                 (long_name = 'Log of observed GDP @{co}')
+                LYOBSN_@{co}         ${y_{@{co}}^{obs}}$                 (long_name = 'Log of observed GDP @{co}')
+                LA_@{co}            ${a_{@{co}}}$                       (long_name = 'Log of total financial wealth @{co}')               
+                LEMPL_@{co}         ${empl_{@{co}}}$                    (long_name = 'Log of employment @{co}') 
+                LEMPLQA_@{co}       ${emplqa_{@{co}}}$                  (long_name = 'Log of QA employment @{co}') 
+                LL_@{co}            ${l_{@{co}}}$                       (long_name = 'Log of employment rate @{co}') 
+                LN_@{co}            ${n_{@{co}}}$                       (long_name = 'Log of hours @{co}') 
+                LNQA_@{co}          ${nqa_{@{co}}}$                     (long_name = 'Log of QA hours @{co}') 
+                LBG_@{co}           ${bg_{@{co}}}$                      (long_name = 'Log of gov. bond holding @{co}')
+                LRG_@{co}           ${rg_{@{co}}}$                      (long_name = 'Log of gov. revenue @{co}')
+                LW_@{co}            ${w_{@{co}}}$                       (long_name = 'Log of wages @{co}')
+                LWR_@{co}           ${wr_{@{co}}}$                      (long_name = 'Log of real wages @{co}')
+
+                    LOIL_@{co}      ${oil_{@{co}}}$                     (long_name = 'Log of oil @{co}')             
+
+                LPCVAT_@{co}        ${p^{cvat}_{@{co}}}$                (long_name = 'Log of Final Consumption (VAT) price @{co}')                                                                                
+                LPC_@{co}           ${p^{c}_{@{co}}}$                   (long_name = 'Log of private consumption price @{co}')                                                                                
+                LPG_@{co}           ${p^{g}_{@{co}}}$                   (long_name = 'Log of gov.consumption price @{co}')
+                LPI_@{co}           ${p^{i}_{@{co}}}$                   (long_name = 'Log of private investment price @{co}')                                                                                
+                LPIG_@{co}          ${p^{ig}_{@{co}}}$                  (long_name = 'Log of govt. investment price @{co}')                                                                                
+                LPITOT_@{co}        ${p^{itot}_{@{co}}}$                (long_name = 'Log of tot investment price @{co}')                                                                                
+                LPMTOT_@{co}        ${p^{mtot}_{@{co}}}$                   (long_name = 'Log of import price @{co}')
+                LPOIL_@{co}         ${p^{oil}_{@{co}}}$                 (long_name = 'Log of commodities price @{co}')  
+               // LPBRENT_@{co}       ${p^{brent}_{@{co}}}$                (long_name = 'Log of oil price @{co}')   
+                LPO_@{co}           ${p^{o}_{@{co}}}$                   (long_name = 'Log of total output price @{co}')
+                LPX_@{co}           ${p^{x}_{@{co}}}$                   (long_name = 'Log of export price @{co}')
+                LPM_@{co}           ${p^{m}_{@{co}}}$                   (long_name = 'Log of non oil import price @{co}')
+                LPCVATPYOBS_@{co}   ${LPCVATPYOBS_{@{co}}}$             (long_name = 'Log of consumption price final to observed GDP price @{co}')
+                LPCPYOBS_@{co}      ${LPCPYOBS_{@{co}}}$                (long_name = 'Log of private consumption price to  observed GDP price @{co}')
+                LPGPYOBS_@{co}      ${LPGPYOBS_{@{co}}}$                (long_name = 'Log of gov. observed price to  observed GDP price @{co}')
+                LPIPYOBS_@{co}      ${LPIPYOBS_{@{co}}}$                (long_name = 'Log of private investment price to  observed GDP price @{co}')
+                LPIGPYOBS_@{co}     ${LPIGPYOBS_{@{co}}}$               (long_name = 'Log of govt. investment price to  observed GDP price @{co}')
+                LPMTOTPYOBS_@{co}   ${LPMPYOBS_{@{co}}}$                (long_name = 'Log of import price to  observed GDP price @{co}')   
+                LPYOBS_@{co}        ${LPYOBS_{@{co}}}$                  (long_name = 'Log of observed GDP price @{co}')            
+                LPITOTPYOBS_@{co}   ${LPITOTOYOBS_{@{co}}}$             (long_name = 'Log of observed total investment price to observed GDP price @{co}')
+                LPIGPYOBSQA_@{co}   ${LPIGPYOBSQA_{@{co}}}$             (long_name = 'Log of QA observed gov. inv. price to pbserved GDP price @{co}')
+                LM_@{co}            ${m_{@{co}}}$                       (long_name = 'Log of imports @{co}')  
+                LMTOT_@{co}         ${mtot_{@{co}}}$                       (long_name = 'Log of imports @{co}')  
+                LMTOTN_@{co}        ${mtotn_{@{co}}}$                       (long_name = 'Log of imports @{co}')  
+                LX_@{co}            ${x_{@{co}}}$                       (long_name = 'Log of exports @{co}') 
+                LXN_@{co}           ${xn_{@{co}}}$                       (long_name = 'Log of exports @{co}') 
+                LT_@{co}            ${t_{@{co}}}$                       (long_name = 'Log of transfers @{co}')
+                LTC_@{co}           ${tc_{@{co}}}$                      (long_name = 'Log of transfers to CC households @{co}')
+                LTS_@{co}           ${ts_{@{co}}}$                      (long_name = 'Log of transfers to Savers @{co}')
+
+                   
+                   
+                        LRER_REA_@{co}   ${rer_{REA,@{co}}}$         (long_name = 'Log of bilateral real effective exchange rate @{co}')  
+                        WT_REA_@{co}     ${WT_{REA,@{co}}}$          (long_name = 'Bilateral trade weight of REA trade partner in domestic trade of @{co}')  
+                        LE_REA_@{co}     ${e_{REA,@{co}}}$           (long_name = 'Log of bilateral nominal exchange rate')     
+                   
+                        LRER_RoW_@{co}   ${rer_{RoW,@{co}}}$         (long_name = 'Log of bilateral real effective exchange rate @{co}')  
+                        WT_RoW_@{co}     ${WT_{RoW,@{co}}}$          (long_name = 'Bilateral trade weight of RoW trade partner in domestic trade of @{co}')  
+                        LE_RoW_@{co}     ${e_{RoW,@{co}}}$           (long_name = 'Log of bilateral nominal exchange rate')     
+            ;            
+
+        // Variable only specific to certain EA member state countries // 
+            @#if co == "DE"
+            var
+                ZEPS_BU_@{co}       ${\varepsilon^{BU}_{@{co}}}$        (long_name = 'Benefit Share DE (only for DE)')            
+                BU_Obs_@{co}        ${BEN_{@{co}}}$                     (long_name = 'Observable Benefits Share DE (only for DE)')
+            ;
+    
+            varexo
+                EPS_BU_@{co}        ${\epsilon^{BU}_{@{co}}}$           (long_name = 'Benefit share shock DE WN')                             
+            ;
+            @#endif
+        //***********************************//
+        //Rest of the world (RoW) and Rest of the EA (REA) definitions//
+        //***********************************//
+
+        //Stationary RoW endogenous variables
+        var
+
+            GAY_REA           ${g^{AY}_{REA}}$                      (long_name = 'Productivity production fct REA')
+            GAYTREND_REA      ${g^{AYTREND}_{REA}}$                 (long_name = 'Trend Productivity production fct REA')
+            GAPC_REA          ${g^{APC}_{REA}}$                     (long_name = 'Growth of private consumption specific productivity shock REA')
+            GPOP_REA          ${g^{POP}_{REA}}$                     (long_name = 'Growth of population REA')  
+            GYTREND_REA       ${g^{YTREND}_{REA}}$                  (long_name = 'Growth of GDP trend REA')        
+
+            PHIC_REA          ${\pi^{C}_{REA}}$                     (long_name = 'Consumption inflation rate in REA')            
+            PHISTAR_REA       ${\pi^{*}_{REA}}$                     (long_name = 'AR-filtered GDP inflation REA')  
+            PHITREND_REA      ${\bar{\pi^{Y}_{REA}}}$               (long_name = 'GDP inflation traget REA')   
+            PHIY_REA          ${\pi^{Y}_{REA}}$                     (long_name = 'GDP inflation REA')               
+            PHIYOBS_REA       ${\pi^{Yobs}_{REA}}$                  (long_name = 'Observed total GDP inflation REA')               
+            PHIM_REA          ${\pi^{M}_{REA}}$                     (long_name = 'Import price inflation REA')   
+                
+                PHIOIL_REA        ${\pi^{oil}_{REA}}$                   (long_name = 'Cum excise duty Commodities price inflation rate in REA')
+                
+          //  PHIBRENT_REA      ${\pi^{brent}_{REA}}$                 (long_name = 'Oil price inflation rate in REA')
+            PHIX_REA          ${\pi^{X}_{REA}}$                     (long_name = 'Export price inflation REA')                           
+            
+                         
+                    APOIL_REA         ${A^{{p}^{oil}}_{REA}}$               (long_name = 'Oil specific productivity')
+                    LAPOIL_REA        ${apoil_{REA}}$                   (long_name = 'Log of oil specific productivity shock REA') 
+                    GAPOIL_REA        ${g^{APOIL}_{REA}}$                   (long_name = 'Growth of oil specific productivity REA') 
+                  
+
+
+            BETAT_REA         ${\beta_{REA}}$                       (long_name = 'Time-varying intertemporal Discount Factor REA')
+            CY_REA            ${CY_{REA}}$                          (long_name = 'Nominal consumption share REA')
+            OILY_REA          ${OILY_{REA}}$                        (long_name = 'Nominal oil share REA')
+            LOILY_REA         ${LOILY_{REA}}$                       (long_name = 'Log Nominal oil share REA')   
+            MY_REA            ${MY_{REA}}$                          (long_name = 'Nominal import REA') 
+            XY_REA            ${XY_{REA}}$                          (long_name = 'Nominal export REA') 
+            GC_REA            ${g^C_{REA}}$                         (long_name = 'Growth rate of private consumption REA')  
+            GY_REA            ${g^Y_{REA}}$                         (long_name = 'Growth rate of GDP REA')  
+            GYOBS_REA         ${g^{Yobs}_{REA}}$                    (long_name = 'Growth rate of observed GDP REA')  
+            NFAY_REA          ${NFAY_{REA}}$                        (long_name = 'Nominal net foreign assets share REA')
+            TBY_REA           ${TBY_{REA}}$                         (long_name = 'Nominal trade balance share REA')
+            INOM_REA          ${i_{REA}}$                           (long_name = 'Nominal policy interest rate REA')
+            INOMQA_REA        ${i^{QA}_{REA}}$                      (long_name = 'QA Nominal policy interest rate REA')
+            R_REA             ${r^{p}_{REA}}$                       (long_name = 'Real interest rate REA')
+            GE_REA            ${g^{E}_{REA}}$                       (long_name = 'Growth rate of LE REA') 
+          
+            
+            ZEPS_A_REA        ${\varepsilon^A_{REA}}$               (long_name = 'Preference for financial assets shock REA')
+            ZEPS_B_REA        ${\varepsilon^B_{REA}}$               (long_name = 'Preference for bonds shock REA')
+            ZEPS_BW_REA       ${\varepsilon^{BW}_{REA}}$        (long_name = 'Preference for international bonds shock REA')
+            ZEPS_UC_REA       ${\varepsilon^{UC}_{REA}}$            (long_name = 'Preference shock REA')             
+            ZEPS_POP_REA      ${\varepsilon^{POP}_{REA}}$           (long_name = 'Temporary population shock REA')                       
+            ZEPS_S_REA        ${\varepsilon^S_{REA}}$               (long_name = 'Preference for stocks shock REA')
+            ZEPS_Y_REA        ${\varepsilon^Y_{REA}}$               (long_name = 'Phillips curve shock REA')
+            ZEPS_M_REA        ${\varepsilon^M_{REA}}$               (long_name = 'Import shock REA')
+            ZEPS_FQ_REA       ${\varepsilon^FQ_{REA}}$              (long_name = 'Fixed cost shock REA')
+            TZENDO_M_REA      ${\varepsilon^TM_{REA}}$              (long_name = 'Total endogenous Import shock REA')
+            TZEPS_MC_REA      ${\varepsilon^{TMC}_{REA}}$        (long_name = 'Trend C Import content REA')
+            TZEPS_MX_REA          ${\varepsilon^{TMX}_{REA}}$        (long_name = 'Trend X Import content REA')
+            TZEPS_M_REA       ${\varepsilon^TM_{REA}}$              (long_name = 'Trend Import shock REA')
+            TZEPS_M_REA_REA    ${\varepsilon^{TM}_{REA,REA}}$	(long_name = 'Trend of imports country REA shock')
+
+            ZEPS_PX_REA       ${\varepsilon^{PX}_{REA}}$        (long_name = 'Export price shock REA')
+        ;             
+
+        //RoW and REA non-stationary variables
+        //Trend variables         
+        
+        //@#if detrend
+        //  trend_var(growth_factor = exp(GAY0_REA))  AY0_REA;  //    ${A^{{p}^{C}}_{REA}}$        (long_name = 'Private consumption specific productivity shock REA')
+        //  trend_var(growth_factor = exp(GAPC0_REA))  APC0_REA;  //    ${A^{{p}^{C}}_{REA}}$        (long_name = 'Private consumption specific productivity shock REA')
+        //@#endif 
+        
+        var 
+                (deflator = APC0_REA)    
+            APC_REA           ${A^{{p}^{C}}_{REA}}$                 (long_name = 'Private consumption specific productivity shock REA')
+        ;
+           
+        var 
+                (deflator = POP0)    
+            POP_REA           ${{POP}_{REA}}$                       (long_name = 'Population REA')
+        ;
+        
+        var 
+                (deflator = PY0)    
+            PY_REA            ${P^{Y}_{REA}}$                       (long_name = 'GDP deflator REA')
+            
+                POIL_REA          ${P^{oil}_{REA}}$                     (long_name = 'Commodities/Oil price REA') 
+            PM_REA            ${P^{M}_{REA}}$                       (long_name = 'Import Price REA')  
+            // PM1_REA           ${P^{M1}_{REA}}$                      (long_name = 'AR filtered Import Price REA')  
+            PO_REA        ${P^{O}_{REA}}$                       (long_name = 'Total Output Price REA')  
+            //POIL_REA          ${P^{oil}_{REA}}$                     (long_name = 'Commodities/Oil price REA')     
+			PX_REA            ${P^{X}_{REA}}$                       (long_name = 'Export Price REA')          
+            PYOBS_REA         ${P^{Y,obs}_{REA}}$                   (long_name = 'GDP deflator used by statistical offices REA')
+            PXINT_REA         ${P^{X, int}_{REA}}$                  (long_name = 'Intermediate Export deflator before bilateral technology REA')
+                PMTOT_REA     ${P^{MTOT}_{REA}}$                    (long_name = 'Import price REA')
+       ;
+                     
+        var 
+                (deflator = YTREND0)    
+            YTREND_REA        ${\overline{Y_{REA}}}$                (long_name = 'GDP trend REA')    
+            X_REA             ${X_{REA}}$                           (long_name  = 'Total Exports REA')        
+            Y_REA             ${Y_{REA}}$                           (long_name =  'GDP REA')
+            YOBS_REA          ${Yobs_{REA}}$                        (long_name = 'Observed real GDP REA')
+
+            YOBSQA_REA        ${Yobs^{QA}_{REA}}$                   (long_name = 'Observed real GDP QA REA') 
+//            @#if co == "RoW"
+//                DIVX_REA          ${d^{X}_{REA}}$                       (long_name = 'Dividends of exporters REA') 
+//            @#endif
+            DIVM_REA          ${d^{M}_{REA}}$                       (long_name = 'Dividends of importers REA') 
+            DIVX_REA          ${d^{X}_{REA}}$                       (long_name = 'Dividends of exporters REA') 
+            ADJ_PM_REA        ${{adj}^{PM}_{REA}}$                  (long_name = 'Import price adjustment costs')               
+            M_REA             ${M_{REA}}$                           (long_name = 'Total non-oil imports REA')        
+            MC_REA            ${M^{C}_{REA}}$                      (long_name = 'C imports REA')        
+            MX_REA            ${M^{X}_{REA}}$                      (long_name = 'C imports REA')        
+            OIL_REA           ${OIL_{REA}}$                         (long_name = 'Oil supply REA') 
+            OC_REA            ${O^{C}_{REA}}$                       (long_name = 'C Output REA')
+            OX_REA            ${O^{X}_{REA}}$                       (long_name = 'X Output REA')
+            
+
+                MTOT_REA      ${M^{tot}_{REA}}$                     (long_name = 'Total imports REA')
+                O_REA         ${O_{REA}}$                           (long_name = 'Total Output REA')
+                YPOT_REA      ${Y^{pot}_REA}$                       (long_name = 'Potential GDP REA')
+        ;
+  
+        var
+                (deflator = YTREND0/POP0)
+            AY_REA            ${A^Y_{REA}}$                         (long_name = 'Technology  REA')
+            AYTREND_REA       ${A^{YTREND}_{REA}}$                  (long_name = 'Trend technology REA')
+        ;
+      
+        var
+                (deflator = PY0*YTREND0)
+            A_REA             ${A_{REA}}$                           (long_name = 'Total Asset Holding REA')
+            TB_REA            ${TB_{REA}}$                          (long_name = 'Trade Balance REA') 
+            BW_REA            ${B^{w}_{REA}}$                       (long_name = 'International Bond held in REA')  
+            NFA_REA           ${NFA_{REA}}$                         (long_name = 'Net Foreign Asset REA')
+            YOBSN_REA         ${YobsN_{REA}}$                       (long_name = 'Nominal GDP REA')
+        ;
+    
+        var
+                (deflator = (APC0_REA*YTREND0/POP0)^(-THETA_REA)/POP0)            
+            LAMBDAS_REA       ${\lambda^{s}_{REA}}$                 (long_name = 'Savers Budget constraint Lagrange multiplier REA')
+        ;
+   
+        var    
+                (deflator = YTREND0*APC0_REA)
+            C_REA             ${C_{REA}}$                           (long_name = 'Total Consumption REA')  
+        ;
+    
+        var
+                (deflator = PY0/APC0_REA)
+            PC_REA            ${P^{C}_{REA}}$                       (long_name = 'Consumption price REA')
+        ;
+        
+        varexo 
+            
+            EPS_AY_REA            ${\epsilon^{AY}_{REA}}$               (long_name = 'Log of temporary productivity shock REA WN')  
+            EPS_GAYTREND_REA      ${\epsilon^{GAYTREND}_{REA}}$         (long_name = 'Productivity production fct trend growth shock REA WN')
+            EPS_LAYTREND_REA      ${\epsilon^{LAYTREND}_{REA}}$         (long_name = 'Log of trend productivity production shock REA WN')  
+            
+            EPS_POP_REA           ${\epsilon^{POP}_{REA}}$              (long_name = 'Population shock WN REA')                     
+            
+
+            EPS_LYTREND_REA      ${\varepsilon^Y_{REA}}$               (long_name = 'Phillips curve shock REA')
+            EPS_M_REA             ${\epsilon^M_{REA}}$                  (long_name = 'Import shock REA WN')
+            EPS_UC_REA            ${\epsilon^{UC}_{REA}}$               (long_name = 'Consumption shock REA WN')      
+            EPS_Y_REA             ${\epsilon^Y_{REA}}$                  (long_name = 'Phillips curve shock REA WN')               
+
+            EPS_BW_REA        ${\epsilon^{BW}_{REA}}$               (long_name = 'Preference for international bonds shock REA WN')
+            EPS_PX_REA        ${\epsilon^{PX}_{REA}}$               (long_name = 'Export price shock WN REA')  
+            EPS_FQ_REA            ${\epsilon^{FQ}_{REA}}$               (long_name = 'Fixed cost shock WN REA')
+        ;
+  
+            var
+                LE_REA            ${e_{REA}}$                       (long_name = 'Log of nominal effective exchange rate REA')                             
+                LRER_REA          ${rer_{REA}}$                     (long_name = 'Log of real effective exchange rate REA')                             
+                LTOT_REA          ${tot_{REA}}$                     (long_name = 'Log of terms of trade REA')    
+                LAPC_REA          ${apc_{REA}}$                     (long_name = 'Log of consumption specific productivity shock REA')  
+                LPOP_REA          ${pop_{REA}}$                     (long_name = 'Log of population REA')  
+                LYTREND_REA       ${\bar{y_{REA}}}$                 (long_name = 'Log of GDP trend REA')  
+          //      LAPOIL_REA        ${apoil_{REA}}$                   (long_name = 'Log of oil specific productivity shock REA')  
+                    LPOIL_REA         ${p^{oil}_{REA}}$                 (long_name = 'Log of commodities price REA')
+               
+                LPY_REA           ${p^{y}_{REA}}$                   (long_name = 'Log of GDP deflator REA') 
+                LPYOBS_REA        ${p^{y}_{REA}}$                   (long_name = 'Log of observed GDP deflator REA') 
+                LPX_REA           ${p^{x}_{REA}}$                   (long_name = 'Log of export price REA')
+                LPM_REA           ${p^{m}_{REA}}$                   (long_name = 'Log of import price REA')
+                LC_REA            ${c_{REA}}$                       (long_name = 'Log of consumption REA')  
+                LY_REA            ${y_{REA}}$                       (long_name = 'Log of GDP REA')
+                LYOBS_REA         ${yobs_{REA}}$                    (long_name = 'Log of observed GDP REA')
+                LYOBSN_REA        ${yobsn_{REA}}$                    (long_name = 'Log of observed GDP REA')
+                LX_REA            ${x_{REA}}$                       (long_name = 'Log of exports REA') 
+                LM_REA            ${m_{REA}}$                       (long_name = 'Log of imports REA')       
+
+                    LOIL_REA      ${oil_{REA}}$                     (long_name = 'Log of oil REA')             
+
+
+                        LRER_@{co}_REA         ${rer_{DE,REA}}$          (long_name = 'Log of bilateral real effective exchange rate REA')
+                        WT_@{co}_REA             ${WT_{DE,REA}}$           (long_name = 'Bilateral trade weight of DE trade partner in domestic trade of REA')  
+                        LE_@{co}_REA             ${e_{DE,REA}}$            (long_name = 'Log of bilateral nominal exchange rate') 
+
+
+                        LRER_RoW_REA         ${rer_{RoW,REA}}$          (long_name = 'Log of bilateral real effective exchange rate REA')
+                        WT_RoW_REA             ${WT_{RoW,REA}}$           (long_name = 'Bilateral trade weight of RoW trade partner in domestic trade of REA')  
+                        LE_RoW_REA             ${e_{RoW,REA}}$            (long_name = 'Log of bilateral nominal exchange rate') 
+
+
+            ;            
+        //***********************************//
+        //Rest of the world (RoW) and Rest of the EA (REA) definitions//
+        //***********************************//
+
+        //Stationary RoW endogenous variables
+        var
+
+            GAY_RoW           ${g^{AY}_{RoW}}$                      (long_name = 'Productivity production fct RoW')
+            GAYTREND_RoW      ${g^{AYTREND}_{RoW}}$                 (long_name = 'Trend Productivity production fct RoW')
+            GAPC_RoW          ${g^{APC}_{RoW}}$                     (long_name = 'Growth of private consumption specific productivity shock RoW')
+            GPOP_RoW          ${g^{POP}_{RoW}}$                     (long_name = 'Growth of population RoW')  
+            GYTREND_RoW       ${g^{YTREND}_{RoW}}$                  (long_name = 'Growth of GDP trend RoW')        
+
+            PHIC_RoW          ${\pi^{C}_{RoW}}$                     (long_name = 'Consumption inflation rate in RoW')            
+                PHICQA_RoW        ${\pi^{C,QA}_{RoW}}$              (long_name = 'Consumption inflation Quarterly Annualized RoW')  
+            PHISTAR_RoW       ${\pi^{*}_{RoW}}$                     (long_name = 'AR-filtered GDP inflation RoW')  
+            PHITREND_RoW      ${\bar{\pi^{Y}_{RoW}}}$               (long_name = 'GDP inflation traget RoW')   
+            PHIY_RoW          ${\pi^{Y}_{RoW}}$                     (long_name = 'GDP inflation RoW')               
+            PHIYOBS_RoW       ${\pi^{Yobs}_{RoW}}$                  (long_name = 'Observed total GDP inflation RoW')               
+            PHIM_RoW          ${\pi^{M}_{RoW}}$                     (long_name = 'Import price inflation RoW')   
+                
+                PHIOIL_RoW        ${\pi^{oil}_{RoW}}$                   (long_name = 'Cum excise duty Commodities price inflation rate in RoW')
+                
+          //  PHIBRENT_RoW      ${\pi^{brent}_{RoW}}$                 (long_name = 'Oil price inflation rate in RoW')
+            PHIX_RoW          ${\pi^{X}_{RoW}}$                     (long_name = 'Export price inflation RoW')                           
+            
+                ZEPS_INOM_RoW     ${\varepsilon^{inom}_{RoW}}$      (long_name = 'Taylor rule shock RoW')  
+                ZEPS_GAY0_RoW     ${\varepsilon^{gay0}_{RoW}}$      (long_name = 'GAY0 shock RoW')
+                    APOIL_RoW         ${A^{{p}^{oil}}_{RoW}}$               (long_name = 'Oil specific productivity')
+                    LAPOIL_RoW        ${apoil_{RoW}}$                   (long_name = 'Log of oil specific productivity shock RoW') 
+                    GAPOIL_RoW        ${g^{APOIL}_{RoW}}$                   (long_name = 'Growth of oil specific productivity RoW') 
+                    GAPOILTREND_RoW	${g^{\bar{APOIL}}_{RoW}}$         (long_name = 'Growth of trend oil specific productivity RoW')      
+                    APOILTREND_RoW	${\bar{A^{{p}^{oil}}_{RoW}}}$     (long_name = 'Oil specific productivity') 
+
+
+            BETAT_RoW         ${\beta_{RoW}}$                       (long_name = 'Time-varying intertemporal Discount Factor RoW')
+            CY_RoW            ${CY_{RoW}}$                          (long_name = 'Nominal consumption share RoW')
+            OILY_RoW          ${OILY_{RoW}}$                        (long_name = 'Nominal oil share RoW')
+            LOILY_RoW         ${LOILY_{RoW}}$                       (long_name = 'Log Nominal oil share RoW')   
+            MY_RoW            ${MY_{RoW}}$                          (long_name = 'Nominal import RoW') 
+            XY_RoW            ${XY_{RoW}}$                          (long_name = 'Nominal export RoW') 
+            GC_RoW            ${g^C_{RoW}}$                         (long_name = 'Growth rate of private consumption RoW')  
+            GY_RoW            ${g^Y_{RoW}}$                         (long_name = 'Growth rate of GDP RoW')  
+            GYOBS_RoW         ${g^{Yobs}_{RoW}}$                    (long_name = 'Growth rate of observed GDP RoW')  
+            NFAY_RoW          ${NFAY_{RoW}}$                        (long_name = 'Nominal net foreign assets share RoW')
+            TBY_RoW           ${TBY_{RoW}}$                         (long_name = 'Nominal trade balance share RoW')
+            INOM_RoW          ${i_{RoW}}$                           (long_name = 'Nominal policy interest rate RoW')
+            INOMQA_RoW        ${i^{QA}_{RoW}}$                      (long_name = 'QA Nominal policy interest rate RoW')
+            R_RoW             ${r^{p}_{RoW}}$                       (long_name = 'Real interest rate RoW')
+            GE_RoW            ${g^{E}_{RoW}}$                       (long_name = 'Growth rate of LE RoW') 
+          
+            
+            ZEPS_A_RoW        ${\varepsilon^A_{RoW}}$               (long_name = 'Preference for financial assets shock RoW')
+            ZEPS_B_RoW        ${\varepsilon^B_{RoW}}$               (long_name = 'Preference for bonds shock RoW')
+            ZEPS_BW_RoW       ${\varepsilon^{BW}_{RoW}}$        (long_name = 'Preference for international bonds shock RoW')
+            ZEPS_UC_RoW       ${\varepsilon^{UC}_{RoW}}$            (long_name = 'Preference shock RoW')             
+            ZEPS_POP_RoW      ${\varepsilon^{POP}_{RoW}}$           (long_name = 'Temporary population shock RoW')                       
+            ZEPS_S_RoW        ${\varepsilon^S_{RoW}}$               (long_name = 'Preference for stocks shock RoW')
+            ZEPS_Y_RoW        ${\varepsilon^Y_{RoW}}$               (long_name = 'Phillips curve shock RoW')
+            ZEPS_M_RoW        ${\varepsilon^M_{RoW}}$               (long_name = 'Import shock RoW')
+            ZEPS_FQ_RoW       ${\varepsilon^FQ_{RoW}}$              (long_name = 'Fixed cost shock RoW')
+            TZENDO_M_RoW      ${\varepsilon^TM_{RoW}}$              (long_name = 'Total endogenous Import shock RoW')
+            TZEPS_MC_RoW      ${\varepsilon^{TMC}_{RoW}}$        (long_name = 'Trend C Import content RoW')
+            TZEPS_MX_RoW          ${\varepsilon^{TMX}_{RoW}}$        (long_name = 'Trend X Import content RoW')
+            TZEPS_M_RoW       ${\varepsilon^TM_{RoW}}$              (long_name = 'Trend Import shock RoW')
+            TZEPS_M_RoW_RoW    ${\varepsilon^{TM}_{RoW,RoW}}$	(long_name = 'Trend of imports country RoW shock')
+
+            ZEPS_PX_RoW       ${\varepsilon^{PX}_{RoW}}$        (long_name = 'Export price shock RoW')
+        ;             
+
+        //RoW and REA non-stationary variables
+        //Trend variables         
+        
+        //@#if detrend
+        //  trend_var(growth_factor = exp(GAY0_RoW))  AY0_RoW;  //    ${A^{{p}^{C}}_{RoW}}$        (long_name = 'Private consumption specific productivity shock RoW')
+        //  trend_var(growth_factor = exp(GAPC0_RoW))  APC0_RoW;  //    ${A^{{p}^{C}}_{RoW}}$        (long_name = 'Private consumption specific productivity shock RoW')
+        //@#endif 
+        
+        var 
+                (deflator = APC0_RoW)    
+            APC_RoW           ${A^{{p}^{C}}_{RoW}}$                 (long_name = 'Private consumption specific productivity shock RoW')
+        ;
+           
+        var 
+                (deflator = POP0)    
+            POP_RoW           ${{POP}_{RoW}}$                       (long_name = 'Population RoW')
+        ;
+        
+        var 
+                (deflator = PY0)    
+            PY_RoW            ${P^{Y}_{RoW}}$                       (long_name = 'GDP deflator RoW')
+            
+                PBRENTOBS_RoW        ${P^{brent,obs}_{RoW}}$                   (long_name = 'Observed Oil price RoW')
+                    POIL_RoW          ${P^{oil}_{RoW}}$                     (long_name = 'Commodities/Oil price RoW') 
+            PM_RoW            ${P^{M}_{RoW}}$                       (long_name = 'Import Price RoW')  
+            // PM1_RoW           ${P^{M1}_{RoW}}$                      (long_name = 'AR filtered Import Price RoW')  
+            PO_RoW        ${P^{O}_{RoW}}$                       (long_name = 'Total Output Price RoW')  
+            //POIL_RoW          ${P^{oil}_{RoW}}$                     (long_name = 'Commodities/Oil price RoW')     
+			PX_RoW            ${P^{X}_{RoW}}$                       (long_name = 'Export Price RoW')          
+            PYOBS_RoW         ${P^{Y,obs}_{RoW}}$                   (long_name = 'GDP deflator used by statistical offices RoW')
+            PXINT_RoW         ${P^{X, int}_{RoW}}$                  (long_name = 'Intermediate Export deflator before bilateral technology RoW')
+       ;
+                     
+        var 
+                (deflator = YTREND0)    
+            YTREND_RoW        ${\overline{Y_{RoW}}}$                (long_name = 'GDP trend RoW')    
+            X_RoW             ${X_{RoW}}$                           (long_name  = 'Total Exports RoW')        
+            Y_RoW             ${Y_{RoW}}$                           (long_name =  'GDP RoW')
+            YOBS_RoW          ${Yobs_{RoW}}$                        (long_name = 'Observed real GDP RoW')
+
+            YOBSQA_RoW        ${Yobs^{QA}_{RoW}}$                   (long_name = 'Observed real GDP QA RoW') 
+//            @#if co == "RoW"
+//                DIVX_RoW          ${d^{X}_{RoW}}$                       (long_name = 'Dividends of exporters RoW') 
+//            @#endif
+            DIVM_RoW          ${d^{M}_{RoW}}$                       (long_name = 'Dividends of importers RoW') 
+            DIVX_RoW          ${d^{X}_{RoW}}$                       (long_name = 'Dividends of exporters RoW') 
+            ADJ_PM_RoW        ${{adj}^{PM}_{RoW}}$                  (long_name = 'Import price adjustment costs')               
+            M_RoW             ${M_{RoW}}$                           (long_name = 'Total non-oil imports RoW')        
+            MC_RoW            ${M^{C}_{RoW}}$                      (long_name = 'C imports RoW')        
+            MX_RoW            ${M^{X}_{RoW}}$                      (long_name = 'C imports RoW')        
+            OIL_RoW           ${OIL_{RoW}}$                         (long_name = 'Oil supply RoW') 
+            OC_RoW            ${O^{C}_{RoW}}$                       (long_name = 'C Output RoW')
+            OX_RoW            ${O^{X}_{RoW}}$                       (long_name = 'X Output RoW')
+            
+
+        ;
+  
+        var
+                (deflator = YTREND0/POP0)
+            AY_RoW            ${A^Y_{RoW}}$                         (long_name = 'Technology  RoW')
+            AYTREND_RoW       ${A^{YTREND}_{RoW}}$                  (long_name = 'Trend technology RoW')
+        ;
+      
+        var
+                (deflator = PY0*YTREND0)
+            A_RoW             ${A_{RoW}}$                           (long_name = 'Total Asset Holding RoW')
+            TB_RoW            ${TB_{RoW}}$                          (long_name = 'Trade Balance RoW') 
+            BW_RoW            ${B^{w}_{RoW}}$                       (long_name = 'International Bond held in RoW')  
+            NFA_RoW           ${NFA_{RoW}}$                         (long_name = 'Net Foreign Asset RoW')
+            YOBSN_RoW         ${YobsN_{RoW}}$                       (long_name = 'Nominal GDP RoW')
+        ;
+    
+        var
+                (deflator = (APC0_RoW*YTREND0/POP0)^(-THETA_RoW)/POP0)            
+            LAMBDAS_RoW       ${\lambda^{s}_{RoW}}$                 (long_name = 'Savers Budget constraint Lagrange multiplier RoW')
+        ;
+   
+        var    
+                (deflator = YTREND0*APC0_RoW)
+            C_RoW             ${C_{RoW}}$                           (long_name = 'Total Consumption RoW')  
+        ;
+    
+        var
+                (deflator = PY0/APC0_RoW)
+            PC_RoW            ${P^{C}_{RoW}}$                       (long_name = 'Consumption price RoW')
+        ;
+        
+        varexo 
+                    EPS_GAPOILTREND_RoW   ${\epsilon^{GAPOILTREND}_{RoW}}$      (long_name = 'Innovation to growth trend oil')
+            
+            EPS_AY_RoW            ${\epsilon^{AY}_{RoW}}$               (long_name = 'Log of temporary productivity shock RoW WN')  
+            EPS_GAYTREND_RoW      ${\epsilon^{GAYTREND}_{RoW}}$         (long_name = 'Productivity production fct trend growth shock RoW WN')
+            EPS_LAYTREND_RoW      ${\epsilon^{LAYTREND}_{RoW}}$         (long_name = 'Log of trend productivity production shock RoW WN')  
+            
+            EPS_POP_RoW           ${\epsilon^{POP}_{RoW}}$              (long_name = 'Population shock WN RoW')                     
+            
+                EPS_INOM_RoW      ${\epsilon^{inom}_{RoW}}$             (long_name = 'Taylor rule shock RoW WN')
+                EPS_GAY0_RoW      ${\epsilon^{gay0}_{RoW}}$             (long_name = 'GAY0 shock RoW WN')
+
+            EPS_LYTREND_RoW      ${\varepsilon^Y_{RoW}}$               (long_name = 'Phillips curve shock RoW')
+            EPS_M_RoW             ${\epsilon^M_{RoW}}$                  (long_name = 'Import shock RoW WN')
+            EPS_UC_RoW            ${\epsilon^{UC}_{RoW}}$               (long_name = 'Consumption shock RoW WN')      
+            EPS_Y_RoW             ${\epsilon^Y_{RoW}}$                  (long_name = 'Phillips curve shock RoW WN')               
+
+            EPS_BW_RoW        ${\epsilon^{BW}_{RoW}}$               (long_name = 'Preference for international bonds shock RoW WN')
+            EPS_PX_RoW        ${\epsilon^{PX}_{RoW}}$               (long_name = 'Export price shock WN RoW')  
+            EPS_FQ_RoW            ${\epsilon^{FQ}_{RoW}}$               (long_name = 'Fixed cost shock WN RoW')
+        ;
+  
+            var
+                LE_RoW            ${e_{RoW}}$                       (long_name = 'Log of nominal effective exchange rate RoW')                             
+                LRER_RoW          ${rer_{RoW}}$                     (long_name = 'Log of real effective exchange rate RoW')                             
+                LTOT_RoW          ${tot_{RoW}}$                     (long_name = 'Log of terms of trade RoW')    
+                LAPC_RoW          ${apc_{RoW}}$                     (long_name = 'Log of consumption specific productivity shock RoW')  
+                LPOP_RoW          ${pop_{RoW}}$                     (long_name = 'Log of population RoW')  
+                LYTREND_RoW       ${\bar{y_{RoW}}}$                 (long_name = 'Log of GDP trend RoW')  
+          //      LAPOIL_RoW        ${apoil_{RoW}}$                   (long_name = 'Log of oil specific productivity shock RoW')  
+               
+                    LPBRENTOBS_RoW    ${p^{brent,obs}_{RoW}}$                  (long_name = 'Log of observed oil price RoW')
+                LPY_RoW           ${p^{y}_{RoW}}$                   (long_name = 'Log of GDP deflator RoW') 
+                LPYOBS_RoW        ${p^{y}_{RoW}}$                   (long_name = 'Log of observed GDP deflator RoW') 
+                LPX_RoW           ${p^{x}_{RoW}}$                   (long_name = 'Log of export price RoW')
+                LPM_RoW           ${p^{m}_{RoW}}$                   (long_name = 'Log of import price RoW')
+                LC_RoW            ${c_{RoW}}$                       (long_name = 'Log of consumption RoW')  
+                LY_RoW            ${y_{RoW}}$                       (long_name = 'Log of GDP RoW')
+                LYOBS_RoW         ${yobs_{RoW}}$                    (long_name = 'Log of observed GDP RoW')
+                LYOBSN_RoW        ${yobsn_{RoW}}$                    (long_name = 'Log of observed GDP RoW')
+                LX_RoW            ${x_{RoW}}$                       (long_name = 'Log of exports RoW') 
+                LM_RoW            ${m_{RoW}}$                       (long_name = 'Log of imports RoW')       
+
+                    LOIL_RoW      ${oil_{RoW}}$                     (long_name = 'Log of oil RoW')             
+
+                    LPYQA_RoW     ${p^{QAy}_{RoW}}$                 (long_name = 'Log of QA GDP deflator RoW') 
+                    LYOBSQA_RoW   ${yobs^{QA}_{RoW}}$               (long_name = 'Log of observed QA GDP RoW')
+
+                        LRER_@{co}_RoW         ${rer_{DE,RoW}}$          (long_name = 'Log of bilateral real effective exchange rate RoW')
+                        WT_@{co}_RoW             ${WT_{DE,RoW}}$           (long_name = 'Bilateral trade weight of DE trade partner in domestic trade of RoW')  
+                        LE_@{co}_RoW             ${e_{DE,RoW}}$            (long_name = 'Log of bilateral nominal exchange rate') 
+
+
+                        LRER_REA_RoW         ${rer_{REA,RoW}}$          (long_name = 'Log of bilateral real effective exchange rate RoW')
+                        WT_REA_RoW             ${WT_{REA,RoW}}$           (long_name = 'Bilateral trade weight of REA trade partner in domestic trade of RoW')  
+                        LE_REA_RoW             ${e_{REA,RoW}}$            (long_name = 'Log of bilateral nominal exchange rate') 
+
+                                LEQA_REA_RoW   ${e^{QA}_{REA,RoW}}$       (long_name = 'Log of bilateral QA nominal exchange rate RoW REA') 
+                                LEQA_RoW_REA   ${e^{QA}_{RoW,REA}}$       (long_name = 'Log of bilateral QA nominal exchange rate REA RoW')
+
+            ;            
+
+//*********************//
+//Bilateral definitions// 
+//*********************//
+
+    // Exchange rates 
+            var
+                GE_@{co}_REA                     ${g^{E}_{DE,{REA}}}$              (long_name = 'Growth rate of exchange rate from currency in REA to currency in @{co}')
+            ;
+   
+        // Exchange rates 
+        var         
+            E_@{co}_@{co}                      ${E_{@{co},@{co}}}$                (long_name = 'Exchange rate from currency in DE to currency in @{co}')
+        ;
+        // Exchange rates 
+        var         
+            E_REA_@{co}                      ${E_{REA,@{co}}}$                (long_name = 'Exchange rate from currency in REA to currency in @{co}')
+        ;
+        // Exchange rates 
+        var         
+            E_RoW_@{co}                      ${E_{RoW,@{co}}}$                (long_name = 'Exchange rate from currency in RoW to currency in @{co}')
+        ;
+   
+    //@#if co == COUNTRIES[1] 
+           
+               
+                var
+                    S_@{co}_@{co}              ${S_{@{co},@{co}}}$                (long_name = 'Stock Shares of DE held in @{co}')   
+                    ZEPS_B_@{co}_@{co}         ${\varepsilon_{B,@{co},@{co}}}$    (long_name = 'shock to DE Preference for investing in bonds of country @{co}')
+                    ZEPS_S_@{co}_@{co}         ${\varepsilon_{S,@{co},@{co}}}$    (long_name = 'shock to DE Preference for investing in stocks of country @{co}')
+                ;
+
+                var
+                        (deflator = YTREND0*PY0)
+                    B_@{co}_@{co}              ${B_{@{co},@{co}}}$                (long_name = 'Gov Bonds of DE held in @{co}')                     
+                ;
+             
+                varexo
+                    EPS_B_@{co}_@{co}          ${\epsilon_{B,@{co},@{co}}}$       (long_name = 'shock to DE Preference for investing in bonds of country  DE WN')
+                    EPS_S_@{co}_@{co}          ${\epsilon_{S,@{co},@{co}}}$       (long_name = 'shock to DE Preference for investing in stocks of country DE WN')        
+                ;
+                var 
+                    PHIM_REA_@{co}           ${\pi^{M}_{REA,@{co}}}$          (long_name = 'Import price inflation between REA and @{co}')
+                ;
+
+                var 
+                        (deflator = YTREND0)
+                    M_REA_@{co}              ${M_{REA,@{co}}}$                (long_name = 'Imports from REA to @{co}')                       
+                ;
+             
+                var 
+                        (deflator = PY0)
+                    PM_REA_@{co}             ${PM_{REA,@{co}}}$               (long_name = 'Import prices of REA in @{co}')   
+                    PM1_REA_@{co}            ${PM1_{REA,@{co}}}$              (long_name = 'AR filtered Import prices of REA in @{co}')   
+                    PX_REA_@{co}             ${P^{X}_{REA,@{co}}}$            (long_name = 'Export Price to REA from @{co}')           
+                   
+                ;
+                
+                var
+                        (deflator = YTREND0*PY0)
+                    TB_@{co}_REA            ${TB_{DE,REA}}$               (long_name = 'Bilateral trade balance of DE vs  REA')
+                    ;
+           
+                var 
+                    PHIM_RoW_@{co}           ${\pi^{M}_{RoW,@{co}}}$          (long_name = 'Import price inflation between RoW and @{co}')
+                ;
+
+                var 
+                        (deflator = YTREND0)
+                    M_RoW_@{co}              ${M_{RoW,@{co}}}$                (long_name = 'Imports from RoW to @{co}')                       
+                ;
+             
+                var 
+                        (deflator = PY0)
+                    PM_RoW_@{co}             ${PM_{RoW,@{co}}}$               (long_name = 'Import prices of RoW in @{co}')   
+                    PM1_RoW_@{co}            ${PM1_{RoW,@{co}}}$              (long_name = 'AR filtered Import prices of RoW in @{co}')   
+                    PX_RoW_@{co}             ${P^{X}_{RoW,@{co}}}$            (long_name = 'Export Price to RoW from @{co}')           
+                   
+                ;
+                
+           
+    // Exchange rates 
+   
+        // Exchange rates 
+        var         
+            E_@{co}_REA                      ${E_{DE,REA}}$                (long_name = 'Exchange rate from currency in DE to currency in REA')
+        ;
+        // Exchange rates 
+        var         
+            E_REA_REA                      ${E_{REA,REA}}$                (long_name = 'Exchange rate from currency in REA to currency in REA')
+        ;
+        // Exchange rates 
+        var         
+            E_RoW_REA                      ${E_{RoW,REA}}$                (long_name = 'Exchange rate from currency in RoW to currency in REA')
+                        EQA_RoW_REA        ${EQA_{RoW,REA}}$              (long_name = 'QA Exchange rate from currency in RoW to currency in REA')
+                        EQA_REA_RoW        ${EQA_{REA,RoW}}$              (long_name = 'QA Exchange rate from currency in REA to currency in RoW')
+        ;
+   
+    //@#if co == COUNTRIES[1] 
+
+                
+                var
+                        (deflator = YTREND0)
+                    M_@{co}_REA              ${M_{DE,REA}}$                (long_name = 'Imports from country DE to country REA') 
+                ;
+
+                var 
+                        (deflator = PY0)
+   //                 @#if co == "RoW"
+                        PX_@{co}_REA         ${P^{X}_{DE,REA}}$            (long_name = 'Export Price to DE from REA')           
+    //                @#endif 
+
+                    PM_@{co}_REA             ${PM_{DE,REA}}$               (long_name = 'Import prices from country DE to REA')                      
+                    PM1_@{co}_REA            ${PM1_{DE,REA}}$              (long_name = 'AR filtered Import prices of DE in REA')   
+                ;
+
+
+                
+                var
+                        (deflator = YTREND0)
+                    M_RoW_REA              ${M_{RoW,REA}}$                (long_name = 'Imports from country RoW to country REA') 
+                ;
+
+                var 
+                        (deflator = PY0)
+   //                 @#if co == "RoW"
+                        PX_RoW_REA         ${P^{X}_{RoW,REA}}$            (long_name = 'Export Price to RoW from REA')           
+    //                @#endif 
+
+                    PM_RoW_REA             ${PM_{RoW,REA}}$               (long_name = 'Import prices from country RoW to REA')                      
+                    PM1_RoW_REA            ${PM1_{RoW,REA}}$              (long_name = 'AR filtered Import prices of RoW in REA')   
+                ;
+
+    // Exchange rates 
+            var
+                GE_RoW_REA                     ${g^{E}_{RoW,{REA}}}$              (long_name = 'Growth rate of exchange rate from currency in REA to currency in RoW')
+            ;
+   
+        // Exchange rates 
+        var         
+            E_@{co}_RoW                      ${E_{DE,RoW}}$                (long_name = 'Exchange rate from currency in DE to currency in RoW')
+        ;
+        // Exchange rates 
+        var         
+            E_REA_RoW                      ${E_{REA,RoW}}$                (long_name = 'Exchange rate from currency in REA to currency in RoW')
+        ;
+        // Exchange rates 
+        var         
+            E_RoW_RoW                      ${E_{RoW,RoW}}$                (long_name = 'Exchange rate from currency in RoW to currency in RoW')
+        ;
+   
+    //@#if co == COUNTRIES[1] 
+                var  
+                        ZEPS_M_@{co}_RoW     ${\varepsilon^{M}_{DE,RoW}}$	(long_name = 'Cycle of Bilateral imports from country DE to country RoW shock')       
+                        ZEPS_PX_@{co}_RoW    ${\varepsilon^{PX}_{DE,RoW}}$	(long_name = 'Bilateral export price to country DE from country RoW shock')
+                        TZEPS_PXAY_@{co}_RoW   ${\varepsilon^{TPX,AY}_{DE,RoW}}$(long_name = 'Damping Trend of Bilateral export price from country RoW to country DE shock')
+                        TZEPS_PX_@{co}_RoW   ${\varepsilon^{TPX}_{DE,RoW}}$(long_name = 'Pricing to market Trend of Bilateral export price from country RoW to country DE shock')
+                ;
+
+                    varexo
+                        EPS_M_@{co}_RoW      ${\epsilon^{M}_{DE,RoW}}$     (long_name = 'Bilateral imports from country DE to country RoW shock WN')
+                    ;
+                
+                var
+                        (deflator = YTREND0)
+                    M_@{co}_RoW              ${M_{DE,RoW}}$                (long_name = 'Imports from country DE to country RoW') 
+                ;
+
+                var 
+                        (deflator = PY0)
+   //                 @#if co == "RoW"
+                        PX_@{co}_RoW         ${P^{X}_{DE,RoW}}$            (long_name = 'Export Price to DE from RoW')           
+    //                @#endif 
+
+                    PM_@{co}_RoW             ${PM_{DE,RoW}}$               (long_name = 'Import prices from country DE to RoW')                      
+                    PM1_@{co}_RoW            ${PM1_{DE,RoW}}$              (long_name = 'AR filtered Import prices of DE in RoW')   
+                ;
+
+                    varexo
+                        EPS_PX_@{co}_RoW     ${\epsilon^{PX}_{DE,RoW}}$    (long_name = 'Bilateral export price to country DE from country RoW shock WN')
+                    ;
+                var  
+                        ZEPS_M_REA_RoW     ${\varepsilon^{M}_{REA,RoW}}$	(long_name = 'Cycle of Bilateral imports from country REA to country RoW shock')       
+                        ZEPS_PX_REA_RoW    ${\varepsilon^{PX}_{REA,RoW}}$	(long_name = 'Bilateral export price to country REA from country RoW shock')
+                        TZEPS_PXAY_REA_RoW   ${\varepsilon^{TPX,AY}_{REA,RoW}}$(long_name = 'Damping Trend of Bilateral export price from country RoW to country REA shock')
+                        TZEPS_PX_REA_RoW   ${\varepsilon^{TPX}_{REA,RoW}}$(long_name = 'Pricing to market Trend of Bilateral export price from country RoW to country REA shock')
+                ;
+
+                
+                var
+                        (deflator = YTREND0)
+                    M_REA_RoW              ${M_{REA,RoW}}$                (long_name = 'Imports from country REA to country RoW') 
+                ;
+
+                var 
+                        (deflator = PY0)
+   //                 @#if co == "RoW"
+                        PX_REA_RoW         ${P^{X}_{REA,RoW}}$            (long_name = 'Export Price to REA from RoW')           
+    //                @#endif 
+
+                    PM_REA_RoW             ${PM_{REA,RoW}}$               (long_name = 'Import prices from country REA to RoW')                      
+                    PM1_REA_RoW            ${PM1_{REA,RoW}}$              (long_name = 'AR filtered Import prices of REA in RoW')   
+                ;
+
+                    varexo
+                        EPS_PX_REA_RoW     ${\epsilon^{PX}_{REA,RoW}}$    (long_name = 'Bilateral export price to country REA from country RoW shock WN')
+                    ;

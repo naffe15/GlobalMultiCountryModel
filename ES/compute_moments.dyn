@@ -1,0 +1,50 @@
+
+// check covariance ACF, CCF of shocks
+outCC=CrossCovariance(M_, oo_);
+
+// retrieve theoretical moments
+nodecomposition0 = options_.nodecomposition;
+options_.nodecomposition=1;
+Sigma_0=M_.Sigma_e;
+
+tmp0 = diag(diag(outCC.ccova));
+tmp0(find(isnan(tmp0)))=0;
+
+M_.Sigma_e = tmp0;
+Sigma_e_frcst = tmp0;
+
+options_.nograph = 1;
+options_.order = 1;
+options_.ar = 2;
+var_list_ = char('GYOBS_@{co}','GC_@{co}','GI_@{co}','PHIYOBS_@{co}','GN_@{co}','GTBY_@{co}');
+info = stoch_simul(var_list_);
+var_list_plot_ = char('GYOBS_@{co}');
+variables_ = cellstr(var_list_);
+var_plots_ = cellstr(var_list_plot_);
+[moments data_moments]=check_covariances(0,var_plots_,variables_{:});
+save([M_.fname '_moments.mat'],'moments','data_moments','variables_')
+oo_.jrc.moments.data = data_moments;
+oo_.jrc.moments.model = moments;
+oo_.jrc.moments.vname = variables_;
+oo_.jrc.moments.vname_plots = var_plots_;
+
+check_covariances(1,var_plots_,variables_{:});
+
+xls_cell_model=cell(length(variables_),4);
+xls_cell_model(:,1)=variables_;
+xls_cell_model(:,2)=num2cell(100.*sqrt(diag(moments.var))); 
+xls_cell_model(:,3)=num2cell(moments.autocorr(:,1)); 
+xls_cell_model(1:6,4)=num2cell(moments.corr(1:6,1));
+xls_cell_model=[{'Variable' 'Std' 'AR(1)' 'Corr @{co} (x,GDP)'};xls_cell_model];
+[SUCCESS,MESSAGE]=xlswrite([M_.fname '_moments.xls'],xls_cell_model,'model');
+
+xls_cell_data=cell(length(variables_),4);
+xls_cell_data(:,1)=variables_;
+xls_cell_data(:,2)=num2cell(100.*sqrt(diag(data_moments.var)));
+xls_cell_data(:,3)=num2cell(data_moments.autocorr(:,1));
+xls_cell_data(1:6,4)=num2cell(data_moments.corr(1:6,1));
+xls_cell_data=[{'Variable' 'Std' 'AR(1)' 'Corr EA (x,GDP)'};xls_cell_data];
+[SUCCESS,MESSAGE]=xlswrite([M_.fname '_moments.xls'],xls_cell_data,'data');
+
+M_.Sigma_e=Sigma_0;
+options_.nodecomposition = nodecomposition0 ;

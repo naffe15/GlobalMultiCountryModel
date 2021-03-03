@@ -1,0 +1,51 @@
+//harmonizing shock process for foreign shocks (Saving RoW and Bond premium)
+M_.params0=M_.params;
+set_param_value('RHO_P_RoW',0.82);
+set_param_value('RHO_BW_EA',0.87);
+ind_shock =find(diag(M_.Sigma_e));
+Sigma0 = M_.Sigma_e;
+M_.Sigma_e(ind_shock,ind_shock) = eye(length(ind_shock))*0.01^2;
+options_.TeX = 1;
+//plot_IRF;
+GM_plot_IRF;  // Remove old result files
+stoch_simul(irf=2000, periods=0, order=1, nomoments, nograph, nodisplay, graph_format=(eps,fig)) 
+LYOBS_@{co} 
+LC_@{co}
+LI_@{co} 
+LN_@{co}
+LWR_@{co}
+R_@{co}
+PHIYOBS_@{co}
+LRER_@{co}
+TBY_@{co}
+;     
+
+xname2 = {
+        'EPS_LAYTREND_@{co}', 1;
+        'EPS_UC_@{co}',-1;
+        'EPS_G_@{co}',1;
+        'EPS_INOM_EA',-1;
+        'EPS_BW_EA',-1;
+        'EPS_UC_RoW',-1;
+};
+
+var_irf_@{co} = {
+        'LYOBS_@{co}', 100, 'GDP';  
+        'LC_@{co}', 100, 'Consumption';
+        'LI_@{co}', 100, 'Investment';  
+        'LN_@{co}',100, 'Hours';
+        'LWR_@{co}', 100, 'Real wages';  
+        'R_@{co}', 100, 'Real interest rate'; 
+        'PHIYOBS_@{co}', 100, 'GDP inflation';
+        'LRER_@{co}', 100, 'Real exch. rate'; 
+        'TBY_@{co}', 100, 'Trade balance to GDP';
+        };
+        
+var_irf = [];
+var_irf = [var_irf; var_irf_@{co}];
+
+GM_plot_IRF(xname2,[var_irf], oo_.irfs,[],3,3,'Output_paper',[],40,0);
+
+M_.Sigma_e = Sigma0;
+M_.params = M_.params0;
+

@@ -1,0 +1,19 @@
+function facDefault
+% restores factory defined defaults
+
+set(0,'DefaultFigurePaperType','a4')
+%set(0,'DefaultFigurePaperOrientation','landscape')
+set(0,'DefaultFigureColor',[0.8 0.8 0.8])
+set(0,'DefaultTextColor',[0 0 0])
+set(0,'DefaultAxesUnits','normalized')
+set(0,'DefaultAxesLineStyleOrder', ...
+  {'-',':','--','-.'})
+set(0,'DefaultAxesColor',[1 1 1],...
+    'DefaultAxesXColor', [0 0 0], ...
+    'DefaultAxesYColor', [0 0 0], ...
+    'DefaultAxesZColor', [0 0 0])
+set(0, ...
+      'DefaultAxesColorOrder', ...
+      [0 0 0; 0 0 1; 0 1 0; 1 0 0; 1 0 1; 0 1 1; 1 1 0]) 
+ 
+set(0,'DefaultPatchEdgeColor','factory')

@@ -1,0 +1,1989 @@
+model;
+
+ [name = 'NFA clearing', country = 'Global']
+ +NFA_@{co}*SIZE_@{co} +NFA_REA*SIZE_REA +NFA_RoW*SIZE_RoW =0;
+
+ [name = 'Definition of exchange rate @{co}', country ='@{co}']
+ E_RoW_@{co} = E_RoW_EA;
+
+ [name = 'Exchange rate definition for REA', country = 'REA']
+ E_REA_REA = 1;
+
+ GE_@{co}_REA = log(E_@{co}_REA/E_@{co}_REA(-1));
+
+ GE_RoW_REA = log(E_RoW_REA/E_RoW_REA(-1));
+
+ [name = 'Bilateral Exchange rates from currency in @{co} to currency in @{co}', country = '@{co}']
+ E_@{co}_@{co}=E_REA_@{co}/E_REA_@{co};
+
+ [name = 'Bilateral Exchange rates from currency in RoW to currency in @{co}', country = '@{co}']
+ E_RoW_@{co}=E_REA_@{co}/E_REA_RoW;
+
+ [name = 'Bilateral Exchange rates from currency in @{co} to currency in REA', country = 'REA']
+ E_@{co}_REA=E_REA_REA/E_REA_@{co};
+
+ [name = 'Bilateral Exchange rates from currency in RoW to currency in REA', country = 'REA']
+ E_RoW_REA=E_REA_REA/E_REA_RoW;
+
+ [name = 'Bilateral Exchange rates from currency in @{co} to currency in RoW', country = 'RoW']
+ E_@{co}_RoW=E_REA_RoW/E_REA_@{co};
+
+ [name = 'Bilateral Exchange rates from currency in RoW to currency in RoW', country = 'RoW']
+ E_RoW_RoW=E_REA_RoW/E_REA_RoW;
+
+ [name = 'Total bonds held by savers @{co}', country = '@{co}']
+ B_@{co} = + E_@{co}_@{co}*B_@{co}_@{co}*SIZE_@{co}/SIZE_@{co} ;
+
+ [name = 'Total share holdings @{co}', country = '@{co}']
+ PS_@{co}*S_@{co} = + E_@{co}_@{co}*PS_@{co}*S_@{co}_@{co}*SIZE_@{co}/SIZE_@{co} ;
+
+ [name = 'Total nominal government debt @{co}', country = '@{co}']
+ BG_@{co} = + B_@{co}_@{co} ;
+
+ [name = 'Total domestic stocks @{co}', country = '@{co}']
+ STOT_@{co} = + S_@{co}_@{co} ;
+
+ [name = 'Domestic stocks market clearing @{co}', country = '@{co}']
+ STOT_@{co} =1;
+
+ [name = 'Net Foreign Asset definition @{co}', country = '@{co}']
+ NFA_@{co} = BW_@{co};
+
+ [name = 'Total assets held by savers @{co}', country = '@{co}']
+ A_@{co}=B_@{co}+PS_@{co}*S_@{co}+E_RoW_@{co}*BW_@{co};
+
+ [name = 'Final consumption price @{co}', country = '@{co}']
+ PCVAT_@{co} = (1+TAUC_@{co})*PC_@{co};
+
+ [name = 'Consumption VAT Inflation QA definition @{co}', country = '@{co}']
+ PHICVATQA_@{co} = log(PCVAT_@{co} + PCVAT_@{co}(-1) + PCVAT_@{co}(-2) + PCVAT_@{co}(-3)) -log(PCVAT_@{co}(-4) + PCVAT_@{co}(-5) + PCVAT_@{co}(-6) + PCVAT_@{co}(-7));
+
+ [name = 'Marginal utility of consumption of savers @{co}', country = '@{co}']
+ LAMBDAS_@{co} = (CS_@{co}/(POP_@{co}*ACTR_@{co})-H_@{co}*CS_@{co}(-1)/(POP_@{co}(-1)*ACTR_@{co}(-1)))^-THETA_@{co}/(POP_@{co}*ACTR_@{co});
+
+ [name = 'Marginal utility of consumption of cc hhs @{co}', country = '@{co}']
+ LAMBDAC_@{co} = (CC_@{co}/(POP_@{co}*ACTR_@{co})-H_@{co}*CC_@{co}(-1)/(POP_@{co}(-1)*ACTR_@{co}(-1)))^-THETA_@{co}/(POP_@{co}*ACTR_@{co});
+
+ [name = 'Time-varying beta @{co}', country = '@{co}']
+ BETAT_@{co} = BETA_@{co}*exp(ZEPS_UC_@{co});
+
+ [name = 'Trend consumption @{co}', country = '@{co}']
+ CX_@{co} = CX_@{co}(-1)^RHOCX_@{co}*C_@{co}^(1-RHOCX_@{co});
+
+ [name = 'Marginal disutility of labour of savers @{co}', country = '@{co}']
+ VLS_@{co} = OMEGAN_@{co}*(NS_@{co}/(POP_@{co}*ACTR_@{co})-HL_@{co}*NS_@{co}(-1)/(POP_@{co}(-1)*ACTR_@{co}(-1)))^THETAN_@{co}/(POP_@{co}*ACTR_@{co})*(CX_@{co}/(POP_@{co}*ACTR_@{co}))^(1-THETA_@{co});
+
+ [name = 'Marginal disutility of labour of savers @{co}', country = '@{co}']
+ VLC_@{co} = OMEGAN_@{co}*(NC_@{co}/(POP_@{co}*ACTR_@{co})-HL_@{co}*NC_@{co}(-1)/(POP_@{co}(-1)*ACTR_@{co}(-1)))^THETAN_@{co}/(POP_@{co}*ACTR_@{co})*(CX_@{co}/(POP_@{co}*ACTR_@{co}))^(1-THETA_@{co});
+
+ [name = 'FOC wrt international bond @{co}', country = '@{co}']
+ ((1+INOM_EA)-(ALPHABW1_@{co}*((E_RoW_EA*(BW_@{co})/(PY_@{co}*Y_@{co}))))+ZEPS_FQ_@{co})=1+INOM_@{co};
+
+ [name = 'Definition of nominal return on stocks @{co}', country = '@{co}']
+ (1+STEADY_STATE(INOMS_@{co}))*PS_@{co}/exp(GP0+GYTREND0) = (PS_@{co}+STEADY_STATE(PY_@{co})*STEADY_STATE(D_@{co})*PY0*YTREND0);
+
+ [name = 'Definition of expected return on capital @{co}', country = '@{co}']
+ INOMS_@{co} = INOMS1_@{co};
+
+ [name = 'Budget constraint of credit constrained households @{co}', country = '@{co}']
+ PCVAT_@{co}*CC_@{co} = (1-(TAUN_@{co}+0*ZEPS_TAX_@{co}))*W_@{co}*NC_@{co} 
+ @#if co == "DE"
+ +BEN_@{co}*(STEADY_STATE(N_@{co})*POP0-N_@{co}) 
+ @#endif
+ +TC_@{co}*PY_@{co}-OMEGATAXCC_@{co}*ZEPS_TAX_@{co}*PY_@{co}*Y_@{co};
+
+ [name = 'The real unit labour cost inflation rate @{co}', country = '@{co}']
+ PHIRULC_@{co} = log(RULC_@{co}/RULC_@{co}(-1));
+
+ [name = 'The real unit labour cost @{co}', country = '@{co}']
+ RULC_@{co} = W_@{co}*N_@{co}/(PY_@{co}*Y_@{co});
+
+ [name = 'Weighted marginal disutility of labour @{co}', country = '@{co}']
+ VL_@{co} = OMEGAS_@{co}*VLS_@{co}+(1-OMEGAS_@{co})*VLC_@{co};
+
+ @#if co == "DE"
+ [name = 'Labour supply (with benefits) @{co}', country = '@{co}']
+ (MUW_@{co}*VL_@{co}/(OMEGAS_@{co}*LAMBDAS_@{co}+(1-OMEGAS_@{co})*LAMBDAC_@{co})*PCVAT_@{co}/PY_@{co})^(1-GAMMAWR_@{co})*( ((1-(TAUN_@{co}+0*ZEPS_TAX_@{co})-ZEPS_BU_@{co})*W_@{co}(-1)) /PY_@{co}(-1)*exp(GYTREND0-GPOP0))^GAMMAWR_@{co}
+             = ((1-(TAUN_@{co}+0*ZEPS_TAX_@{co}))*W_@{co} - BEN_@{co} )/PY_@{co} + GAMMAW_@{co}*(PHIW_@{co}-(1-SFW_@{co})*(PHIYOBS_@{co}(-1)-GP0)-(GP0+GYTREND0-GPOP0))*(W_@{co}/W_@{co}(-1))*W_@{co}/PY_@{co}
+             - N_@{co}(1)/N_@{co}*((PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co}))*GAMMAW_@{co}*(PHIW_@{co}(1)-(1-SFW_@{co})*(PHIYOBS_@{co}-GP0)-(GP0+GYTREND0-GPOP0))*(W_@{co}(1)/W_@{co})*W_@{co}/PY_@{co} + ZEPS_U_@{co}*W_@{co}/PY_@{co}/STEADY_STATE(W_@{co});
+ 
+ [name = 'Benefits as share of nominal wages @{co}', country = '@{co}']
+ BEN_@{co} = W_@{co}*ZEPS_BU_@{co};
+
+ [name = 'Law of motion of benefit share @{co}', country = '@{co}']
+ ZEPS_BU_@{co} = ZEPS_BU_@{co}(-1)+EPS_BU_@{co};
+
+ [name = 'Mapping with the observable benefit share @{co}', country = '@{co}']
+ BU_Obs_@{co} = ZEPS_BU_@{co}/(1-(TAUN_@{co}+0*ZEPS_TAX_@{co}));
+ @#else
+ [name = 'Labour supply @{co}', country = '@{co}']
+ (MUW_@{co}*VL_@{co}/(OMEGAS_@{co}*LAMBDAS_@{co}+(1-OMEGAS_@{co})*LAMBDAC_@{co})*PCVAT_@{co}/PY_@{co})^(1-GAMMAWR_@{co})*((1-(TAUN_@{co}+0*ZEPS_TAX_@{co}))*W_@{co}(-1)/PY_@{co}(-1)*exp(GYTREND0-GPOP0))^GAMMAWR_@{co}
+             = (1-(TAUN_@{co}+0*ZEPS_TAX_@{co}))*W_@{co}/PY_@{co} + GAMMAW_@{co}*(PHIW_@{co}-(1-SFW_@{co})*(PHIYOBS_@{co}(-1)-GP0)-(GP0+GYTREND0-GPOP0))*(W_@{co}/W_@{co}(-1))*W_@{co}/PY_@{co}
+             - N_@{co}(1)/N_@{co}*((PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co}))*GAMMAW_@{co}*(PHIW_@{co}(1)-(1-SFW_@{co})*(PHIYOBS_@{co}-GP0)-(GP0+GYTREND0-GPOP0))*(W_@{co}(1)/W_@{co})*W_@{co}/PY_@{co} + ZEPS_U_@{co}*W_@{co}/PY_@{co}/STEADY_STATE(W_@{co});
+ @#endif
+         
+ [name = 'Employment in hours and unemployment relation @{co}', country = '@{co}']
+ N_@{co} = ACTR_@{co}*POP_@{co}*PARTR_@{co}*L_@{co}*HPERE_@{co};
+
+ [name = 'Employment and unemployment relation @{co}', country = '@{co}']
+ EMPL_@{co} = ACTR_@{co}*POP_@{co}*PARTR_@{co}*L_@{co};
+
+ [name = 'Log QA Employment @{co}', country = '@{co}']
+ LEMPLQA_@{co} = log((EMPL_@{co}+EMPL_@{co}(-1)+EMPL_@{co}(-2)+EMPL_@{co}(-3))/4/POP0);
+
+ [name = 'Log QA Hours @{co}', country = '@{co}']
+ LNQA_@{co} = log(N_@{co}+N_@{co}(-1)+N_@{co}(-2)+N_@{co}(-3))-log(POP0);
+
+ [name = 'Total output production function @{co}', country = '@{co}']
+ O_@{co}*PO_@{co} = PZ_@{co}*Z_@{co} + MZ_@{co}*PM_@{co};
+
+ [name = 'Total endogenous import shock @{co}', country = '@{co}']
+ exp(TZENDO_M_@{co}) = (1+TZEPS_M_@{co})*(1 + T_MAY1_@{co}_@{co}*TZEPS_M_@{co}_@{co} - SM_REA_@{co}*(1-T_MAY1_REA_REA)*TZEPS_M_REA_REA*T_MAY2_REA_@{co} - SM_RoW_@{co}*(1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW*T_MAY2_RoW_@{co} );
+
+ [name = 'Demand for the imported Z goods @{co}', country = '@{co}']
+ MZ_@{co} = SMZ_@{co}*(PM_@{co}/PO_@{co})^(-SIGMAZ_@{co})*O_@{co}*(1-RHOZ_@{co}) +(MZ_@{co}(-1)*exp(GYTREND0))*RHOZ_@{co} +(ZEPS_M_@{co}+TZEPS_MZ_@{co}+TZENDO_M_@{co}-RHOZ_@{co}*(ZEPS_M_@{co}(-1)+TZEPS_MZ_@{co}(-1)+TZENDO_M_@{co}(-1)))*STEADY_STATE(MZ_@{co})*YTREND0;
+
+ [name = 'Demand for the domestic Z goods @{co}', country = '@{co}']
+ Z_@{co} = (1-SMZ_@{co})*(PZ_@{co}/PO_@{co})^(-SIGMAZ_@{co})*O_@{co} -(ZEPS_M_@{co}+TZEPS_MZ_@{co}+TZENDO_M_@{co})*STEADY_STATE(MZ_@{co})*YTREND0;
+
+ [name = 'Intermediate output production function @{co}', country = '@{co}']
+ Z_@{co}*PZ_@{co} = PY_@{co}*Y_@{co} + OIL_@{co}*POIL_@{co};
+
+ [name = 'Demand for value added @{co}', country = '@{co}']
+ Y_@{co} = (1-SOIL_@{co})*(PY_@{co}/PZ_@{co})^-SIGMAO_@{co}*Z_@{co} -(TZEPS_M_@{co}+T_MAY1_@{co}_@{co}*TZEPS_M_@{co}_@{co})*STEADY_STATE(OIL_@{co})*YTREND0;
+
+ [name = 'Oil demand @{co}', country = '@{co}']
+ OIL_@{co} = (APOIL_@{co})^(SIGMAO_@{co}-1)*SOIL_@{co}*(POIL_@{co}/PZ_@{co})^(-SIGMAO_@{co})*Z_@{co}*(1-RHOOIL_@{co}) + RHOOIL_@{co}*OIL_@{co}(-1)*exp(GYTREND0) +(TZEPS_M_@{co}+T_MAY1_@{co}_@{co}*TZEPS_M_@{co}_@{co})*STEADY_STATE(OIL_@{co})*YTREND0*(1-RHOOIL_@{co});
+
+ [name = 'Oil price @{co}', country = '@{co}']
+ POIL_@{co} = E_RoW_@{co}*POIL_RoW+TAUOIL_@{co}*PY0;
+
+ [name = 'Value added production minus Fixed costs fct @{co}', country = '@{co}']
+ Y_@{co} = Ystar_@{co} - AY_@{co}/(YTREND0/(POP0*(API0_@{co})^((1-ALPHA_@{co})/ALPHA_@{co})))*FC_@{co}*YTREND0;
+
+ [name = 'Value added production fct @{co}', country = '@{co}']
+ Ystar_@{co} = ASCALE_@{co}*(AY_@{co}*(N_@{co}-FNt_@{co}))^(ALPHA_@{co})*(CU_@{co}*KTOT_@{co}(-1))^(1-ALPHA_@{co});
+
+ [name = 'Total Factor Productivity @{co}', country = '@{co}']
+ TFP_@{co} = ASCALE_@{co}*(AY_@{co})^ALPHA_@{co}*(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))^(1-ALPHA_@{co})*(KTOT_@{co}(-1)/KTOT_@{co})^(1-ALPHA_@{co}) /(1+FC_@{co})*(1-FN_@{co})^ALPHA_@{co};
+
+ [name = 'Potential Output definition @{co}', country = '@{co}']
+ YPOT_@{co}+AY_@{co}/(YTREND0/(POP0*(API0_@{co})^((1-ALPHA_@{co})/ALPHA_@{co})))*FC_@{co}*YTREND0 = ASCALE_@{co}*(AYTREND_@{co}*(N0_@{co}))^(ALPHA_@{co})*(KTOT_@{co}(-1)*CU0_@{co})^(1-ALPHA_@{co});
+
+ [name = 'Trend FN @{co}', country = '@{co}']
+ FN0_@{co} = RHOFN_@{co}*FN0_@{co}(-1)*exp(GPOP0)+(1-RHOFN_@{co})*FNt_@{co};
+
+ [name = 'Trend N @{co}', country = '@{co}']
+ N0_@{co} = RHOFN_@{co}*N0_@{co}(-1)*exp(GPOP0)+(1-RHOFN_@{co})*(N_@{co}-FNt_@{co});
+
+ [name = 'Trend CU @{co}', country = '@{co}']
+ CU0_@{co} = RHOCU_@{co}*CU0_@{co}(-1)+(1-RHOCU_@{co})*CU_@{co};
+
+ [name = 'Total Capital @{co}', country = '@{co}']
+ KTOT_@{co} = K_@{co}+KG_@{co};
+
+ [name = 'Dividend definition @{co}', country = '@{co}']
+ D_@{co} = (1-TAUK_@{co})*(Y_@{co}-W_@{co}/PY_@{co}*N_@{co})+TAUK_@{co}*DELTA_@{co}*(PI_@{co}/PY_@{co})*K_@{co}(-1)-(PI_@{co}/PY_@{co})*I_@{co};
+
+ [name = 'Adjustment costs definition @{co}', country = '@{co}']
+ ADJ_@{co} = ADJ_PY_@{co}+ADJ_N_@{co}+ADJ_CU_@{co}+ADJ_I_@{co};
+
+ [name = 'Pricing adjustment costs definition @{co}', country = '@{co}']
+ ADJ_PY_@{co} = SIGMAY_@{co}*GAMMAP_@{co}/2*Y_@{co}*(PY_@{co}/PY_@{co}(-1)-exp(GP0))^2;
+
+ [name = 'Import Pricing adjustment costs definition @{co}', country = '@{co}']
+ ADJ_PM_@{co} = +SIZE_REA/SIZE_@{co}*((SIGMAM_@{co}-1)*GAMMAPM_REA_@{co}/2*M_REA_@{co}*PM_REA_@{co}/PY_@{co}*(PM_REA_@{co}/PM_REA_@{co}(-1)*PO_@{co}(-1)/PO_@{co}-1)^2) +SIZE_RoW/SIZE_@{co}*((SIGMAM_@{co}-1)*GAMMAPM_RoW_@{co}/2*M_RoW_@{co}*PM_RoW_@{co}/PY_@{co}*(PM_RoW_@{co}/PM_RoW_@{co}(-1)*PO_@{co}(-1)/PO_@{co}-1)^2) ;
+
+ [name = 'Export Pricing adjustment costs definition @{co}', country = '@{co}']
+ ADJ_PX_@{co} = + ((SIGMAPX1_@{co}-1)*GAMMAPX_REA_@{co}/2*M_@{co}_REA*(PX_REA_@{co}/PX_REA_@{co}(-1)*E_@{co}_REA/E_@{co}_REA(-1)-exp(GP0))^2) + ((SIGMAPX1_@{co}-1)*GAMMAPX_RoW_@{co}/2*M_@{co}_RoW*(PX_RoW_@{co}/PX_RoW_@{co}(-1)*E_@{co}_RoW/E_@{co}_RoW(-1)-exp(GP0))^2) ;
+
+ [name = 'Employment adjustment costs definition @{co}', country = '@{co}']
+ ADJ_N_@{co} = GAMMAN_@{co}/2*Y_@{co}*((N_@{co}-FNt_@{co})/(N_@{co}(-1)-FNt_@{co}(-1))-exp(GPOP0))^2;
+
+ [name = 'Capicity Utilization adjustment costs definition @{co}', country = '@{co}']
+ ADJ_CU_@{co} = PI_@{co}/PY_@{co}*KTOT_@{co}(-1)*(GAMMAU1_@{co}*(CU_@{co}-1)+GAMMAU2_@{co}/2*(CU_@{co}-1)^2);
+
+ [name = 'Investment adjustment costs definition @{co}', country = '@{co}']
+ ADJ_I_@{co} = PI_@{co}/PY_@{co}*(GAMMAI1_@{co}/2*K_@{co}(-1)*(I_@{co}/K_@{co}(-1)-DELTAK_@{co})^2+GAMMAI2_@{co}/2*(I_@{co}-I_@{co}(-1)*exp(GYTREND0+GAPI0_@{co}))^2/K_@{co}(-1));
+
+ [name = 'Capital Depreciation rate definition @{co}', country = '@{co}']
+ DELTAK_@{co} = exp(GYTREND0+GAPI0_@{co})-(1-DELTA_@{co});
+
+ [name = 'Capital Accumulation equation @{co}', country = '@{co}']
+ K_@{co} = (1-DELTA_@{co})*K_@{co}(-1)+I_@{co};
+
+ [name = 'Firms FOC wrt Labour @{co}', country = '@{co}']
+ (MUY_@{co}-ZEPS_ND_@{co})*ALPHA_@{co}*Ystar_@{co}/(N_@{co}-FNt_@{co}) -GAMMAN_@{co}*Y_@{co}/(N_@{co}(-1)-FNt_@{co}(-1))*((N_@{co}-FNt_@{co})-(N_@{co}(-1)-FNt_@{co}(-1))*exp(GPOP0))/(N_@{co}(-1)-FNt_@{co}(-1)) +GAMMAN_@{co}*(PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co})*Y_@{co}(1)/(N_@{co}-FNt_@{co})*((N_@{co}(1)-FNt_@{co}(1))-(N_@{co}-FNt_@{co})*exp(GPOP0))/(N_@{co}-FNt_@{co})*((N_@{co}(1)-FNt_@{co}(1))/(N_@{co}-FNt_@{co})) -GAMMAN4_@{co}*Y_@{co}/(N_@{co}(-4)-FNt_@{co}(-4))*((N_@{co}-FNt_@{co})-(N_@{co}(-4)-FNt_@{co}(-4))*exp(4*GPOP0))/(N_@{co}(-4)-FNt_@{co}(-4)) +GAMMAN4_@{co}*(PY_@{co}(4)/PY_@{co})/((1+INOMS1_@{co})^4)*Y_@{co}(4)/(N_@{co}-FNt_@{co})*((N_@{co}(4)-FNt_@{co}(4))-(N_@{co}-FNt_@{co})*exp(4*GPOP0))/(N_@{co}-FNt_@{co})*((N_@{co}(4)-FNt_@{co}(4))/(N_@{co}-FNt_@{co})) -GAMMAN2_@{co}*Y_@{co}*((N_@{co}-FNt_@{co})-(1-FN_@{co})) = (1-TAUK_@{co})*W_@{co}/PY_@{co};
+
+ [name = 'Firms FOC wrt capital (Tobins Q equation) @{co}', country = '@{co}']
+ (PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co})*((PI_@{co}(1)/PY_@{co}(1))/(PI_@{co}/PY_@{co}))*(MUY_@{co}(1)*(1-ALPHA_@{co})*(PY_@{co}(1)/PI_@{co}(1))*(Ystar_@{co}(1)/KTOT_@{co})+TAUK_@{co}*DELTA_@{co}-(GAMMAU1_@{co}*(CU_@{co}(1)-1)+GAMMAU2_@{co}/2*(CU_@{co}(1)-1)^2)+(1-DELTA_@{co})*Q_@{co}(1)) = Q_@{co};
+
+ [name = 'Firms FOC wrt investment (Tobins Q definition) @{co}', country = '@{co}']
+ Q_@{co} = 1+GAMMAI1_@{co}*(I_@{co}/K_@{co}(-1)-DELTAK_@{co}) +GAMMAI2_@{co}*(I_@{co}-I_@{co}(-1)*exp(GYTREND0+GAPI0_@{co}))/K_@{co}(-1) -GAMMAI2_@{co}*(PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co})*((PI_@{co}(1)/PY_@{co}(1))/(PI_@{co}/PY_@{co})) *((SFI_@{co}*(I_@{co}(1)-I_@{co}*exp(GYTREND0+GAPI0_@{co})) +(1-SFI_@{co})*SFI1_@{co}*(I_@{co}-I_@{co}(-1)*exp(GYTREND0+GAPI0_@{co})) +(1-SFI_@{co})*(1-SFI1_@{co})*(I_@{co}(-1)-I_@{co}(-2)*exp(GYTREND0+GAPI0_@{co}))) *exp(GYTREND0+GAPI0_@{co})/K_@{co});
+
+ [name = 'Firms FOC wrt Capacity Utilization @{co}', country = '@{co}']
+ (MUY_@{co})/(PI_@{co}/PY_@{co})*(1-ALPHA_@{co})*Ystar_@{co}/CU_@{co} = KTOT_@{co}(-1)*(GAMMAU1_@{co}+GAMMAU2_@{co}*(CU_@{co}-1))+ KTOT_@{co}(-1)*GAMMAU3_@{co}*(CU_@{co}/CU_@{co}(-1)-1) -(PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co})*KTOT_@{co}(1)*GAMMAU3_@{co}*(CU_@{co}(1)/CU_@{co}-1);
+
+ [name = 'Firms FOC wrt labor hoarding @{co}', country = '@{co}']
+ MUY_@{co}*ALPHA_@{co}*Y_@{co}/(N_@{co}-FNt_@{co}) +Y_@{co}/(ACTR_@{co}*POP_@{co})*(GAMMAFN1_@{co}+GAMMAFN2_@{co}*(FNt_@{co}/(ACTR_@{co}*POP_@{co})-FN_@{co})) -GAMMAN_@{co}*Y_@{co}/(N_@{co}(-1)-FNt_@{co}(-1))*((N_@{co}-FNt_@{co})-(N_@{co}(-1)-FNt_@{co}(-1))*exp(GPOP0))/(N_@{co}(-1)-FNt_@{co}(-1)) -GAMMAN4_@{co}*Y_@{co}/(N_@{co}(-4)-FNt_@{co}(-4))*((N_@{co}-FNt_@{co})-(N_@{co}(-4)-FNt_@{co}(-4))*exp(4*GPOP0))/(N_@{co}(-4)-FNt_@{co}(-4)) -GAMMAN2_@{co}*Y_@{co}*((N_@{co}-FNt_@{co})-(1-FN_@{co})) +GAMMAN_@{co}*(PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co})*Y_@{co}(1)/(N_@{co}-FNt_@{co})*((N_@{co}(1)-FNt_@{co}(1))-(N_@{co}-FNt_@{co})*exp(GPOP0))/(N_@{co}-FNt_@{co})*((N_@{co}(1)-FNt_@{co}(1))/(N_@{co}-FNt_@{co})) +GAMMAN4_@{co}*(PY_@{co}(4)/PY_@{co})/((1+INOMS1_@{co})^4)*Y_@{co}(4)/(N_@{co}-FNt_@{co})*((N_@{co}(4)-FNt_@{co}(4))-(N_@{co}-FNt_@{co})*exp(4*GPOP0))/(N_@{co}-FNt_@{co})*((N_@{co}(4)-FNt_@{co}(4))/(N_@{co}-FNt_@{co})) =0;
+
+ [name = 'Firms FOC wrt. differentiated output price (Mark-up equation) @{co}', country = '@{co}']
+ ((SIGMAY_@{co}*MUY_@{co}/((1-TAUK_@{co})*(SIGMAY_@{co}-1))*PY_@{co})^(1-SPM_@{co})*PM_@{co}^SPM_@{co})^(1-GAMMAPY_@{co}) *(PY_@{co}(-1)*exp(GP0))^(GAMMAPY_@{co}+GAMMAPY2_@{co})*(PY_@{co}(-2)*exp(2*GP0))^(-GAMMAPY2_@{co}) = PY_@{co} + (SIGMAY_@{co}*GAMMAP_@{co}*(PHIY_@{co}-GP0)*(PY_@{co}/PY_@{co}(-1)) +SIGMAY_@{co}*GAMMAP4_@{co}*((PY_@{co}/PY_@{co}(-4))-exp(4*GP0))*(PY_@{co}/PY_@{co}(-4)) -Y_@{co}(1)/Y_@{co}*((PY_@{co}(1)/PY_@{co})/(1+INOMS1_@{co}))*SIGMAY_@{co}*GAMMAP_@{co}* ( SFP_@{co}*(PHIY_@{co}(1)-GP0)+ (1-SFP_@{co})*((PHIY_@{co}-GP0)*(1-T_MUY_PHI0_@{co}) +T_MUY_PHI0_@{co}*PHISTAR_@{co} ))*(PY_@{co}(1)/PY_@{co}) -Y_@{co}(4)/Y_@{co}*((PY_@{co}(4)/PY_@{co})/((1+INOMS1_@{co})^4))*SIGMAY_@{co}*GAMMAP4_@{co}*(SFP_@{co}*(PY_@{co}(4)/PY_@{co})+(1-SFP_@{co})*(PY_@{co}(-1)/PY_@{co}(-5))-exp(4*GP0))*(PY_@{co}(4)/PY_@{co}) +SIGMAY_@{co}*GAMMAP2_@{co}*(PY_@{co}/PY0-1) +SIGMAY_@{co}*(ZEPS_MUY_@{co}+TZEPS_MUY_@{co}) )/((1-TAUK_@{co})*(SIGMAY_@{co}-1))*PY_@{co};
+
+ [name = 'Filtered inflation gap @{co}', country = '@{co}']
+ @#if co == "IT" || co == "ES"
+ PHISTAR_@{co} = RHO_PHISTAR_@{co}*STEADY_STATE(PHIY_@{co}-GP0) + (1-RHO_PHISTAR_@{co})*(PHIY_@{co}(-1)-GP0);
+ @#else
+ PHISTAR_@{co}- RHO_PHISTAR_@{co}*PHISTAR_@{co}(-1) = (1-RHO_PHISTAR_@{co})*(PHIY_@{co}(-1)-GP0);
+ @#endif
+
+ [name = 'Endogenous component of markup shock @{co}', country = '@{co}']
+ TZEPS_MUY_@{co}- RHO_TZEPS_MUY_@{co}*TZEPS_MUY_@{co}(-1) = (1-RHO_TZEPS_MUY_@{co})*( - ((T_MUY_Y0_@{co} -T_MUY_Y1_@{co}-T_MUY_Y2_@{co}-T_MUY_Y3_@{co} )*(Y_@{co}/YPOT_@{co}-1) +T_MUY_Y1_@{co}*(Y_@{co}(-1)*exp(GYTREND0*1)/YTREND0-1) +T_MUY_Y2_@{co}*(Y_@{co}(-2)*exp(GYTREND0*2)/YTREND0-1) +T_MUY_Y3_@{co}*(Y_@{co}(-3)*exp(GYTREND0*3)/YTREND0-1) )) ;
+
+ [name = 'Observation equation for Capacity Utilization @{co}', country = '@{co}']
+ CU_@{co} = CUOBS_@{co}^CUSCALE_@{co}+EPS_CU_@{co};
+
+ [name = 'Profit for firms aggregating final demand of C good @{co}', country = '@{co}']
+ C_@{co}*PC_@{co} = PO_@{co}*OC_@{co}+PM_@{co}*MC_@{co};
+
+ [name = 'Profit for firms aggregating final demand of I good @{co}', country = '@{co}']
+ I_@{co}*PI_@{co} = PO_@{co}*OI_@{co}+PM_@{co}*MI_@{co};
+
+ [name = 'Profit for firms aggregating final demand of G good @{co}', country = '@{co}']
+ G_@{co}*PG_@{co} = PO_@{co}*OG_@{co}+PM_@{co}*MG_@{co};
+
+ [name = 'Profit for firms aggregating final demand of IG good @{co}', country = '@{co}']
+ IG_@{co}*PIG_@{co} = PO_@{co}*OIG_@{co}+PM_@{co}*MIG_@{co};
+
+ [name = 'Profits/Losses of exporters']
+ DIVX_@{co} = +(PX_REA_@{co}*M_@{co}_REA/PY_@{co} - PXINT_@{co}*M_@{co}_REA/PY_@{co} -((SIGMAPX1_@{co}-1)*GAMMAPX_REA_@{co}/2*M_@{co}_REA*(PX_REA_@{co}/PX_REA_@{co}(-1)*E_@{co}_REA/E_@{co}_REA(-1)-exp(GP0))^2)) +(PX_RoW_@{co}*M_@{co}_RoW/PY_@{co} - PXINT_@{co}*M_@{co}_RoW/PY_@{co} -((SIGMAPX1_@{co}-1)*GAMMAPX_RoW_@{co}/2*M_@{co}_RoW*(PX_RoW_@{co}/PX_RoW_@{co}(-1)*E_@{co}_RoW/E_@{co}_RoW(-1)-exp(GP0))^2)) ;
+
+ [name = 'Profit for firms aggregating X good @{co}', country = '@{co}']
+ X_@{co}*PXINT_@{co} = PO_@{co}*OX_@{co}+PM_@{co}*MX_@{co};
+
+ [name = 'Bilateral Export Price from @{co} to RoW', country = '@{co}']
+ PX_REA_@{co} = PXINT_@{co}^(1-ALPHAPX_REA_@{co})*(PO_REA*E_REA_@{co})^(ALPHAPX_REA_@{co}) -GAMMAPX_REA_@{co}*PY_@{co}*E_@{co}_REA/E_@{co}_REA(-1)*PX_REA_@{co}/PX_REA_@{co}(-1)*(PX_REA_@{co}/PX_REA_@{co}(-1)*E_@{co}_REA/E_@{co}_REA(-1)-exp(GP0)) +BETAT_@{co}*(LAMBDAS_@{co}(1)/LAMBDAS_@{co})*GAMMAPX_REA_@{co}*PY_@{co}*E_@{co}_REA(+1)/E_@{co}_REA*M_@{co}_REA(+1)/M_@{co}_REA*(PX_REA_@{co}(+1)/PX_REA_@{co})*(PX_REA_@{co}(+1)/PX_REA_@{co}*E_@{co}_REA(+1)/E_@{co}_REA-exp(GP0))*SFPX_@{co};
+
+ PX_RoW_@{co} = PXINT_@{co}^(1-ALPHAPX_RoW_@{co})*(PO_RoW*E_RoW_@{co})^(ALPHAPX_RoW_@{co}) -GAMMAPX_RoW_@{co}*PY_@{co}*E_@{co}_RoW/E_@{co}_RoW(-1)*PX_RoW_@{co}/PX_RoW_@{co}(-1)*(PX_RoW_@{co}/PX_RoW_@{co}(-1)*E_@{co}_RoW/E_@{co}_RoW(-1)-exp(GP0)) +BETAT_@{co}*(LAMBDAS_@{co}(1)/LAMBDAS_@{co})*GAMMAPX_RoW_@{co}*PY_@{co}*E_@{co}_RoW(+1)/E_@{co}_RoW*M_@{co}_RoW(+1)/M_@{co}_RoW*(PX_RoW_@{co}(+1)/PX_RoW_@{co})*(PX_RoW_@{co}(+1)/PX_RoW_@{co}*E_@{co}_RoW(+1)/E_@{co}_RoW-exp(GP0))*SFPX_@{co};
+
+ PM1_REA_@{co} = E_REA_@{co}*PX_@{co}_REA;
+
+ PM1_RoW_@{co} = E_RoW_@{co}*PX_@{co}_RoW;
+
+ [name = 'Demand for the imported X goods @{co}', country = '@{co}']
+ MX_@{co} = ((1/exp(ZEPS_PX_@{co}))^(SIGMAX_@{co}-1)*SMX_@{co}*(PM_@{co}/PXINT_@{co})^(-SIGMAX_@{co})*X_@{co})*(1-RHOZ_@{co}) +(MX_@{co}(-1)*exp(GYTREND0))*RHOZ_@{co} +(ZEPS_M_@{co}+TZEPS_MX_@{co}+TZENDO_M_@{co}-RHOZ_@{co}*(ZEPS_M_@{co}(-1)+TZEPS_MX_@{co}(-1)+TZENDO_M_@{co}(-1)))*STEADY_STATE(MX_@{co})*YTREND0;
+
+ [name = 'Demand for the domestic X goods @{co}', country = '@{co}']
+ OX_@{co} = ((1/exp(ZEPS_PX_@{co}))^(SIGMAX_@{co}-1)*(1-SMX_@{co}) *(PO_@{co}/PXINT_@{co})^(-SIGMAX_@{co})*X_@{co}) -(ZEPS_M_@{co}+TZEPS_MX_@{co}+TZENDO_M_@{co})*STEADY_STATE(MX_@{co})*YTREND0;
+
+ [name = 'Trend of the aggregate import shock @{co}', country = '@{co}']
+ TZEPS_M_@{co} = 0;
+
+ [name = 'Trend of the C import content @{co}', country = '@{co}']
+ TZEPS_MC_@{co} - RHO_MAY_@{co}*TZEPS_MC_@{co}(-1) = T_MAY_@{co}*( log(MC_@{co}(-1)*APC_@{co}(-1)/C_@{co}(-1)) - log(MC_@{co}(-2)*APC_@{co}(-2)/C_@{co}(-2)));
+
+ [name = 'Trend of the I import content @{co}', country = '@{co}']
+ TZEPS_MI_@{co} - RHO_MAY_@{co}*TZEPS_MI_@{co}(-1) = T_MAY_@{co}*( log(MI_@{co}(-1)*API_@{co}(-1)/I_@{co}(-1)) - log(MI_@{co}(-2)*API_@{co}(-2)/I_@{co}(-2)));
+
+ [name = 'Trend of the X import content @{co}', country = '@{co}']
+ TZEPS_MX_@{co} - RHO_MAY_@{co}*TZEPS_MX_@{co}(-1) = T_MAY_@{co}*( log(MX_@{co}(-1)/exp(ZEPS_PX_@{co}(-1))/X_@{co}(-1)) - log(MX_@{co}(-2)/exp(ZEPS_PX_@{co}(-2))/X_@{co}(-2)));
+
+ [name = 'Trend of the Z import content @{co}', country = '@{co}']
+ TZEPS_MZ_@{co} = 0;
+
+ [name = 'Demand for the domestic C goods @{co}', country = '@{co}']
+ OC_@{co} = ((APC_@{co})^(SIGMAC_@{co}-1)*(1-SMC_@{co})*(PO_@{co}/PC_@{co})^(-SIGMAC_@{co})*C_@{co}) -(ZEPS_M_@{co}+TZEPS_MC_@{co}+TZENDO_M_@{co})*STEADY_STATE(MC_@{co})*YTREND0;
+
+ [name = 'Demand for the domestic I goods @{co}', country = '@{co}']
+ OI_@{co} = ((API_@{co})^(SIGMAI_@{co}-1)*(1-SMI_@{co})*(PO_@{co}/PI_@{co})^(-SIGMAI_@{co})*I_@{co}) -(ZEPS_M_@{co}+TZEPS_MI_@{co}+TZENDO_M_@{co})*STEADY_STATE(MI_@{co})*YTREND0;
+
+ [name = 'Demand for the domestic G goods @{co}', country = '@{co}']
+ OG_@{co} = ((APG_@{co})^(SIGMAG_@{co}-1)*(1-SMG_@{co})*(PO_@{co}/PG_@{co})^(-SIGMAG_@{co})*G_@{co}) -(ZEPS_M_@{co}+TZENDO_M_@{co})*STEADY_STATE(MG_@{co})*YTREND0;
+
+ [name = 'Demand for the domestic IG goods @{co}', country = '@{co}']
+ OIG_@{co} = ((APIG_@{co})^(SIGMAIG_@{co}-1)*(1-SMIG_@{co})*(PO_@{co}/PIG_@{co})^(-SIGMAIG_@{co})*IG_@{co}) -(ZEPS_M_@{co}+TZENDO_M_@{co})*STEADY_STATE(MIG_@{co})*YTREND0;
+
+ [name = 'Demand for the imported C goods @{co}', country = '@{co}']
+ MC_@{co} = ((APC_@{co})^(SIGMAC_@{co}-1)*SMC_@{co} *(PM_@{co}/PC_@{co})^(-SIGMAC_@{co})*C_@{co})*(1-RHOZ_@{co})+(MC_@{co}(-1)*exp(GYTREND0))*RHOZ_@{co} +(ZEPS_M_@{co}+TZEPS_MC_@{co}+TZENDO_M_@{co}-RHOZ_@{co}*(ZEPS_M_@{co}(-1)+TZEPS_MC_@{co}(-1)+TZENDO_M_@{co}(-1)))*STEADY_STATE(MC_@{co})*YTREND0;
+
+ [name = 'Demand for the imported I goods @{co}', country = '@{co}']
+ MI_@{co} = ((API_@{co})^(SIGMAI_@{co}-1)*SMI_@{co} *(PM_@{co}/PI_@{co})^(-SIGMAI_@{co})*I_@{co})*(1-RHOZ_@{co})+(MI_@{co}(-1)*exp(GYTREND0))*RHOZ_@{co} +(ZEPS_M_@{co}+TZEPS_MI_@{co}+TZENDO_M_@{co}-RHOZ_@{co}*(ZEPS_M_@{co}(-1)+TZEPS_MI_@{co}(-1)+TZENDO_M_@{co}(-1)))*STEADY_STATE(MI_@{co})*YTREND0;
+
+ [name = 'Demand for the imported G goods @{co}', country = '@{co}']
+ MG_@{co} = ((APG_@{co})^(SIGMAG_@{co}-1)*SMG_@{co} *(PM_@{co}/PG_@{co})^(-SIGMAG_@{co})*G_@{co})*(1-RHOZ_@{co})+(MG_@{co}(-1)*exp(GYTREND0))*RHOZ_@{co} +(ZEPS_M_@{co}+TZENDO_M_@{co}-RHOZ_@{co}*(ZEPS_M_@{co}(-1)+TZENDO_M_@{co}(-1)))*STEADY_STATE(MG_@{co})*YTREND0;
+
+ [name = 'Demand for the imported IG goods @{co}', country = '@{co}']
+ MIG_@{co} = ((APIG_@{co})^(SIGMAIG_@{co}-1)*SMIG_@{co} *(PM_@{co}/PIG_@{co})^(-SIGMAIG_@{co})*IG_@{co})*(1-RHOZ_@{co})+(MIG_@{co}(-1)*exp(GYTREND0))*RHOZ_@{co} +(ZEPS_M_@{co}+TZENDO_M_@{co}-RHOZ_@{co}*(ZEPS_M_@{co}(-1)+TZENDO_M_@{co}(-1)))*STEADY_STATE(MIG_@{co})*YTREND0;
+
+ [name = 'Total non-oil imports @{co}', country = '@{co}']
+ M_@{co}= MC_@{co} + MI_@{co} + MG_@{co} + MIG_@{co} + MX_@{co} + MZ_@{co};
+
+ [name = 'Total imports @{co}', country = '@{co}']
+ PMTOT_@{co}*MTOT_@{co} = (PX_@{co}*X_@{co}-TB_@{co});
+
+ [name = 'Total imports price deflator @{co}', country = '@{co}']
+ PMTOT_@{co}*MTOT_@{co} = ( + (SIZE_REA/SIZE_@{co})*(E_REA_@{co}*PX_@{co}_REA/ PMTOT_@{co})* (E_REA_@{co}*PX_@{co}_REA*M_REA_@{co}) + (SIZE_RoW/SIZE_@{co})*(E_RoW_@{co}*PX_@{co}_RoW/ PMTOT_@{co})* (E_RoW_@{co}*PX_@{co}_RoW*M_RoW_@{co}) ) + (E_RoW_@{co}*POIL_RoW/PMTOT_@{co})*(E_RoW_@{co}*POIL_RoW*OIL_@{co});
+
+ [name = 'Trade trend @{co}', country = '@{co}']
+ TZEPS_M_@{co}_@{co} = RHO_TZEPS_M_@{co}*TZEPS_M_@{co}_@{co}(-1) - (1-RHO_TZEPS_M_@{co})*((T_MAY2_@{co}_@{co}-T_MAY3_@{co}_@{co})*(AYTREND_@{co}(-1)*exp(GAY0_@{co})/(YTREND0/(POP0*(API0_@{co})^((1-ALPHA_@{co})/ALPHA_@{co})))-1) +T_MAY3_@{co}_@{co}*(AYTREND_@{co}(-2)*exp(2*GAY0_@{co})/(YTREND0/(POP0*(API0_@{co})^((1-ALPHA_@{co})/ALPHA_@{co})))-1));
+
+ [name = 'The demand of goods of country @{co} from country REA ', country = '@{co}']
+ M_REA_@{co} = SM_REA_@{co}* (1 - (1-T_MAY1_REA_REA)*TZEPS_M_REA_REA)/(1 - (1-T_MAY1_REA_REA)*TZEPS_M_REA_REA*SM_REA_@{co} - (1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW*SM_RoW_@{co} )* ((PM_REA_@{co})/PM_@{co})^-SIGMAFM_@{co}*SIZE_@{co}/SIZE_REA*M_@{co};
+
+ [name = 'Bilateral trade balance of country @{co} exporting to/importing from REA', country = '@{co}']
+ TB_@{co}_REA = M_@{co}_REA*PX_REA_@{co} - M_REA_@{co}*PM_REA_@{co}*SIZE_REA/SIZE_@{co};
+
+ [name = 'The demand of goods of country @{co} from country RoW ', country = '@{co}']
+ M_RoW_@{co} = SM_RoW_@{co}* (1 - (1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW)/(1 - (1-T_MAY1_REA_REA)*TZEPS_M_REA_REA*SM_REA_@{co} - (1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW*SM_RoW_@{co} )* ((PM_RoW_@{co})/PM_@{co})^-SIGMAFM_@{co}*SIZE_@{co}/SIZE_RoW*M_@{co};
+
+ [name = 'Total import price @{co}', country = '@{co}']
+ PM_@{co}*M_@{co} = +(SIZE_REA/SIZE_@{co})*PM_REA_@{co}*M_REA_@{co} +(SIZE_RoW/SIZE_@{co})*PM_RoW_@{co}*M_RoW_@{co} ;
+
+ [name = 'Aggregate export price @{co}', country = '@{co}']
+ PX_@{co}*X_@{co} = + PX_REA_@{co}*M_@{co}_REA + PX_RoW_@{co}*M_@{co}_RoW ;
+
+ [name = 'Profits/Losses of sector-specific importers']
+ DIVM_@{co} = +SIZE_REA/SIZE_@{co}*(PM_REA_@{co}/PY_@{co}*M_REA_@{co} -E_REA_@{co}*PX_@{co}_REA/PY_@{co}*M_REA_@{co} -GAMMAPM_REA_@{co}*(SIGMAM_@{co}-1)/2*M_REA_@{co}*PM_REA_@{co}/PY_@{co}*(PM_REA_@{co}/PM_REA_@{co}(-1)*PO_@{co}(-1)/PO_@{co}-1)^2) +SIZE_RoW/SIZE_@{co}*(PM_RoW_@{co}/PY_@{co}*M_RoW_@{co} -E_RoW_@{co}*PX_@{co}_RoW/PY_@{co}*M_RoW_@{co} -GAMMAPM_RoW_@{co}*(SIGMAM_@{co}-1)/2*M_RoW_@{co}*PM_RoW_@{co}/PY_@{co}*(PM_RoW_@{co}/PM_RoW_@{co}(-1)*PO_@{co}(-1)/PO_@{co}-1)^2) ;
+
+ [name = 'Import prices of country DEfor products from country REA', country = '@{co}']
+ PM_REA_@{co} = (PM1_REA_@{co})^(1-ALPHAPM_REA_@{co})*PO_@{co}^ALPHAPM_REA_@{co} - GAMMAPM_REA_@{co}* (PM_REA_@{co})^2/PM_REA_@{co}(-1)*PO_@{co}(-1)/PO_@{co} * (PM_REA_@{co}/PM_REA_@{co}(-1)*PO_@{co}(-1)/PO_@{co}-1) + BETAT_@{co}*(LAMBDAS_@{co}(1)/LAMBDAS_@{co})*GAMMAPM_REA_@{co} * M_REA_@{co}(+1)/M_REA_@{co} * exp(-PHIY_@{co}(+1)) * (PM_REA_@{co}(+1))^2/PM_REA_@{co}*PO_@{co}/PO_@{co}(+1) * SFPM_@{co}*(PM_REA_@{co}(+1)/PM_REA_@{co}*PO_@{co}/PO_@{co}(+1)-1);
+
+ [name = 'Import price inflation definition @{co}', country = '@{co}']
+ PHIM_REA_@{co} = log(PM_REA_@{co}/PM_REA_@{co}(-1));
+
+ [name = 'Import prices of country DEfor products from country RoW', country = '@{co}']
+ PM_RoW_@{co} = (PM1_RoW_@{co})^(1-ALPHAPM_RoW_@{co})*PO_@{co}^ALPHAPM_RoW_@{co} - GAMMAPM_RoW_@{co}* (PM_RoW_@{co})^2/PM_RoW_@{co}(-1)*PO_@{co}(-1)/PO_@{co} * (PM_RoW_@{co}/PM_RoW_@{co}(-1)*PO_@{co}(-1)/PO_@{co}-1) + BETAT_@{co}*(LAMBDAS_@{co}(1)/LAMBDAS_@{co})*GAMMAPM_RoW_@{co} * M_RoW_@{co}(+1)/M_RoW_@{co} * exp(-PHIY_@{co}(+1)) * (PM_RoW_@{co}(+1))^2/PM_RoW_@{co}*PO_@{co}/PO_@{co}(+1) * SFPM_@{co}*(PM_RoW_@{co}(+1)/PM_RoW_@{co}*PO_@{co}/PO_@{co}(+1)-1);
+
+ [name = 'Import price inflation definition @{co}', country = '@{co}']
+ PHIM_RoW_@{co} = log(PM_RoW_@{co}/PM_RoW_@{co}(-1));
+
+ [name = 'Total export volume definition @{co}', country = '@{co}']
+ X_@{co} = + M_@{co}_REA + M_@{co}_RoW ;
+
+ [name = 'Nominal trade balance @{co}', country = '@{co}']
+ TB_@{co} = PX_@{co}*X_@{co} + -(SIZE_REA/SIZE_@{co})*E_REA_@{co}*PX_@{co}_REA*M_REA_@{co} -(SIZE_RoW/SIZE_@{co})*E_RoW_@{co}*PX_@{co}_RoW*M_RoW_@{co} -E_RoW_@{co}*POIL_RoW*OIL_@{co};
+
+ [name = 'Net foreign assets @{co}', country = '@{co}']
+ (E_RoW_@{co})*BW_@{co} = (1 + INOMBW(-1)) *(E_RoW_@{co})* BW_@{co}(-1) + TB_@{co}+ITR_@{co}*PYOBS_@{co}*YOBS_@{co} ;
+
+ [name = 'FOC wrt to risk free asset @{co}', country = '@{co}']
+ BETAT_@{co}*(SFH_@{co}*LAMBDAS_@{co}(+1) + (1-SFH_@{co})*(SFH1_@{co}*LAMBDAS_@{co} + (1-SFH1_@{co})*LAMBDAS_@{co}(-1)*exp((GAPC0_@{co}+GYTREND0-GPOP0)*(-THETA_@{co})-GPOP0))*exp((GAPC0_@{co}+GYTREND0-GPOP0)*(-THETA_@{co})-GPOP0))/LAMBDAS_@{co}*(1/(PCVAT_@{co}(1)/PCVAT_@{co}))*((1+INOM_@{co}-INOM_SPREAD_@{co}))=1;
+
+ [name = 'Definition of long-term gov bonds @{co}', country = '@{co}']
+ INOMGLT_@{co} = RHOINOMG_@{co}*INOMGLT_@{co}(-1)+(INOMG_@{co})*(1-RHOINOMG_@{co});
+
+ [name = 'Gov expenditure policy rule @{co}', country = '@{co}']
+ (G_@{co}*PG_@{co}-G_@{co}(-1)*PG_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}) = (YPOT_@{co}/YPOT_@{co}(-1)*exp(PHIYOBS_@{co})-1)*(G_@{co}(-1)*PG_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}) -ALPHA_G_@{co}*((G_@{co}(-1)*PG_@{co}(-1))/(YOBS_@{co}(-1)*PYOBS_@{co}(-1))-G_SSobs_@{co})+ZEPS_G_@{co};
+
+ [name = 'Gov investment policy rule @{co}', country = '@{co}']
+ (IG_@{co}*PIG_@{co}-IG_@{co}(-1)*PIG_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}) = (YPOT_@{co}/YPOT_@{co}(-1)*exp(PHIYOBS_@{co})-1)*(IG_@{co}(-1)*PIG_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}) -ALPHA_IG_@{co}*((IG_@{co}(-1)*PIG_@{co}(-1))/(YOBS_@{co}(-1)*PYOBS_@{co}(-1))-IG_SSobs_@{co})+ZEPS_IG_@{co};
+
+ [name = 'Transfers policy rule @{co}', country = '@{co}']
+ (T_@{co}*PY_@{co}-T_@{co}(-1)*PY_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}) = (YPOT_@{co}/YPOT_@{co}(-1)*exp(PHIYOBS_@{co})-1)*(T_@{co}(-1)*PY_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}) -ALPHA_T_@{co}*((T_@{co}(-1)*PY_@{co}(-1))/(YOBS_@{co}(-1)*PYOBS_@{co}(-1))-T_SSobs_@{co})+ZEPS_T_@{co};
+
+ [name = 'Discretionary fiscal effort @{co}', country = '@{co}']
+ DFE_@{co} = -((G_@{co}*PG_@{co}+IG_@{co}*PIG_@{co}+T_@{co}*PY_@{co}-(G_@{co}(-1)*PG_@{co}(-1)+IG_@{co}(-1)*PIG_@{co}(-1)+T_@{co}(-1)*PY_@{co}(-1)))/(YOBS_@{co}*PYOBS_@{co})- (YPOT_@{co}/YPOT_@{co}(-1)*exp(PHIYOBS_@{co})-1)*(G_@{co}(-1)*PG_@{co}(-1)+IG_@{co}(-1)*PIG_@{co}(-1)+T_@{co}(-1)*PY_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}));
+
+ [name = 'Discretionary fiscal effort net of transfers @{co}', country = '@{co}']
+ DFENOT_@{co} = -((G_@{co}*PG_@{co}+IG_@{co}*PIG_@{co}-(G_@{co}(-1)*PG_@{co}(-1)+IG_@{co}(-1)*PIG_@{co}(-1)))/(YOBS_@{co}*PYOBS_@{co})- (YPOT_@{co}/YPOT_@{co}(-1)*exp(PHIYOBS_@{co})-1)*(G_@{co}(-1)*PG_@{co}(-1)+IG_@{co}(-1)*PIG_@{co}(-1))/(YOBS_@{co}*PYOBS_@{co}));
+
+ [name = 'Discretionary fiscal effort incl. revenues', country = '@{co}']
+ DFETOT_@{co} = RG_@{co}/(YOBS_@{co}*PYOBS_@{co})+DFENOT_@{co};
+
+ [name = 'Net TAX residual @{co}', country = '@{co}']
+ ZEPS_TAX_@{co} = RHO_TAX_@{co}*ZEPS_TAX_@{co}(-1) +ETADEFT_@{co}*((BG_@{co}(-1)-BG_@{co}(-2))/(YOBS_@{co}(-1)*PYOBS_@{co}(-1))-DEFTAR_@{co}) + ETABT_@{co}*(BG_@{co}(-1)/(YOBS_@{co}(-1)*PYOBS_@{co}(-1))-BGTAR_@{co}) +EPS_TAX_@{co};
+
+ [name = 'Government budget constraint @{co}', country = '@{co}']
+ BG_@{co} = (1+INOMG_@{co}(-1))*BG_@{co}(-1)-RG_@{co}+PG_@{co}*G_@{co}+PIG_@{co}*IG_@{co}+T_@{co}*PY_@{co} 
+ @#if co == "DE"
+     +BEN_@{co}*(STEADY_STATE(N_@{co})*POP0-N_@{co})
+ @#endif
+ ;
+
+ [name = 'Nominal gov revenues @{co}', country = '@{co}']
+ RG_@{co} = TAUK_@{co}*(PY_@{co}*Y_@{co}-W_@{co}*N_@{co}-PI_@{co}*DELTA_@{co}*K_@{co}(-1))+0*(TAUN_@{co}+ ZEPS_TAX_@{co})*(W_@{co}*N_@{co})+TAUC_@{co}*PC_@{co}*C_@{co}+TAUOIL_@{co}*PY0*OIL_@{co} + 1*(TAUN_@{co}*(W_@{co}*N_@{co})+ZEPS_TAX_@{co}*PY_@{co}*Y_@{co});
+
+ [name = 'Nominal gov interst payments @{co}', country = '@{co}']
+ IB_@{co} = INOMG_@{co}(-1)*BG_@{co}(-1);
+
+ [name = 'Gov capital accumulation @{co}', country = '@{co}']
+ KG_@{co} = (1-DELTAG_@{co})*KG_@{co}(-1)+IG_@{co};
+
+ [name = 'Consumption market clearing @{co}', country = '@{co}']
+ C_@{co} = OMEGAS_@{co}*CS_@{co}+(1-OMEGAS_@{co})*CC_@{co};
+
+ [name = 'Employment market clearing @{co}', country = '@{co}']
+ N_@{co} = OMEGAS_@{co}*NS_@{co}+(1-OMEGAS_@{co})*NC_@{co};
+
+ [name = 'Employment across workers @{co}, assumption', country = '@{co}']
+ NS_@{co} = NC_@{co};
+
+ [name = 'Transfers market clearing @{co}', country = '@{co}']
+ T_@{co} = OMEGAS_@{co}*TS_@{co}+(1-OMEGAS_@{co})*TC_@{co};
+
+ [name = 'Transfers across households @{co}, assumption', country = '@{co}']
+ TS_@{co} = TC_@{co};
+
+ [name = 'GDP deflator used by statistical offices @{co}', country = '@{co}']
+ PYOBS_@{co}*YOBS_@{co} = PCVAT_@{co}*C_@{co}+PI_@{co}*I_@{co}+PG_@{co}*G_@{co}+PIG_@{co}*IG_@{co}+TB_@{co} ;
+
+ [name = 'Real GDP by statistical offices @{co}', country = '@{co}']
+ YOBS_@{co} = Y_@{co}+ (DIVM_@{co}+DIVX_@{co})*1;
+
+ [name = 'Definition of nominal GDP @{co}', country = '@{co}']
+ YOBSN_@{co} = YOBS_@{co}*PYOBS_@{co};
+
+ [name = 'Resource constraint @{co}', country = '@{co}']
+ PY_@{co}*Y_@{co} +DIVM_@{co}*PY_@{co}+DIVX_@{co}*PY_@{co}+TAUOIL_@{co}*OIL_@{co}*PY0 = PC_@{co}*C_@{co}+PI_@{co}*I_@{co}+PG_@{co}*G_@{co}+PIG_@{co}*IG_@{co}+TB_@{co} ;
+
+ [name = 'Definition of total investment deflator @{co}', country = '@{co}']
+ PITOT_@{co} = ( (I_@{co}*PI_@{co}) *PI_@{co} + (IG_@{co}*PIG_@{co}) *PIG_@{co})/ITOT_@{co}/PITOT_@{co};
+
+ [name = 'Definition of nominal total investment @{co}', country = '@{co}']
+ ITOT_@{co}*PITOT_@{co} = I_@{co}*PI_@{co}+IG_@{co}*PIG_@{co};
+
+ [name = 'Real interest rate @{co}', country = '@{co}']
+ R_@{co} = INOM_@{co}-PHIYOBS_@{co}(+1);
+
+ [name = 'Real interest rate on investment @{co}', country = '@{co}']
+ RS_@{co} = INOMS1_@{co}-PHII_@{co}(+1);
+
+ [name = 'Real interest rate deflated with investment prices @{co}', country = '@{co}']
+ R_PI_@{co} = INOM_@{co}-PHII_@{co}(+1);
+
+ [name = 'Consumption Inflation definition @{co}', country = '@{co}']
+ PHIC_@{co} = log(PC_@{co}/PC_@{co}(-1));
+
+ [name = 'Consumption VAT Inflation definition @{co}', country = '@{co}']
+ PHICVAT_@{co} = log(PCVAT_@{co}/PCVAT_@{co}(-1));
+
+ [name = 'CPI inflation definition @{co}', country = '@{co}']
+ PHICPI_@{co}*(STEADY_STATE(C_@{co})+STEADY_STATE(G_@{co})) = PHIC_@{co}*STEADY_STATE(C_@{co}) + PHIG_@{co}*STEADY_STATE(G_@{co});
+
+ [name = 'Government Consumption Inflation definition @{co}', country = '@{co}']
+ PHIG_@{co} = log(PG_@{co}/PG_@{co}(-1));
+
+ [name = 'Private investment Inflation definition @{co}', country = '@{co}']
+ PHII_@{co} = log(PI_@{co}/PI_@{co}(-1));
+
+ [name = 'Government investment Inflation definition @{co}', country = '@{co}']
+ PHIIG_@{co} = log(PIG_@{co}/PIG_@{co}(-1));
+
+ [name = 'Total investment Inflation definition @{co}', country = '@{co}']
+ PHIITOT_@{co} = log(PITOT_@{co}/PITOT_@{co}(-1));
+
+ [name = 'Non-oil Import price inflation @{co}']
+ PHIM_@{co} = log(PM_@{co}/PM_@{co}(-1));
+
+ [name = 'Total Import price inflation @{co}']
+ PHIMTOT_@{co} = log(PMTOT_@{co}/PMTOT_@{co}(-1));
+
+ [name = 'Oil price inflation @{co}', country = '@{co}']
+ PHIOIL_@{co} = log(POIL_@{co}/POIL_@{co}(-1));
+
+ [name = 'Export price inflation @{co}']
+ PHIX_@{co} = log(PX_@{co}/PX_@{co}(-1));
+
+ [name = 'GDP OBS price inflation @{co}']
+ PHIYOBS_@{co} = log(PYOBS_@{co}/PYOBS_@{co}(-1));
+
+ [name = 'Wage inflation @{co}']
+ PHIW_@{co} = log(W_@{co}/W_@{co}(-1));
+
+ [name = 'FOC wrt gov bonds of @{co} held by @{co}', country = '@{co}']
+ BETAT_@{co}*(SFH_@{co}*LAMBDAS_@{co}(+1) + (1-SFH_@{co})*(SFH1_@{co}*LAMBDAS_@{co} + (1-SFH1_@{co})*LAMBDAS_@{co}(-1)*exp((GAPC0_@{co}+GYTREND0-GPOP0)*(-THETA_@{co})-GPOP0))*exp((GAPC0_@{co}+GYTREND0-GPOP0)*(-THETA_@{co})-GPOP0))/LAMBDAS_@{co}*(1/(PCVAT_@{co}(1)/PCVAT_@{co}))*((1+INOMG_@{co})*(E_@{co}_@{co}(+1)/E_@{co}_@{co})-(ZEPS_B_@{co})-(ZEPS_B_@{co}_@{co})-SB_@{co}*(ALPHAB0_@{co}_@{co}+ALPHAB1_@{co}_@{co}*(E_@{co}_@{co}*B_@{co}_@{co}*SIZE_@{co}/SIZE_@{co})/(Y_@{co}*PY_@{co})))=1;
+
+ [name = 'FOC wrt stocks of @{co} held by @{co}', country = '@{co}']
+ BETAT_@{co}*(SFH_@{co}*LAMBDAS_@{co}(+1) + (1-SFH_@{co})*(SFH1_@{co}*LAMBDAS_@{co} + (1-SFH1_@{co})*LAMBDAS_@{co}(-1)*exp((GAPC0_@{co}+GYTREND0-GPOP0)*(-THETA_@{co})-GPOP0))*exp((GAPC0_@{co}+GYTREND0-GPOP0)*(-THETA_@{co})-GPOP0))/LAMBDAS_@{co}*(1/(PCVAT_@{co}(1)/PCVAT_@{co}))*((1+INOMS1_@{co})*(E_@{co}_@{co}(+1)/E_@{co}_@{co})-(ZEPS_S_@{co})-(ZEPS_S_@{co}_@{co})-SS_@{co}*(ALPHAS0_@{co}_@{co}+ALPHAS1_@{co}_@{co}*(E_@{co}_@{co}*PS_@{co}*S_@{co}_@{co}*SIZE_@{co}/SIZE_@{co})/(Y_@{co}*PY_@{co})))=1;
+
+ [name = 'Shock to Preference for bonds of country @{co} held by @{co}', country = '@{co}']
+ ZEPS_B_@{co}_@{co} = RHO_B_@{co}_@{co}*ZEPS_B_@{co}_@{co}(-1)+EPS_B_@{co}_@{co};
+
+ [name = 'Shock to Preference for stocks of country @{co} held by @{co}', country = '@{co}']
+ ZEPS_S_@{co}_@{co} = RHO_S_@{co}_@{co}*ZEPS_S_@{co}_@{co}(-1)+EPS_S_@{co}_@{co};
+
+ [name = 'Log of trend productivity production fct @{co}', country = '@{co}']
+ log(AYTREND_@{co}) = log(AYTREND_@{co}(-1)) + GAYTREND_@{co} + EPS_LAYTREND_@{co};
+
+ [name = 'Private consumption specific productivity RW @{co}', country = '@{co}']
+ log(APC_@{co}) = (log(APC_@{co}(-1)) + GAPC_@{co})*APC_FLAG_@{co};
+
+ [name = 'Government consumption specific productivity RW @{co}', country = '@{co}']
+ log(APG_@{co}) = (log(APG_@{co}(-1)) + GAPG_@{co})*APG_FLAG_@{co};
+
+ [name = 'Private investment specific productivity RW @{co}', country = '@{co}']
+ log(API_@{co}) = (log(API_@{co}(-1)) + GAPI_@{co})*API_FLAG_@{co};
+
+ [name = 'Oil specific productivity RW @{co}', country = '@{co}']
+ log(APOIL_@{co}) = (log(APOIL_@{co}(-1)) + GAPOIL_@{co})*APOIL_FLAG_@{co};
+
+ [name = 'Trend HPERE @{co}', country = '@{co}']
+ log(HPERETREND_@{co}) = (log(HPERETREND_@{co}(-1)) + GHPERETREND_@{co})*HPERE_FLAG_@{co};
+
+ [name = 'Trend PARTR @{co}', country = '@{co}']
+ log(PARTRTREND_@{co}) = (log(PARTRTREND_@{co}(-1)) + GPARTRTREND_@{co})*PARTR_FLAG_@{co};
+
+ [name = 'ACTR @{co}', country = '@{co}']
+ log(ACTR_@{co}) = (log(ACTR_@{co}(-1)) + GACTR_@{co})*ACTR_FLAG_@{co};
+
+ [name = 'POP @{co}', country = '@{co}']
+ log(POP_@{co}) = (log(POP_@{co}(-1)) + GPOP_@{co})*POP_FLAG_@{co};
+
+ [name = 'GDP Inflation definition @{co}', country = '@{co}']
+ PHIY_@{co} = log(PY_@{co}/PY_@{co}(-1));
+
+ [name = 'Quarterly Anuualized PARTR @{co}', country = '@{co}']
+ PARTRQA_@{co} = (PARTR_@{co}+PARTR_@{co}(-1)+PARTR_@{co}(-2)+PARTR_@{co}(-3))/4;
+
+ [name = 'Quarterly Anuualized HPERE @{co}', country = '@{co}']
+ HPEREQA_@{co} = (N_@{co}+N_@{co}(-1)+N_@{co}(-2)+N_@{co}(-3))/(EMPL_@{co}+EMPL_@{co}(-1)+EMPL_@{co}(-2)+EMPL_@{co}(-3))*4;
+
+ [name = 'Growth of productivity production fct @{co}', country = '@{co}']
+ GAY_@{co} = log(AY_@{co}/AY_@{co}(-1));
+
+ [name = 'Log of productivity production fct @{co}', country = '@{co}']
+ log(AY_@{co}) = log(AYTREND_@{co}) + ZEPS_AY_@{co};
+
+ [name = 'Growth of TFP trend', country = '@{co}']
+ GTFPTREND_@{co} = log(AYTREND_@{co}/AYTREND_@{co}(-1))*ALPHA_@{co};
+
+ [name = 'Growth of actual TFP', country = '@{co}']
+ GTFP_@{co} = GAY_@{co}*ALPHA_@{co};
+
+ [name = 'Growth of hours @{co}', country = '@{co}']
+ GN_@{co} = log(N_@{co}/N_@{co}(-1));
+
+ [name = 'Growth of employment rate @{co}', country = '@{co}']
+ GL_@{co} = log(L_@{co}/L_@{co}(-1));
+
+ [name = 'Growth of ACTR @{co}', country = '@{co}']
+ GACTR_@{co} = RHO_GACTR_@{co}*GACTR_@{co}(-1) + ZEPS_ACTR_@{co};
+
+ [name = 'Growth of HPERE @{co}', country = '@{co}']
+ GHPERE_@{co} = log(HPERE_@{co}/HPERE_@{co}(-1));
+
+ [name = 'Log of HPERE @{co}', country = '@{co}']
+ log(HPERE_@{co}) = log(HPERETREND_@{co}) + ZEPS_HPERE_@{co};
+
+ [name = 'Growth of HPERETREND @{co}', country = '@{co}']
+ GHPERETREND_@{co} = 0;
+
+ [name = 'Growth of PARTR @{co}', country = '@{co}']
+ GPARTR_@{co} = log(PARTR_@{co}/PARTR_@{co}(-1));
+
+ [name = 'Log of PARTR @{co}', country = '@{co}']
+ log(PARTR_@{co}) = log(PARTRTREND_@{co}) + ZEPS_PARTR_@{co};
+
+ [name = 'Growth of PARTRTREND @{co}', country = '@{co}']
+ GPARTRTREND_@{co} = 0;
+
+ [name = 'Growth of POP @{co}', country = '@{co}']
+ GPOP_@{co} = RHO_GPOP_@{co}*GPOP_@{co}(-1) + ZEPS_POP_@{co} + (1-RHO_GPOP_@{co})*GPOP0;
+
+ [name = 'Growth private consumption specific productivity RW @{co}', country = '@{co}']
+ GAPC_@{co} = ZEPS_APC_@{co} + GAPC0_@{co};
+
+ [name = 'Private consumption specific productivity shock @{co}', country = '@{co}']
+ ZEPS_APC_@{co} = RHO_APC_@{co}*ZEPS_APC_@{co}(-1)+EPS_APC_@{co};
+
+ [name = 'Growth government consumption specific productivity @{co}', country = '@{co}']
+ GAPG_@{co} = ZEPS_APG_@{co} + GAPG0_@{co};
+
+ [name = 'Gov. consumption specific productivity shock @{co}', country = '@{co}']
+ ZEPS_APG_@{co} = RHO_APG_@{co}*ZEPS_APG_@{co}(-1)+EPS_APG_@{co};
+
+ [name = 'Growth private investment specific productivity @{co}', country = '@{co}']
+ GAPI_@{co} = ZEPS_API_@{co} + GAPI0_@{co};
+
+ [name = 'Private investment specific productivity shock @{co}', country = '@{co}']
+ ZEPS_API_@{co} = RHO_API_@{co}*ZEPS_API_@{co}(-1)+EPS_API_@{co};
+
+ [name = 'Government investment specific productivity @{co}', country = '@{co}']
+ APIG_@{co} = API_@{co}*exp(ZEPS_APIG_@{co});
+
+ [name = 'Government investment specific productivity shock @{co}', country = '@{co}']
+ ZEPS_APIG_@{co} = RHO_APIG_@{co}*ZEPS_APIG_@{co}(-1)+EPS_APIG_@{co};
+
+ [name = 'Growth of government investment specific productivity @{co}', country = '@{co}']
+ GAPIG_@{co} = log(APIG_@{co}/APIG_@{co}(-1));
+
+ [name = 'Oil specific productivity RW @{co}', country = '@{co}']
+ GAPOIL_@{co} = 0;
+
+ [name = 'Growth of employment trend @{co}', country = '@{co}']
+ GNTREND_@{co} = GACTR_@{co}+GPOP_@{co}+log(PARTRTREND_@{co}/PARTRTREND_@{co}(-1))+log(HPERETREND_@{co}/HPERETREND_@{co}(-1));
+
+ [name = 'Total hours trend @{co}', country = '@{co}']
+ NTREND_@{co} = ACTR_@{co}*POP_@{co}*PARTRTREND_@{co}*HPERETREND_@{co};
+
+ [name = 'Nominal consumption share @{co}', country = '@{co}']
+ CY_@{co} = PCVAT_@{co}*C_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Nominal oil share @{co}', country = '@{co}']
+ OILY_@{co} = POIL_@{co}*OIL_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Log Nominal oil share @{co}', country = '@{co}']
+ LOILY_@{co} = log(OILY_@{co});
+
+ [name = 'Log Nominal consumption share @{co}', country = '@{co}']
+ LCY_@{co} = log(CY_@{co});
+
+ [name = 'Nominal gov. consumption share @{co}', country = '@{co}']
+ CGY_@{co} = PG_@{co}*G_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Nominal gov. consumption share @{co}', country = '@{co}']
+ LCGY_@{co} = log(CGY_@{co});
+
+ [name = 'Nominal import share @{co}', country = '@{co}']
+ MTOTY_@{co} = PMTOT_@{co}*MTOT_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Log. of Nominal import share @{co}', country = '@{co}']
+ LMTOTY_@{co} = log(MTOTY_@{co});
+
+ [name = 'Nominal export share @{co}', country = '@{co}']
+ XY_@{co} = PX_@{co}*X_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Log of Nominal export share @{co}', country = '@{co}']
+ LXY_@{co} = log(XY_@{co});
+
+ [name = 'Nominal wage share @{co}', country = '@{co}']
+ WY_@{co} = W_@{co}*N_@{co}/(PYOBS_@{co}*YOBS_@{co});
+
+ [name = 'Labor productivity @{co}', country = '@{co}']
+ YL_@{co} = YOBS_@{co}/N_@{co};
+
+ [name = 'Log of Nominal wage share @{co}', country = '@{co}']
+ LWY_@{co} = log(WY_@{co});
+
+ [name = 'Growth rate of GDP @{co}', country = '@{co}']
+ GY_@{co} = log(Y_@{co}/Y_@{co}(-1));
+
+ [name = 'Growth rate of observed GDP @{co}', country = '@{co}']
+ GYOBS_@{co} = log(YOBS_@{co}/YOBS_@{co}(-1));
+
+ [name = 'Growth rate of KTOT @{co}', country = '@{co}']
+ GKTOT_@{co} = log(KTOT_@{co}/KTOT_@{co}(-1));
+
+ [name = 'Growth rate of gov. debt @{co}', country = '@{co}']
+ GBG_@{co} = log(BG_@{co}/BG_@{co}(-1));
+
+ [name = 'Growth rate of consumption @{co}', country = '@{co}']
+ GC_@{co} = log(C_@{co}/C_@{co}(-1));
+
+ [name = 'Growth rate of consumption of constrained @{co}', country = '@{co}']
+ GCC_@{co} = log(CC_@{co}/CC_@{co}(-1));
+
+ [name = 'Growth rate of consumption of savers @{co}', country = '@{co}']
+ GCS_@{co} = log(CS_@{co}/CS_@{co}(-1));
+
+ [name = 'Growth rate of gov. consumption @{co}', country = '@{co}']
+ GG_@{co} = log(G_@{co}/G_@{co}(-1));
+
+ [name = 'Growth rate of total investment @{co}', country = '@{co}']
+ GITOT_@{co} = log((I_@{co}+IG_@{co})/(I_@{co}(-1)+IG_@{co}(-1)));
+
+ [name = 'Growth rate of investment @{co}', country = '@{co}']
+ GI_@{co} = log(I_@{co}/I_@{co}(-1));
+
+ [name = 'Growth rate of gov. investment @{co}', country = '@{co}']
+ GIG_@{co} = log(IG_@{co}/IG_@{co}(-1));
+
+ [name = 'Growth rate of total nominal imports @{co}', country = '@{co}']
+ GMTOTN_@{co} = log(MTOT_@{co}*PMTOT_@{co}/MTOT_@{co}(-1)/PMTOT_@{co}(-1));
+
+ [name = 'Growth rate of total nominal exports @{co}', country = '@{co}']
+ GXN_@{co} = log(X_@{co}*PX_@{co}/X_@{co}(-1)/PX_@{co}(-1));
+
+ [name = 'Growth rate of non-oil imports @{co}', country = '@{co}']
+ GM_@{co} = log(M_@{co}/M_@{co}(-1));
+
+ [name = 'Growth rate of total imports @{co}', country = '@{co}']
+ GMTOT_@{co} = log(MTOT_@{co}/MTOT_@{co}(-1));
+
+ [name = 'Growth rate of total exports @{co}', country = '@{co}']
+ GX_@{co} = log(X_@{co}/X_@{co}(-1));
+
+ [name = 'Nominal net foreign assets share @{co}', country = '@{co}']
+ NFAY_@{co} = (E_RoW_@{co})*NFA_@{co}/YOBS_@{co}/PYOBS_@{co};
+
+ [name = 'Nominal investment share @{co}', country = '@{co}']
+ IY_@{co} = PI_@{co}*I_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Log of nominal investment share @{co}', country = '@{co}']
+ LIY_@{co} = log(IY_@{co});
+
+ [name = 'Nominal gov. investment share @{co}', country = '@{co}']
+ IGY_@{co} = PIG_@{co}*IG_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Log of nominal gov. investment share @{co}', country = '@{co}']
+ LIGY_@{co} = log(IGY_@{co});
+
+ [name = 'Log total Nominal investment share @{co}', country = '@{co}']
+ LITOTY_@{co} = log(PITOT_@{co}*ITOT_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+
+ [name = 'Log of IG price to I price @{co}', country = '@{co}']
+ LPIGPI_@{co} = log(PIG_@{co}/PI_@{co});
+
+ [name = 'Log of export price to GDP price @{co}', country = '@{co}']
+ LPXPYOBS_@{co} = log(PX_@{co}/PYOBS_@{co}*STEADY_STATE(PYOBS_@{co}));
+
+ [name = 'Log of ITOT price to GDP price @{co}', country = '@{co}']
+ LPITOTPYOBS_@{co} = log((PITOT_@{co}*API0_@{co})/PYOBS_@{co}*STEADY_STATE(PYOBS_@{co}));
+
+ [name = 'Log of PIGQA to GDP QA price @{co}', country = '@{co}']
+ LPIGPYOBSQA_@{co} = log((PIGQA_@{co}*API0_@{co})/PYOBSQA_@{co}*STEADY_STATE(PYOBSQA_@{co}));
+
+ [name = 'Definition of PIG QA price @{co}', country = '@{co}']
+ PIGQA_@{co} = (PIG_@{co}+PIG_@{co}(-1)+PIG_@{co}(-2)+PIG_@{co}(-3))/4;
+
+ [name = 'Definition of PYOBS QA price @{co}', country = '@{co}']
+ PYOBSQA_@{co} = (PYOBS_@{co}+PYOBS_@{co}(-1)+PYOBS_@{co}(-2)+PYOBS_@{co}(-3))/4;
+
+ [name = 'Nominal trade balance share @{co}', country = '@{co}']
+ TBY_@{co} = TB_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Change in nominal trade balance share @{co}', country = '@{co}']
+ GTBY_@{co} = TBY_@{co} - TBY_@{co}(-1);
+
+ [name = 'Nominal bonds share @{co}', country = '@{co}']
+ BY_@{co} = B_@{co}/(Y_@{co}*PY_@{co});
+
+ [name = 'Nominal gov. bonds share @{co}', country = '@{co}']
+ BGY_@{co} = BG_@{co}/(YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Log-Nominal gov. bonds share @{co}', country = '@{co}']
+ LBGY_@{co} = log(BGY_@{co});
+
+ [name = 'Nominal gov. interest payments share @{co}', country = '@{co}']
+ IBY_@{co} = IB_@{co}/ (YOBS_@{co}*PYOBS_@{co});
+
+ [name = 'Log-Nominal gov. interest payments share @{co}', country = '@{co}']
+ LIBY_@{co} = log(IBY_@{co});
+
+ [name = 'Log-Nominal gov. interest payments @{co}', country = '@{co}']
+ LIB_@{co} = log(IB_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co})));
+
+ [name = 'Log-Nominal gov. transfers share @{co}', country = '@{co}']
+ LTY_@{co} = log(T_@{co}*PY_@{co}/(YOBS_@{co}*PYOBS_@{co}));
+
+ [name = 'Log-Nominal QA gov. transfers share @{co}', country = '@{co}']
+ LTYQA_@{co} = log((T_@{co}*PY_@{co}+T_@{co}(-1)*PY_@{co}(-1)+T_@{co}(-2)*PY_@{co}(-2)+T_@{co}(-3)*PY_@{co}(-3))/(YOBS_@{co}*PYOBS_@{co}+YOBS_@{co}(-1)*PYOBS_@{co}(-1)+YOBS_@{co}(-2)*PYOBS_@{co}(-2)+YOBS_@{co}(-3)*PYOBS_@{co}(-3)));
+
+ [name = 'Shock to Savers Preference @{co}', country = '@{co}']
+ ZEPS_UC_@{co} = RHO_P_@{co}*ZEPS_UC_@{co}(-1)+EPS_UC_@{co};
+
+ [name = 'Temporary Shock to Technology @{co}', country = '@{co}']
+ ZEPS_AY_@{co} = RHO_AY_@{co}*ZEPS_AY_@{co}(-1)+EPS_AY_@{co};
+
+ [name = 'Temporary Shock to capacity utilization @{co}', country = '@{co}']
+ ZEPS_CU_@{co} = RHO_CU_@{co}*ZEPS_CU_@{co}(-1)+EPS_CU_@{co};
+
+ [name = 'Temporary Shock to Fly to Quality @{co}', country = '@{co}']
+ ZEPS_FQ_@{co} = RHO_FQ_@{co}*ZEPS_FQ_@{co}(-1)+EPS_FQ_@{co};
+
+ [name = 'Temporary Shock to Fixed Labor @{co}', country = '@{co}']
+ ZEPS_FN_@{co} = RHO_FN_@{co}*ZEPS_FN_@{co}(-1)+EPS_FN_@{co};
+
+ [name = 'Temporary Shock to Labor demand @{co}', country = '@{co}']
+ ZEPS_ND_@{co} = RHO_ND_@{co}*ZEPS_ND_@{co}(-1)+EPS_ND_@{co};
+
+ [name = 'Shock to Preference for bonds @{co}', country = '@{co}']
+ ZEPS_B_@{co} = 0;
+
+ [name = 'Shock to Preference for international bonds @{co}', country = '@{co}']
+ ZEPS_BW_@{co} = RHO_BW_@{co}*ZEPS_BW_@{co}(-1)+EPS_BW_@{co};
+
+ [name = 'Gov consumption shock @{co}', country = '@{co}']
+ ZEPS_G_@{co} = RHO_G_@{co}*ZEPS_G_@{co}(-1)+EPS_G_@{co};
+
+ [name = 'Temporary Shock to ACTR @{co}', country = '@{co}']
+ ZEPS_ACTR_@{co} = RHO_ACTR_@{co}*ZEPS_ACTR_@{co}(-1)+EPS_ACTR_@{co};
+
+ [name = 'Temporary Shock to HPERE @{co}', country = '@{co}']
+ ZEPS_HPERE_@{co} = 0;
+
+ [name = 'Temporary Shock to PARTR @{co}', country = '@{co}']
+ ZEPS_PARTR_@{co} = 0;
+
+ [name = 'Temporary Shock to POP @{co}', country = '@{co}']
+ ZEPS_POP_@{co} = RHO_POP_@{co}*ZEPS_POP_@{co}(-1)+EPS_POP_@{co};
+
+ [name = 'Gov investment shock @{co}', country = '@{co}']
+ ZEPS_IG_@{co} = RHO_IG_@{co}*ZEPS_IG_@{co}(-1)+EPS_IG_@{co};
+
+ [name = 'Import shock @{co}', country = '@{co}']
+ ZEPS_M_@{co} = RHO_M_@{co}*ZEPS_M_@{co}(-1)+EPS_M_@{co};
+
+ [name = 'GDP Mark-up shock @{co}', country = '@{co}']
+ ZEPS_MUY_@{co} = RHO_MUY_@{co}*ZEPS_MUY_@{co}(-1)+EPS_MUY_@{co};
+
+ [name = 'Shock to export price @{co}', country = '@{co}']
+ ZEPS_PX_@{co} = RHO_PX_@{co}*ZEPS_PX_@{co}(-1)+EPS_PX_@{co};
+
+ [name = 'Shock to Preference for stocks @{co}', country = '@{co}']
+ ZEPS_S_@{co} = 0;
+
+ [name = 'Transfers shock @{co}', country ='@{co}']
+ ZEPS_T_@{co} = RHO_T_@{co}*ZEPS_T_@{co}(-1)+EPS_T_@{co};
+
+ [name = 'Phillips curve shock @{co}', country ='@{co}']
+ ZEPS_U_@{co} = RHO_U_@{co}*ZEPS_U_@{co}(-1)+EPS_U_@{co};
+
+ [name = 'Growth of production productivy shock @{co}', country ='@{co}']
+ GAYTREND_@{co} = RHO_GAYTREND_@{co}*GAYTREND_@{co}(-1)+EPS_GAYTREND_@{co}+(1-RHO_GAYTREND_@{co})*GAY0_@{co};
+
+ [name = 'Log-level nominal exchange rate from currency REA to @{co}', country = '@{co}']
+ LE_REA_@{co} = log(E_REA_@{co});
+
+ [name = 'Log-level real exchange rate from currency REA to @{co}', country = '@{co}']
+ LRER_REA_@{co} = LE_REA_@{co} + LPYOBS_REA - LPYOBS_@{co};
+
+ [name = 'Log-level nominal exchange rate from currency RoW to @{co}', country = '@{co}']
+ LE_RoW_@{co} = log(E_RoW_@{co});
+
+ [name = 'Log-level real exchange rate from currency RoW to @{co}', country = '@{co}']
+ LRER_RoW_@{co} = LE_RoW_@{co} + LPYOBS_RoW - LPYOBS_@{co};
+
+ [name = 'Log-level effective nominal exchange rate of @{co}', country = '@{co}']
+ LE_@{co} = -log( + WT_REA_@{co} * E_@{co}_REA + WT_RoW_@{co} * E_@{co}_RoW );
+
+ [name = 'Growth rate of Log-level effective nominal exchange rate of @{co}', country = '@{co}']
+ GE_@{co} = LE_@{co}-LE_@{co}(-1);
+
+ [name = 'Log-level effective real exchange rate of @{co}', country = '@{co}']
+ LRER_@{co} = -log( + WT_REA_@{co} * exp(LRER_@{co}_REA) + WT_RoW_@{co} * exp(LRER_@{co}_RoW) );
+
+ [name = 'Average bilateral openness of country @{co} w.r.t. country RoW', country = '@{co}']
+ WT_REA_@{co} = 0.5 * (PX_REA_@{co}*M_@{co}_REA/(PX_@{co}*X_@{co}) + (E_REA_@{co}*PX_@{co}_REA)*(SIZE_REA/SIZE_@{co})*M_REA_@{co}/(PMTOT_@{co}*MTOT_@{co}) );
+
+ WT_RoW_@{co} = 0.5 * (PX_RoW_@{co}*M_@{co}_RoW/(PX_@{co}*X_@{co}) + E_RoW_@{co}*(PX_@{co}_RoW*(SIZE_RoW/SIZE_@{co})*M_RoW_@{co} + POIL_RoW*OIL_@{co})/(PMTOT_@{co}*MTOT_@{co}) );
+
+ [name = 'Log-level terms of trade @{co}', country = '@{co}']
+ LTOT_@{co} = LPX_@{co} - LPMTOT_@{co};
+
+ [name = 'Log-level terms of trade non oil @{co}', country = '@{co}']
+ LTOTNONOIL_@{co} = LPX_@{co} - LPM_@{co};
+
+ [name = 'Growth rate terms of trade @{co}', country = '@{co}']
+ GTOT_@{co} = LTOT_@{co} - LTOT_@{co}(-1);
+
+ [name = 'Growth rate terms of trade non oil @{co}', country = '@{co}']
+ GTOTNONOIL_@{co} = LTOTNONOIL_@{co} - LTOTNONOIL_@{co}(-1);
+
+ [name = 'Log-level APC shock @{co}', country = '@{co}']
+ LAPC_@{co} = log(APC_@{co}/APC0_@{co});
+
+ [name = 'Log-level APG shock @{co}', country = '@{co}']
+ LAPG_@{co} = log(APG_@{co}/APG0_@{co});
+
+ [name = 'Log-level API shock @{co}', country = '@{co}']
+ LAPI_@{co} = log(API_@{co}/API0_@{co});
+
+ [name = 'Log-level APIG shock @{co}', country = '@{co}']
+ LAPIG_@{co} = LAPI_@{co} + log(APIG_@{co}/API_@{co});
+
+ [name = 'Log-level APOIL @{co}', country = '@{co}']
+ LAPOIL_@{co} = log(APOIL_@{co});
+
+ [name = 'Log-level active population rate shock @{co}', country = '@{co}']
+ LACTR_@{co} = log(ACTR_@{co});
+
+ [name = 'Log-level N trend @{co}', country = '@{co}']
+ LNTREND_@{co} = log(NTREND_@{co}/POP0);
+
+ [name = 'Log-level participation rate @{co}', country = '@{co}']
+ LPARTR_@{co} = log(PARTR_@{co});
+
+ [name = 'Log-level trend participation rate @{co}', country = '@{co}']
+ LPARTRTREND_@{co} = log(PARTRTREND_@{co});
+
+ [name = 'Log-level hours worked per employee @{co}', country = '@{co}']
+ LHPERE_@{co} = log(HPERE_@{co});
+
+ [name = 'Log-level trend hours worked per employee @{co}', country = '@{co}']
+ LHPERETREND_@{co} = log(HPERETREND_@{co});
+
+ [name = 'Log-level quarterly annualized hours worked per employee @{co}', country = '@{co}']
+ LHPEREQA_@{co} = log(HPEREQA_@{co});
+
+ [name = 'Log-level quarterly annualized participation rate @{co}', country = '@{co}']
+ LPARTRQA_@{co} = log(PARTRQA_@{co});
+
+ [name = 'Log-level POP @{co}', country = '@{co}']
+ LPOP_@{co} = log(POP_@{co}/POP0);
+
+ [name = 'Log-level PY @{co}', country = '@{co}']
+ LPY_@{co} = log(PY_@{co}/PY0);
+
+ [name = 'Log-level TFPTREND @{co}', country = '@{co}']
+ LTFPTREND_@{co} = log(ASCALE_@{co})+log(AYTREND_@{co}/(YTREND0/(POP0*(API0_@{co})^((1-ALPHA_@{co})/ALPHA_@{co}))))*ALPHA_@{co} +log(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))*(1-ALPHA_@{co})-STEADY_STATE(GKTOT_@{co})*(1-ALPHA_@{co}) -log(1+FC_@{co})+log(1-FN_@{co})*ALPHA_@{co} + EPS_LTFPTREND_@{co};
+
+ [name = 'Log-level C @{co}', country = '@{co}']
+ LC_@{co} = log(C_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co})/STEADY_STATE(PCVAT_@{co}))/YTREND0/APC0_@{co});
+
+ [name = 'Log-level CN @{co}', country = '@{co}']
+ LCN_@{co} = LC_@{co}+LPCVAT_@{co};
+
+ [name = 'Log-level C savers @{co}', country = '@{co}']
+ LCS_@{co} = log(CS_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co})/STEADY_STATE(PCVAT_@{co}))/YTREND0/APC0_@{co});
+
+ [name = 'Log-level C liq. constrained @{co}', country = '@{co}']
+ LCC_@{co} = log(CC_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co})/STEADY_STATE(PCVAT_@{co}))/YTREND0/APC0_@{co});
+
+ [name = 'Log-level G @{co}', country = '@{co}']
+ LG_@{co} = log(G_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/APG0_@{co});
+
+ [name = 'Log-level CGN @{co}', country = '@{co}']
+ LCGN_@{co} = log(G_@{co}*PG_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/PY0);
+
+ [name = 'Log-level IG @{co}', country = '@{co}']
+ LIG_@{co} = log(IG_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/API0_@{co});
+
+ [name = 'Log-level IG @{co}', country = '@{co}']
+ LIGN_@{co} = log(IG_@{co}*PIG_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/PY0);
+
+ [name = 'Log-level I @{co}', country = '@{co}']
+ LI_@{co} = log(I_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/API0_@{co});
+
+ [name = 'Log-level ITOT @{co}', country = '@{co}']
+ LITOT_@{co} = log(ITOT_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/API0_@{co});
+
+ [name = 'Log-level IG @{co}', country = '@{co}']
+ LITOTN_@{co} = log(ITOT_@{co}*PITOT_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/PY0);
+
+ [name = 'Log-level KTOT @{co}', country = '@{co}']
+ LKTOT_@{co} = log(KTOT_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/API0_@{co});
+
+ [name = 'Log-level Y @{co}', country = '@{co}']
+ LY_@{co} = log(Y_@{co}/YTREND0);
+
+ [name = 'Log of Total Output @{co}', country = '@{co}']
+ LO_@{co} = log(O_@{co}/YTREND0);
+
+ [name = 'Log-level Y @{co}', country = '@{co}']
+ LYOBS_@{co} = log(YOBS_@{co}/STEADY_STATE(YOBS_@{co})/YTREND0);
+
+ [name = 'Log-level YN @{co}', country = '@{co}']
+ LYOBSN_@{co} = log(YOBSN_@{co}/STEADY_STATE(YOBS_@{co})/YTREND0/PY0/STEADY_STATE(PYOBS_@{co}));
+
+ [name = 'Log-level total assets @{co}', country = '@{co}']
+ LA_@{co} = log(A_@{co}/PY0/YTREND0);
+
+ [name = 'Log-level employment rate @{co}', country = '@{co}']
+ LL_@{co} = log(L_@{co});
+
+ [name = 'Log-level employment @{co}', country = '@{co}']
+ LEMPL_@{co} = log(EMPL_@{co}/POP0);
+
+ [name = 'Log-level hours @{co}', country = '@{co}']
+ LN_@{co} = log(N_@{co}/POP0);
+
+ [name = 'Log-level BG @{co}', country = '@{co}']
+ LBG_@{co} = log(BG_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/PY0/YTREND0);
+
+ [name = 'Log-level RG @{co}', country = '@{co}']
+ LRG_@{co} = log(RG_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/PY0/YTREND0);
+
+ [name = 'Log-level nominal wages @{co}', country = '@{co}']
+ LW_@{co} = log(W_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0*POP0/PY0);
+
+ [name = 'Log-level real wages @{co}', country = '@{co}']
+ LWR_@{co} = log(W_@{co}/(STEADY_STATE(YOBS_@{co})*PYOBS_@{co})/YTREND0*POP0);
+
+ [name = 'Real wage inflation @{co}', country = '@{co}']
+ PHIWR_@{co} = LWR_@{co}-LWR_@{co}(-1);
+
+ [name = 'Real wage inflation @{co} over CPI inflation', country = '@{co}']
+ PHIWRC_@{co} = PHIW_@{co}- PHICVAT_@{co};
+
+ [name = 'Log-level OIL @{co}', country = '@{co}']
+ LOIL_@{co} = log(OIL_@{co}/YTREND0);
+
+ [name = 'Log-level PCVAT @{co}', country = '@{co}']
+ LPCVAT_@{co} = log(PCVAT_@{co}/STEADY_STATE(PCVAT_@{co})/PY0*APC0_@{co});
+
+ [name = 'Log-level PC @{co}', country = '@{co}']
+ LPC_@{co} = log(PC_@{co}/PY0*APC0_@{co});
+
+ [name = 'Log-level PG @{co}', country = '@{co}']
+ LPG_@{co} = log(PG_@{co}/PY0*APG0_@{co});
+
+ [name = 'Log-level PI @{co}', country = '@{co}']
+ LPI_@{co} = log(PI_@{co}/PY0*API0_@{co});
+
+ [name = 'Log-level PI @{co}', country = '@{co}']
+ LPIG_@{co} = log(PIG_@{co}/PY0*API0_@{co});
+
+ [name = 'Log-level PITOT @{co}', country = '@{co}']
+ LPITOT_@{co} = log(PITOT_@{co}/PY0*API0_@{co});
+
+ [name = 'Log-level PM @{co}', country = '@{co}']
+ LPMTOT_@{co} = log(PMTOT_@{co}/PY0/STEADY_STATE(PMTOT_@{co}));
+
+ [name = 'Log-level PM @{co}', country = '@{co}']
+ LPM_@{co} = log(PM_@{co}/PY0/STEADY_STATE(PM_@{co}));
+
+ [name = 'Log-level POIL @{co}', country = '@{co}']
+ LPOIL_@{co} = log(E_RoW_@{co}*POIL_RoW/PY0/STEADY_STATE(POIL_RoW));
+
+ [name = 'Log-level PX @{co}', country = '@{co}']
+ LPX_@{co} = log(PX_@{co}/PY0);
+
+ [name = 'Log-level PYOBS @{co}', country = '@{co}']
+ LPYOBS_@{co} = log(PYOBS_@{co}/STEADY_STATE(PYOBS_@{co})/PY0);
+
+ [name = 'Log-level PO @{co}', country = '@{co}']
+ LPO_@{co} = log(PO_@{co}/PY0);
+
+ [name = 'Log-level M @{co}', country = '@{co}']
+ LM_@{co} = log(M_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0);
+
+ [name = 'Log-level MTOT @{co}', country = '@{co}']
+ LMTOT_@{co} = log(MTOT_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co})/STEADY_STATE(PMTOT_@{co}))/YTREND0);
+
+ [name = 'Log-level MTOTN @{co}', country = '@{co}']
+ LMTOTN_@{co} = LMTOT_@{co}+LPMTOT_@{co};
+
+ [name = 'Log-level X @{co}', country = '@{co}']
+ LX_@{co} = log(X_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0);
+
+ [name = 'Log-level XN @{co}', country = '@{co}']
+ LXN_@{co} = log(X_@{co}*PX_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/YTREND0/PY0);
+
+ [name = 'Log-level nominal transfers @{co}', country = '@{co}']
+ LT_@{co} = log(T_@{co}*PY_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/PY0/YTREND0);
+
+ [name = 'Log-level nominal transfers liq. constrained @{co}', country = '@{co}']
+ LTC_@{co} = log(TC_@{co}*PY_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/PY0/YTREND0);
+
+ [name = 'Log-level nominal transfers savers @{co}', country = '@{co}']
+ LTS_@{co} = log(TS_@{co}*PY_@{co}/(STEADY_STATE(YOBS_@{co})*STEADY_STATE(PYOBS_@{co}))/PY0/YTREND0);
+
+ [name = 'Log of consumption final price to GDP price @{co}', country = '@{co}']
+ LPCVATPYOBS_@{co} = LPCVAT_@{co}-LPYOBS_@{co};
+
+ [name = 'Log of private consumption price to GDP price @{co}', country = '@{co}']
+ LPCPYOBS_@{co} = LPC_@{co}-LPYOBS_@{co};
+
+ [name = 'Log of gov. consumption price to GDP price @{co}', country = '@{co}']
+ LPGPYOBS_@{co} = LPG_@{co}-LPYOBS_@{co};
+
+ [name = 'Log of private investment price to GDP price @{co}', country = '@{co}']
+ LPIPYOBS_@{co} = LPI_@{co}-LPYOBS_@{co};
+
+ [name = 'Log of gov. consumption price to GDP price @{co}', country = '@{co}']
+ LPIGPYOBS_@{co} = LPIG_@{co}-LPYOBS_@{co};
+
+ [name = 'Log of import price to GDP price @{co}', country = '@{co}']
+ LPMTOTPYOBS_@{co} = LPMTOT_@{co}- LPYOBS_@{co};
+
+ [name = 'Definition of _EA internationally traded bonds']
+ BW_EA = (SIZE_REA*BW_REA +(SIZE_@{co})*BW_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA PC deflator']
+ PC_EA*APC0_EA = ((PC_REA*C_REA/(PC_EA*C_EA))*(SIZE_REA)*PC_REA*APC0_REA +(PC_@{co}*C_@{co}/(PC_EA*C_EA))*(SIZE_@{co})*PC_@{co}*APC0_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA PY deflator']
+ PY_EA = ((PY_REA*Y_REA/(PY_EA*Y_EA))*(SIZE_REA)*PY_REA +(PY_@{co}*Y_@{co}/(PY_EA*Y_EA))*(SIZE_@{co})*PY_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA GDP']
+ Y_EA*PY_EA = ((SIZE_REA)*Y_REA*PY_REA +(SIZE_@{co})*Y_@{co}*PY_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA potential GDP']
+ YPOT_EA*PY_EA = ((SIZE_REA)*YPOT_REA*PY_REA +(SIZE_@{co})*YPOT_@{co}*PY_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of log YPOT EA']
+ LYTREND_EA = log(YPOT_EA/YTREND0);
+
+ [name = 'Definition of _EA real consumption']
+ C_EA*PC_EA = ((SIZE_REA)*C_REA*PC_REA +(SIZE_@{co})*C_@{co}*PC_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA PYOBS deflator']
+ PYOBS_EA = ((PYOBS_REA*YOBS_REA/(PYOBS_EA*YOBS_EA))*(SIZE_REA)*PYOBS_REA +(PYOBS_@{co}*YOBS_@{co}/(PYOBS_EA*YOBS_EA))*(SIZE_@{co})*PYOBS_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA GDP OBS']
+ YOBS_EA*PYOBS_EA = ((SIZE_REA)*YOBS_REA*PYOBS_REA +(SIZE_@{co})*YOBS_@{co}*PYOBS_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA POP']
+ POP_EA = ((SIZE_REA)*POP_REA +(SIZE_@{co})*POP_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA Total Imports deflator']
+ PMTOT_EA = ((SIZE_REA)*(PMTOT_REA*MTOT_REA/(PMTOT_EA*MTOT_EA))*PMTOT_REA -(M_@{co}_REA*PM_@{co}_REA/(PMTOT_EA*MTOT_EA))*(SIZE_@{co})*PM_@{co}_REA +(SIZE_@{co})*(PMTOT_@{co}*MTOT_@{co}/(PMTOT_EA*MTOT_EA))*PMTOT_@{co} -(M_REA_@{co}*PM_REA_@{co}/(PMTOT_EA*MTOT_EA))*(SIZE_REA)*PM_REA_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA Total Exports deflator']
+ PX_EA = ((PX_REA*(X_REA)/(PX_EA*X_EA))*(SIZE_REA)*PX_REA -(M_REA_@{co}*PX_@{co}_REA/(PX_EA*X_EA))*(SIZE_REA)*PX_@{co}_REA +(SIZE_@{co})*(PX_@{co}*X_@{co}/(PX_EA*X_EA))*PX_@{co} -(M_@{co}_REA*PX_REA_@{co}/(PX_EA*X_EA))*(SIZE_@{co})*PX_REA_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA Total Imports excluding intra _EA trade']
+ PMTOT_EA*MTOT_EA = ((SIZE_REA)*PMTOT_REA*MTOT_REA -(M_@{co}_REA*PM_@{co}_REA)*(SIZE_@{co}) +(SIZE_@{co})*PMTOT_@{co}*MTOT_@{co} -(M_REA_@{co}*PM_REA_@{co})*(SIZE_REA) )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Definition of _EA trade balance']
+ TB_EA = (SIZE_REA*TB_REA +(SIZE_@{co})*TB_@{co} )/(SIZE_REA +SIZE_@{co} );
+
+ [name = 'Total assets held by savers REA', country = 'REA']
+ A_REA=E_RoW_REA*BW_REA;
+
+ [name = 'NFA definition REA', country = 'REA']
+ NFA_REA = BW_REA;
+
+ [name = 'FOC wrt to international bond REA', country = 'REA']
+ +INOM_@{co}*SIZE_@{co} +INOM_REA*SIZE_REA = INOM_EA*( +SIZE_@{co} +SIZE_REA );
+
+ [name = 'Net foreign assets REA', country = 'REA']
+ (E_RoW_REA)*BW_REA = (1 + INOMBW(-1)) *(E_RoW_REA)* BW_REA(-1) + TB_REA+ITR_REA*PYOBS_REA*YOBS_REA;
+
+ [name = 'FOC wrt consumption for savers REA', country = 'REA']
+ LAMBDAS_REA = (C_REA/POP_REA-H_REA*C_REA(-1)/POP_REA(-1))^-THETA_REA/POP_REA;
+
+ [name = 'Time-varying beta REA', country = 'REA']
+ BETAT_REA = BETA_REA*exp(ZEPS_UC_REA);
+
+ [name = 'Price Phillips Curve REA', country = 'REA']
+ PHIY_REA-PHITREND_REA = BETAT_REA*LAMBDAS_REA(+1)/LAMBDAS_REA* ( SFP_REA*(PHIY_REA(1)-PHITREND_REA)+ (1-SFP_REA)*((PHIY_REA-PHITREND_REA)*(1-T_MUY_PHI0_REA)
+ @#if co == "IT" || co == "ES"
+ +T_MUY_PHI0_REA*PHISTAR_REA
+ @#endif
+ )) + PHI_Y_REA*log(Y_REA/YTREND_REA)+ ZEPS_Y_REA;
+
+ [name = 'Filtered inflation gap REA', country = 'REA']
+ @#if co == "IT" || co == "ES"        
+ PHISTAR_REA = RHO_PHISTAR_REA*STEADY_STATE(PHIY_REA-GP0) + (1-RHO_PHISTAR_REA)*(PHIY_REA(-1)-GP0);
+ @#else
+ PHISTAR_REA- RHO_PHISTAR_REA*PHISTAR_REA(-1) = (1-RHO_PHISTAR_REA)*(PHIY_REA(-1)-GP0);
+ @#endif
+         
+ [name = 'Consumption Inflation definition REA', country = 'REA']
+ PHIC_REA = log(PC_REA/PC_REA(-1));
+
+ [name = 'Import price inflation REA', country = 'REA']
+ PHIM_REA = log(PM_REA/PM_REA(-1));
+
+ [name = 'Oil price inflation REA ', country = 'REA']
+ PHIOIL_REA = log(POIL_REA/POIL_REA(-1));
+
+ [name = 'Export price inflation REA', country = 'REA']
+ PHIX_REA = log(PX_REA/PX_REA(-1));
+
+ [name = 'Observed GDP Inflation definition', country = 'REA']
+ PHIYOBS_REA = log(PYOBS_REA/PYOBS_REA(-1));
+
+ [name = 'Definition of potential output REA', country = 'REA']
+ YPOT_REA = YTREND_REA;
+
+ [name = 'Definition of exchange rate REA', country ='REA']
+ E_RoW_REA = E_RoW_EA;
+
+ [name = 'UIP _EA']
+ (1+INOMBW)*(E_RoW_EA(+1)/E_RoW_EA)=(1+INOM_EA)+ZEPS_BW_EA+ALPHABW0_EA+ALPHABW1_EA*(E_RoW_EA*BW_EA/(PY_EA*Y_EA));
+
+ [name = 'FOC wrt to risk free asset REA', country = 'REA']
+ BETAT_REA*(SFH_REA*LAMBDAS_REA(+1) + (1-SFH_REA)*(SFH1_REA*LAMBDAS_REA + (1-SFH1_REA)*LAMBDAS_REA(-1)*exp((GAPC0_REA+GYTREND0-GPOP0)*(-THETA_REA)-GPOP0))*exp((GAPC0_REA+GYTREND0-GPOP0)*(-THETA_REA)-GPOP0))/LAMBDAS_REA*(1/(PC_REA(1)/PC_REA))*((1+INOM_REA-INOM_SPREAD_REA)) = 1;
+
+ [name = 'Market price National Account Identity REA', country = 'REA']
+ PYOBS_REA*YOBS_REA = PC_REA*C_REA+TB_REA;
+
+ [name = 'GDP used by statistical offices REA', country = 'REA']
+ YOBS_REA = Y_REA + (DIVM_REA+DIVX_REA)*1;
+
+ [name = 'National Account Identity REA', country = 'REA']
+ PY_REA*Y_REA +DIVM_REA*PY_REA+DIVX_REA*PY_REA +TAUOIL_REA*OIL_REA*PY0 = PC_REA*C_REA+TB_REA;
+
+ [name = 'GDP trend REA', country = 'REA']
+ YTREND_REA = AY_REA*POP_REA*APOP_REA;
+
+ [name = 'Definition of nominal GDP REA', country = 'REA']
+ YOBSN_REA = YOBS_REA*PYOBS_REA;
+
+ [name = 'Trend of the aggregate import shock REA', country = 'REA']
+ TZEPS_M_REA = 0 ;
+
+ [name = 'Trend of the C import content REA', country = 'REA']
+ TZEPS_MC_REA - RHO_MAY_REA*TZEPS_MC_REA(-1) = T_MAY_REA*( log(MC_REA(-1)*APC_REA(-1)/C_REA(-1)) - log(MC_REA(-2)*APC_REA(-2)/C_REA(-2)));
+
+ [name = 'Trend of the X import content REA', country = 'REA']
+ TZEPS_MX_REA - RHO_MAY_REA*TZEPS_MX_REA(-1) = T_MAY_REA*( log(MX_REA(-1)/exp(ZEPS_PX_REA(-1))/X_REA(-1)) - log(MX_REA(-2)/exp(ZEPS_PX_REA(-2))/X_REA(-2)));
+
+ [name = 'Total endogenous import shock REA', country = 'REA']
+ exp(TZENDO_M_REA) = (1+TZEPS_M_REA)*(1 + T_MAY1_REA_REA*TZEPS_M_REA_REA - SM_@{co}_REA*(1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co}*T_MAY2_@{co}_REA - SM_RoW_REA*(1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW*T_MAY2_RoW_REA );
+
+ PM1_@{co}_REA = E_@{co}_REA*PX_REA_@{co};
+
+ PM1_RoW_REA = E_RoW_REA*PX_REA_RoW;
+
+ [name = 'Total non-oil imports REA', country = 'REA']
+ M_REA = MC_REA + MX_REA;
+
+ [name = 'Profits/Losses of sector-specific importers']
+ DIVM_REA = +SIZE_@{co}/SIZE_REA*(PM_@{co}_REA/PY_REA*M_@{co}_REA -E_@{co}_REA*PX_REA_@{co}/PY_REA*M_@{co}_REA -GAMMAPM_@{co}_REA*(SIGMAM_REA-1)/2*M_@{co}_REA*PM_@{co}_REA/PY_REA*(PM_@{co}_REA/PM_@{co}_REA(-1)*PO_REA(-1)/PO_REA-1)^2) +SIZE_RoW/SIZE_REA*(PM_RoW_REA/PY_REA*M_RoW_REA -E_RoW_REA*PX_REA_RoW/PY_REA*M_RoW_REA -GAMMAPM_RoW_REA*(SIGMAM_REA-1)/2*M_RoW_REA*PM_RoW_REA/PY_REA*(PM_RoW_REA/PM_RoW_REA(-1)*PO_REA(-1)/PO_REA-1)^2) ;
+
+ [name = 'Import Pricing adjustment costs definition REA', country = 'REA']
+ ADJ_PM_REA = +SIZE_@{co}/SIZE_REA*(GAMMAPM_@{co}_REA*(SIGMAM_REA-1)/2*M_@{co}_REA*PM_@{co}_REA/PY_REA*(PM_@{co}_REA/PM_@{co}_REA(-1)*PO_REA(-1)/PO_REA-1)^2) +SIZE_RoW/SIZE_REA*(GAMMAPM_RoW_REA*(SIGMAM_REA-1)/2*M_RoW_REA*PM_RoW_REA/PY_REA*(PM_RoW_REA/PM_RoW_REA(-1)*PO_REA(-1)/PO_REA-1)^2) ;
+
+ [name = 'Profits/Losses of exporters']
+ DIVX_REA = +(PX_@{co}_REA*M_REA_@{co}/PY_REA - PXINT_REA*M_REA_@{co}/PY_REA -((SIGMAPX1_REA-1)*GAMMAPX_@{co}_REA/2*M_REA_@{co}*(PX_@{co}_REA/PX_@{co}_REA(-1)*E_REA_@{co}/E_REA_@{co}(-1)-exp(GP0))^2)) +(PX_RoW_REA*M_REA_RoW/PY_REA - PXINT_REA*M_REA_RoW/PY_REA -((SIGMAPX1_REA-1)*GAMMAPX_RoW_REA/2*M_REA_RoW*(PX_RoW_REA/PX_RoW_REA(-1)*E_REA_RoW/E_REA_RoW(-1)-exp(GP0))^2)) ;
+
+ [name = 'Bilateral import prices from country @{co} to country REA', country = 'REA']
+ PM_@{co}_REA = (PM1_@{co}_REA)^(1-ALPHAPM_@{co}_REA)*PO_REA^ALPHAPM_@{co}_REA - GAMMAPM_@{co}_REA* (PM_@{co}_REA)^2/PM_@{co}_REA(-1)*PO_REA(-1)/PO_REA * (PM_@{co}_REA/PM_@{co}_REA(-1)*PO_REA(-1)/PO_REA-1) + BETAT_REA*(LAMBDAS_REA(1)/LAMBDAS_REA)*GAMMAPM_@{co}_REA * M_@{co}_REA(+1)/M_@{co}_REA * exp(-PHIY_REA(+1)) * (PM_@{co}_REA(+1))^2/PM_@{co}_REA*PO_REA/PO_REA(+1) * SFPM_REA*(PM_@{co}_REA(+1)/PM_@{co}_REA*PO_REA/PO_REA(+1)-1);
+
+ [name = 'Bilateral Export Price from REA to @{co}', country = 'REA']
+ PX_@{co}_REA = PXINT_REA^(1-ALPHAPX_@{co}_REA)*(PO_@{co}*E_@{co}_REA)^(ALPHAPX_@{co}_REA) -GAMMAPX_@{co}_REA*PY_REA*E_REA_@{co}/E_REA_@{co}(-1)*PX_@{co}_REA/PX_@{co}_REA(-1)*(PX_@{co}_REA/PX_@{co}_REA(-1)*E_REA_@{co}/E_REA_@{co}(-1)-exp(GP0)) +BETAT_REA*(LAMBDAS_REA(1)/LAMBDAS_REA)*GAMMAPX_@{co}_REA*PY_REA*E_REA_@{co}(+1)/E_REA_@{co}*M_REA_@{co}(+1)/M_REA_@{co}*(PX_@{co}_REA(+1)/PX_@{co}_REA)*(PX_@{co}_REA(+1)/PX_@{co}_REA*E_REA_@{co}(+1)/E_REA_@{co}-exp(GP0))*SFPX_REA;
+
+ [name = 'Bilateral import prices from country RoW to country REA', country = 'REA']
+ PM_RoW_REA = (PM1_RoW_REA)^(1-ALPHAPM_RoW_REA)*PO_REA^ALPHAPM_RoW_REA - GAMMAPM_RoW_REA* (PM_RoW_REA)^2/PM_RoW_REA(-1)*PO_REA(-1)/PO_REA * (PM_RoW_REA/PM_RoW_REA(-1)*PO_REA(-1)/PO_REA-1) + BETAT_REA*(LAMBDAS_REA(1)/LAMBDAS_REA)*GAMMAPM_RoW_REA * M_RoW_REA(+1)/M_RoW_REA * exp(-PHIY_REA(+1)) * (PM_RoW_REA(+1))^2/PM_RoW_REA*PO_REA/PO_REA(+1) * SFPM_REA*(PM_RoW_REA(+1)/PM_RoW_REA*PO_REA/PO_REA(+1)-1);
+
+ [name = 'Bilateral Export Price from REA to RoW', country = 'REA']
+ PX_RoW_REA = PXINT_REA^(1-ALPHAPX_RoW_REA)*(PO_RoW*E_RoW_REA)^(ALPHAPX_RoW_REA) -GAMMAPX_RoW_REA*PY_REA*E_REA_RoW/E_REA_RoW(-1)*PX_RoW_REA/PX_RoW_REA(-1)*(PX_RoW_REA/PX_RoW_REA(-1)*E_REA_RoW/E_REA_RoW(-1)-exp(GP0)) +BETAT_REA*(LAMBDAS_REA(1)/LAMBDAS_REA)*GAMMAPX_RoW_REA*PY_REA*E_REA_RoW(+1)/E_REA_RoW*M_REA_RoW(+1)/M_REA_RoW*(PX_RoW_REA(+1)/PX_RoW_REA)*(PX_RoW_REA(+1)/PX_RoW_REA*E_REA_RoW(+1)/E_REA_RoW-exp(GP0))*SFPX_REA;
+
+ [name = 'X price deflator REA', country = 'REA']
+ PXINT_REA*X_REA = PO_REA*OX_REA+PM_REA*MX_REA;
+
+ [name = 'Consumption price deflator REA', country = 'REA']
+ PC_REA*C_REA = PO_REA*OC_REA + PM_REA*MC_REA;
+
+ [name = 'Domestic C demand REA', country = 'REA']
+ OC_REA= (APC_REA)^(SIGMAC_REA-1)*(1-SMC_REA)*(PO_REA/PC_REA)^(-SIGMAC_REA)*C_REA -(ZEPS_M_REA+TZEPS_MC_REA+TZENDO_M_REA)*STEADY_STATE(MC_REA)*YTREND0;
+
+ [name = 'Domestic X demand REA', country = 'REA']
+ OX_REA= (1/exp(ZEPS_PX_REA))^(SIGMAX_REA-1)*(1-SMX_REA)*(PO_REA/PXINT_REA)^(-SIGMAX_REA)*X_REA -(ZEPS_M_REA+TZEPS_MX_REA+TZENDO_M_REA)*STEADY_STATE(MX_REA)*YTREND0;
+
+ [name = 'Consumption Imports REA', country = 'REA']
+ MC_REA = ((APC_REA)^(SIGMAC_REA-1)*SMC_REA*(PM_REA/PC_REA)^(-SIGMAC_REA)*C_REA)*(1-RHOIM_REA) +(MC_REA(-1)*exp(GYTREND0))*(RHOIM_REA) +(ZEPS_M_REA+TZEPS_MC_REA+TZENDO_M_REA-RHOIM_REA*(ZEPS_M_REA(-1)+TZEPS_MC_REA(-1)+TZENDO_M_REA(-1)))*STEADY_STATE(MC_REA)*YTREND0;
+
+ [name = 'X Imports REA', country = 'REA']
+ MX_REA = ((1/exp(ZEPS_PX_REA))^(SIGMAX_REA-1)*SMX_REA*(PM_REA/PXINT_REA)^(-SIGMAX_REA)*X_REA)*(1-RHOIM_REA) +(MX_REA(-1)*exp(GYTREND0))*(RHOIM_REA) +(ZEPS_M_REA+TZEPS_MX_REA+TZENDO_M_REA-RHOIM_REA*(ZEPS_M_REA(-1)+TZEPS_MX_REA(-1)+TZENDO_M_REA(-1)))*STEADY_STATE(MX_REA)*YTREND0;
+
+ [name = 'Nominal trade balance REA', country = 'REA']
+ TB_REA = PX_REA*X_REA + -(SIZE_@{co}/SIZE_REA)*E_@{co}_REA*PX_REA_@{co}*M_@{co}_REA -(SIZE_RoW/SIZE_REA)*E_RoW_REA*PX_REA_RoW*M_RoW_REA -E_RoW_REA*POIL_RoW*OIL_REA;
+
+ [name = 'Total imports REA', country = 'REA']
+ PMTOT_REA*MTOT_REA = (PX_REA*X_REA-TB_REA);
+
+ [name = 'Total imports price deflator REA', country = 'REA']
+ PMTOT_REA*MTOT_REA = ( + (SIZE_@{co}/SIZE_REA)*(E_@{co}_REA*PX_REA_@{co}/ PMTOT_REA)* (E_@{co}_REA*PX_REA_@{co}*M_@{co}_REA) + (SIZE_RoW/SIZE_REA)*(E_RoW_REA*PX_REA_RoW/ PMTOT_REA)* (E_RoW_REA*PX_REA_RoW*M_RoW_REA) ) + (E_RoW_REA*POIL_RoW/PMTOT_REA)*(E_RoW_REA*POIL_RoW*OIL_REA);
+
+ [name = 'Private consumption specific productivity REA', country = 'REA']
+ log(APC_REA/APC0_REA) = (log(APC_REA(-1)/APC0_REA) + GAPC_REA)*APC_FLAG_REA;
+
+ [name = 'GDP Inflation definition', country = 'REA']
+ PHIY_REA = log(PY_REA/PY_REA(-1));
+
+ [name = 'Total output production function REA', country = 'REA']
+ O_REA*PO_REA = PY_REA*Y_REA + OIL_REA*POIL_REA;
+
+ [name = 'Demand for value added REA', country = 'REA']
+ Y_REA = (1-SOIL_REA*(1+TZEPS_M_REA+T_MAY1_REA_REA*TZEPS_M_REA_REA))*(PY_REA/PO_REA)^-SIGMAO_REA*O_REA;
+
+ [name = 'Oil demand REA', country = 'REA']
+ OIL_REA = RHOOIL_REA*OIL_REA(-1)*exp(GYTREND0)+(1-RHOOIL_REA)*(APOIL_REA)^(SIGMAO_REA-1)*SOIL_REA*(1+TZEPS_M_REA+T_MAY1_REA_REA*TZEPS_M_REA_REA)*(POIL_REA/PO_REA)^(-SIGMAO_REA)*O_REA;
+
+ [name = 'Oil price REA', country = 'REA']
+ POIL_REA = E_RoW_REA*POIL_RoW+TAUOIL_REA*PY0;
+
+ [name = 'Real interest rate REA', country = 'REA']
+ R_REA = INOM_REA-log(PY_REA(+1)/PY_REA);
+
+ [name = 'Inflation target REA', country ='REA']
+ PHITREND_REA = RHO_PHITREND_REA*PHITREND_REA(-1)+(1-RHO_PHITREND_REA)*GP0;
+
+ [name = 'Log of trend productivity production fct REA', country = 'REA']
+ log(AYTREND_REA) = log(AYTREND_REA(-1)) + GAYTREND_REA + EPS_LAYTREND_REA + (EPS_AY_REA - EPS_AY_REA(-1)) ;
+
+ [name = 'Growth of productivity shock REA', country ='REA']
+ GAYTREND_REA = RHO_GAYTREND_REA*GAYTREND_REA(-1) +EPS_GAYTREND_REA+ (1-RHO_GAYTREND_REA)*GAY0_REA;
+
+ [name = 'Oil specific productivity RW REA', country = 'REA']
+ log(APOIL_REA) = (log(APOIL_REA(-1)) + GAPOIL_REA)*APOIL_FLAG_REA;
+
+ [name = ' Growth Oil specific productivity REA', country = 'REA']
+ GAPOIL_REA = 0;
+
+ [name = 'Log of productivity production fct REA', country = 'REA']
+ log(AY_REA) = log(AYTREND_REA) ;
+
+ [name = 'Productivity production fct REA', country = 'REA']
+ GAY_REA = log(AY_REA/AY_REA(-1));
+
+ [name = 'Growth of Population definition REA', country = 'REA']
+ GPOP_REA = log(POP_REA/POP_REA(-1));
+
+ [name = 'Growth of population REA', country = 'REA']
+ GPOP_REA = RHO_GPOP_REA*GPOP_REA(-1) + ZEPS_POP_REA + (1-RHO_GPOP_REA)*GPOP0;
+
+ [name = 'Private consumption specific productivity RW REA', country = 'REA']
+ GAPC_REA = GAPC0_REA;
+
+ [name = 'Growth of GDP trend REA', country = 'REA']
+ GYTREND_REA = GAY_REA+GPOP_REA;
+
+ [name = 'Nominal consumption share REA', country = 'REA']
+ CY_REA = PC_REA*C_REA/(YOBS_REA*PYOBS_REA);
+
+ [name = 'Nominal oil share REA', country = 'REA']
+ OILY_REA = ( POIL_REA*OIL_REA )/(YOBS_REA*PYOBS_REA);
+
+ [name = 'Log Nominal oil share REA', country = 'REA']
+ LOILY_REA = log(OILY_REA);
+
+ [name = 'Nominal trade balance share REA', country = 'REA']
+ TBY_REA = TB_REA/(YOBS_REA*PYOBS_REA);
+
+ [name = 'Nominal import share REA', country = 'REA']
+ MY_REA = (PX_REA*X_REA-POIL_REA*OIL_REA-TB_REA)/(YOBS_REA*PYOBS_REA);
+
+ [name = 'Nominal export share REA', country = 'REA']
+ XY_REA = (PX_REA*X_REA)/(YOBS_REA*PYOBS_REA);
+
+ [name = 'Quarterly Anuualized YOBS REA', country = 'REA']
+ YOBSQA_REA = (YOBS_REA*PYOBS_REA+YOBS_REA(-1)*PYOBS_REA(-1)+YOBS_REA(-2)*PYOBS_REA(-2)+YOBS_REA(-3)*PYOBS_REA(-3))/ (PYOBS_REA+PYOBS_REA(-1)+PYOBS_REA(-2)+PYOBS_REA(-3))*4;
+
+ [name = 'Quarterly Annualized Nominal interest rate REA', country = 'REA']
+ INOMQA_REA = INOM_REA+INOM_REA(-1)+INOM_REA(-2)+INOM_REA(-3);
+
+ [name = 'Shock to Preference for financial assets REA', country = 'REA']
+ ZEPS_A_REA = 0;
+
+ [name = 'Shock to Preference for bonds REA', country = 'REA']
+ ZEPS_B_REA = 0;
+
+ [name = 'Consumption Import shock REA', country = 'REA']
+ ZEPS_M_REA = RHO_M_REA*ZEPS_M_REA(-1)+EPS_M_REA;
+
+ [name = 'Population shock REA', country = 'REA']
+ ZEPS_POP_REA = RHO_POP_REA*ZEPS_POP_REA(-1)+EPS_POP_REA;
+
+ [name = 'Shock to consumption REA', country = 'REA']
+ ZEPS_UC_REA = RHO_P_REA*ZEPS_UC_REA(-1)+EPS_UC_REA;
+
+ [name = 'Shock to Preference for stocks REA', country = 'REA']
+ ZEPS_S_REA = 0;
+
+ [name = 'Phillips curve shock REA', country = 'REA']
+ ZEPS_Y_REA = RHO_Y_REA*ZEPS_Y_REA(-1)+EPS_Y_REA;
+
+ [name = 'Shock to Preference for international bonds REA', country = 'REA']
+ ZEPS_BW_REA = RHO_BW_REA*ZEPS_BW_REA(-1)+EPS_BW_REA;
+
+ [name = 'Shock to export price REA', country = 'REA']
+ ZEPS_PX_REA = RHO_PX_REA*ZEPS_PX_REA(-1)+EPS_PX_REA;
+
+ [name = 'Flight to safety REA', country = 'REA']
+ ZEPS_FQ_REA = RHO_FQ_REA*ZEPS_FQ_REA(-1)+EPS_FQ_REA;
+
+ [name = 'Total import price REA', country = 'REA']
+ PM_REA*M_REA = +(SIZE_@{co}/SIZE_REA)*PM_@{co}_REA*M_@{co}_REA +(SIZE_RoW/SIZE_REA)*PM_RoW_REA*M_RoW_REA ;
+
+ [name = 'Aggregate export price REA', country = 'REA']
+ PX_REA*X_REA = + PX_@{co}_REA*M_REA_@{co} + PX_RoW_REA*M_REA_RoW ;
+
+ [name = 'Total export volume definition REA', country = 'REA']
+ X_REA = + M_REA_@{co} + M_REA_RoW ;
+
+ [name = 'Growth rate of consumption REA', country = 'REA']
+ GC_REA = log(C_REA/C_REA(-1));
+
+ [name = 'Growth rate GDP REA', country = 'REA']
+ GY_REA = log(Y_REA/Y_REA(-1));
+
+ [name = 'Growth rate of observed GDP REA', country = 'REA']
+ GYOBS_REA = log(YOBS_REA/YOBS_REA(-1));
+
+ [name = 'Nominal net foreign assets share REA', country = 'REA']
+ NFAY_REA = (E_RoW_REA)*NFA_REA/YOBS_REA/PYOBS_REA;
+
+ [name = 'The demand of goods from country @{co} to country REA', country = 'REA']
+ M_@{co}_REA = SM_@{co}_REA* (1 - (1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co})/(1 - (1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co}*SM_@{co}_REA - (1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW*SM_RoW_REA )* ((PM_@{co}_REA)/PM_REA)^-SIGMAFM_REA*SIZE_REA/SIZE_@{co}*M_REA;
+
+ [name = 'Trade trend REA', country = 'REA']
+ TZEPS_M_REA_REA = RHO_TZEPS_M_REA*TZEPS_M_REA_REA(-1) - (1-RHO_TZEPS_M_REA)*((T_MAY2_REA_REA-T_MAY3_REA_REA)*(AYTREND_REA(-1)*exp(GAY0_REA)/YTREND0*POP0-1) +T_MAY3_REA_REA*(AYTREND_REA(-2)*exp(2*GAY0_REA)/YTREND0*POP0-1));
+
+ [name = 'The demand of goods from country RoW to country REA', country = 'REA']
+ M_RoW_REA = SM_RoW_REA* (1 - (1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW)/(1 - (1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co}*SM_@{co}_REA - (1-T_MAY1_RoW_RoW)*TZEPS_M_RoW_RoW*SM_RoW_REA )* ((PM_RoW_REA)/PM_REA)^-SIGMAFM_REA*SIZE_REA/SIZE_RoW*M_REA;
+
+ [name = 'Log-level nominal exchange rate from currency @{co} to REA', country = 'REA']
+ LE_@{co}_REA = log(E_@{co}_REA);
+
+ [name = 'Log-level real exchange rate from currency @{co} to REA', country = 'REA']
+ LRER_@{co}_REA = LE_@{co}_REA + LPY_@{co} - LPY_REA;
+
+ [name = 'Log-level nominal exchange rate from currency RoW to REA', country = 'REA']
+ LE_RoW_REA = log(E_RoW_REA);
+
+ [name = 'Log-level real exchange rate from currency RoW to REA', country = 'REA']
+ LRER_RoW_REA = LE_RoW_REA + LPY_RoW - LPY_REA;
+
+ [name = 'Log-level effective nominal exchange rate of REA', country = 'REA']
+ LE_REA = -log( + WT_@{co}_REA * E_REA_@{co} + WT_RoW_REA * E_REA_RoW );
+
+ [name = 'Growth rate of Log-level effective nominal exchange rate of REA', country = 'REA']
+ GE_REA = LE_REA-LE_REA(-1);
+
+ [name = 'Log-level effective real exchange rate of REA', country = 'REA']
+ LRER_REA = -log( + WT_@{co}_REA * exp(LRER_REA_@{co}) + WT_RoW_REA * exp(LRER_REA_RoW) );
+
+ [name = 'Average bilateral openness of country REA w.r.t. country RoW', country = 'REA']
+ WT_@{co}_REA = 0.5 * (PX_@{co}_REA*M_REA_@{co}/(PX_REA*X_REA) + (E_@{co}_REA*PX_REA_@{co})*(SIZE_@{co}/SIZE_REA)*M_@{co}_REA/(PMTOT_REA*MTOT_REA) );
+
+ WT_RoW_REA = 0.5 * (PX_RoW_REA*M_REA_RoW/(PX_REA*X_REA) + E_RoW_REA*(PX_REA_RoW*(SIZE_RoW/SIZE_REA)*M_RoW_REA + POIL_RoW*OIL_REA)/(PMTOT_REA*MTOT_REA) );
+
+ [name = 'Log-level terms of trade REA', country = 'REA']
+ LTOT_REA = LPX_REA - LPM_REA;
+
+ [name = 'Log-level APC shock REA', country = 'REA']
+ LAPC_REA = log(APC_REA/APC0_REA);
+
+ [name = 'Log-level POP REA', country = 'REA']
+ LPOP_REA = log(POP_REA/POP0);
+
+ [name = 'Log-level PYOBS REA', country = 'REA']
+ LPYOBS_REA = log(PYOBS_REA/PY0/STEADY_STATE(PYOBS_REA));
+
+ [name = 'Log-level PY REA', country = 'REA']
+ LPY_REA = log(PY_REA/PY0);
+
+ [name = 'Log-level PX REA', country = 'REA']
+ LPX_REA = log(PX_REA/PY0);
+
+ [name = 'Log-level PM REA', country = 'REA']
+ LPM_REA = log(PM_REA/PY0);
+
+ [name = 'Log-level YTREND REA', country = 'REA']
+ LYTREND_REA = log((YTREND_REA)/STEADY_STATE(YOBS_REA)/YTREND0)+EPS_LYTREND_REA;
+
+ [name = 'Log-level APOIL REA', country = 'REA']
+ LAPOIL_REA = log(APOIL_REA);
+
+ [name = 'Log-level POIL REA', country = 'REA']
+ LPOIL_REA = log(POIL_REA/PY0);
+
+ [name = 'Log-level C REA', country = 'REA']
+ LC_REA = log(C_REA/YTREND0/APC0_REA);
+
+ [name = 'Log-level Y REA', country = 'REA']
+ LY_REA = log(Y_REA/YTREND0);
+
+ [name = 'Log-level YOBS REA', country = 'REA']
+ LYOBS_REA = log(YOBS_REA/STEADY_STATE(YOBS_REA)/YTREND0);
+
+ [name = 'Log-level YOBS REA', country = 'REA']
+ LYOBSN_REA = log(YOBS_REA*PYOBS_REA/STEADY_STATE(YOBS_REA)/STEADY_STATE(PYOBS_REA)/YTREND0/PY0);
+
+ [name = 'Log-level X REA', country = 'REA']
+ LX_REA = log(X_REA/YTREND0);
+
+ [name = 'Log-level M REA', country = 'REA']
+ LM_REA = log(M_REA/YTREND0);
+
+ [name = 'Log-level OIL REA', country = 'REA']
+ LOIL_REA = log(OIL_REA/YTREND0);
+
+ [name = 'Total assets held by savers RoW', country = 'RoW']
+ A_RoW=E_RoW_RoW*BW_RoW;
+
+ [name = 'NFA definition RoW', country = 'RoW']
+ NFA_RoW = BW_RoW;
+
+ [name = 'FOC wrt to international bond RoW', country = 'RoW']
+ BETAT_RoW*(SFH_RoW*LAMBDAS_RoW(+1) + (1-SFH_RoW)*(SFH1_RoW*LAMBDAS_RoW + (1-SFH1_RoW)*LAMBDAS_RoW(-1)*exp((GAPC0_RoW+GYTREND0-GPOP0)*(-THETA_RoW)-GPOP0))*exp((GAPC0_RoW+GYTREND0-GPOP0)*(-THETA_RoW)-GPOP0))/LAMBDAS_RoW*(1/(PC_RoW(1)/PC_RoW))*((1+INOMBW)*(E_RoW_RoW(+1)/E_RoW_RoW)-ZEPS_BW_RoW- (ALPHABW0_RoW+ALPHABW1_RoW*(E_RoW_RoW*BW_RoW/(PY_RoW*Y_RoW))))=1;
+
+ [name = 'FOC wrt consumption for savers RoW', country = 'RoW']
+ LAMBDAS_RoW = (C_RoW/POP_RoW-H_RoW*C_RoW(-1)/POP_RoW(-1))^-THETA_RoW/POP_RoW;
+
+ [name = 'Time-varying beta RoW', country = 'RoW']
+ BETAT_RoW = BETA_RoW*exp(ZEPS_UC_RoW);
+
+ [name = 'FOC wrt to risk free asset RoW', country = 'RoW']
+ BETAT_RoW*(SFH_RoW*LAMBDAS_RoW(+1) + (1-SFH_RoW)*(SFH1_RoW*LAMBDAS_RoW + (1-SFH1_RoW)*LAMBDAS_RoW(-1)*exp((GAPC0_RoW+GYTREND0-GPOP0)*(-THETA_RoW)-GPOP0))*exp((GAPC0_RoW+GYTREND0-GPOP0)*(-THETA_RoW)-GPOP0))/LAMBDAS_RoW*(1/(PC_RoW(1)/PC_RoW))*((1+INOM_RoW-INOM_SPREAD_RoW+ZEPS_FQ_RoW))=1;
+
+ [name = 'Consumption VAT Inflation QA definition RoW', country = 'RoW']
+ PHICQA_RoW = log(PC_RoW + PC_RoW(-1) + PC_RoW(-2) + PC_RoW(-3)) -log(PC_RoW(-4) + PC_RoW(-5) + PC_RoW(-6) + PC_RoW(-7));
+
+ [name = 'Taylor rule RoW']
+ INOM_RoW-INOM_SS_RoW = RHOINOM_RoW*(INOM_RoW(-1)-INOM_SS_RoW)+(1-RHOINOM_RoW)*( ETAIPHI_RoW*0.25*(PHICQA_RoW - PHICQA_SS_RoW) +ETADY_RoW*((GY_RoW+GY_RoW(-1)+GY_RoW(-2)+GY_RoW(-3)) - (log(YTREND_RoW/YTREND_RoW(-4)))) +ETAIY_RoW*(log(0.25*(Y_RoW(-1)+Y_RoW(-2)+Y_RoW(-3)+Y_RoW(-4)))-log(0.25*(YTREND_RoW(-1)+YTREND_RoW(-2)+YTREND_RoW(-3)+YTREND_RoW(-4))))) +ZEPS_INOM_RoW;
+
+ [name = 'Price Phillips Curve RoW', country = 'RoW']
+ PHIY_RoW-PHITREND_RoW = BETAT_RoW*LAMBDAS_RoW(+1)/LAMBDAS_RoW* ( SFP_RoW*(PHIY_RoW(1)-PHITREND_RoW)+ (1-SFP_RoW)*((PHIY_RoW-PHITREND_RoW)*(1-T_MUY_PHI0_RoW)
+ @#if co == "IT" || co == "ES"
+ +T_MUY_PHI0_REA*PHISTAR_REA
+ @#endif
+ )) + PHI_Y_RoW*log(Y_RoW/YTREND_RoW)+ ZEPS_Y_RoW;
+
+ [name = 'Filtered inflation gap RoW', country = 'RoW']
+ @#if co == "IT" || co == "ES" 
+ PHISTAR_RoW = RHO_PHISTAR_RoW*STEADY_STATE(PHIY_RoW-GP0) + (1-RHO_PHISTAR_RoW)*(PHIY_RoW(-1)-GP0);
+ @#else
+ PHISTAR_RoW- RHO_PHISTAR_RoW*PHISTAR_RoW(-1) = (1-RHO_PHISTAR_RoW)*(PHIY_RoW(-1)-GP0);
+ @#endif
+
+ [name = 'Consumption Inflation definition RoW', country = 'RoW']
+ PHIC_RoW = log(PC_RoW/PC_RoW(-1));
+
+ [name = 'Import price inflation RoW', country = 'RoW']
+ PHIM_RoW = log(PM_RoW/PM_RoW(-1));
+
+ [name = 'Oil price inflation RoW ', country = 'RoW']
+ PHIOIL_RoW = log(POIL_RoW/POIL_RoW(-1));
+
+ [name = 'Export price inflation RoW', country = 'RoW']
+ PHIX_RoW = log(PX_RoW/PX_RoW(-1));
+
+ [name = 'Observed GDP Inflation definition', country = 'RoW']
+ PHIYOBS_RoW = log(PYOBS_RoW/PYOBS_RoW(-1));
+
+ [name = 'Resource constraint RoW', country = 'RoW']
+ Y_RoW*PY_RoW+DIVM_RoW*PY_RoW +DIVX_RoW*PY_RoW +OIL_RoW*POIL_RoW = C_RoW*PC_RoW+TB_RoW;
+
+ [name = 'GDP deflator used by statistical offices RoW']
+ PYOBS_RoW = ((Y_RoW+DIVM_RoW)*PY_RoW*PY_RoW +DIVX_RoW*PY_RoW*PY_RoW + OIL_RoW*POIL_RoW*POIL_RoW )/(YOBS_RoW*PYOBS_RoW);
+
+ [name = 'Market price National Account Identity RoW', country = 'RoW']
+ YOBS_RoW*PYOBS_RoW = C_RoW*PC_RoW+TB_RoW ;
+
+ [name = 'GDP trend RoW', country = 'RoW']
+ YTREND_RoW = AY_RoW*POP_RoW*APOP_RoW;
+
+ [name = 'Definition of nominal GDP RoW', country = 'RoW']
+ YOBSN_RoW = YOBS_RoW*PYOBS_RoW;
+
+ [name = 'Trend of the aggregate import shock RoW', country = 'RoW']
+ TZEPS_M_RoW = 0 ;
+
+ [name = 'Trend of the C import content RoW', country = 'RoW']
+ TZEPS_MC_RoW - RHO_MAY_RoW*TZEPS_MC_RoW(-1) = T_MAY_RoW*( log(MC_RoW(-1)*APC_RoW(-1)/C_RoW(-1)) - log(MC_RoW(-2)*APC_RoW(-2)/C_RoW(-2)));
+
+ [name = 'Trend of the X import content RoW', country = 'RoW']
+ TZEPS_MX_RoW - RHO_MAY_RoW*TZEPS_MX_RoW(-1) = T_MAY_RoW*( log(MX_RoW(-1)/exp(ZEPS_PX_RoW(-1))/X_RoW(-1)) - log(MX_RoW(-2)/exp(ZEPS_PX_RoW(-2))/X_RoW(-2)));
+
+ [name = 'Total endogenous import shock RoW', country = 'RoW']
+ exp(TZENDO_M_RoW) = (1+TZEPS_M_RoW)*(1 + T_MAY1_RoW_RoW*TZEPS_M_RoW_RoW - SM_@{co}_RoW*(1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co}*T_MAY2_@{co}_RoW - SM_REA_RoW*(1-T_MAY1_REA_REA)*TZEPS_M_REA_REA*T_MAY2_REA_RoW );
+
+ PM1_@{co}_RoW = E_@{co}_RoW*PX_RoW_@{co};
+
+ PM1_REA_RoW = E_REA_RoW*PX_RoW_REA;
+
+ [name = 'Total non-oil imports RoW', country = 'RoW']
+ M_RoW = MC_RoW + MX_RoW;
+
+ [name = 'Profits/Losses of sector-specific importers']
+ DIVM_RoW = +SIZE_@{co}/SIZE_RoW*(PM_@{co}_RoW/PY_RoW*M_@{co}_RoW -E_@{co}_RoW*PX_RoW_@{co}/PY_RoW*M_@{co}_RoW -GAMMAPM_@{co}_RoW*(SIGMAM_RoW-1)/2*M_@{co}_RoW*PM_@{co}_RoW/PY_RoW*(PM_@{co}_RoW/PM_@{co}_RoW(-1)*PO_RoW(-1)/PO_RoW-1)^2) +SIZE_REA/SIZE_RoW*(PM_REA_RoW/PY_RoW*M_REA_RoW -E_REA_RoW*PX_RoW_REA/PY_RoW*M_REA_RoW -GAMMAPM_REA_RoW*(SIGMAM_RoW-1)/2*M_REA_RoW*PM_REA_RoW/PY_RoW*(PM_REA_RoW/PM_REA_RoW(-1)*PO_RoW(-1)/PO_RoW-1)^2) ;
+
+ [name = 'Import Pricing adjustment costs definition RoW', country = 'RoW']
+ ADJ_PM_RoW = +SIZE_@{co}/SIZE_RoW*(GAMMAPM_@{co}_RoW*(SIGMAM_RoW-1)/2*M_@{co}_RoW*PM_@{co}_RoW/PY_RoW*(PM_@{co}_RoW/PM_@{co}_RoW(-1)*PO_RoW(-1)/PO_RoW-1)^2) +SIZE_REA/SIZE_RoW*(GAMMAPM_REA_RoW*(SIGMAM_RoW-1)/2*M_REA_RoW*PM_REA_RoW/PY_RoW*(PM_REA_RoW/PM_REA_RoW(-1)*PO_RoW(-1)/PO_RoW-1)^2) ;
+
+ [name = 'Profits/Losses of exporters']
+ DIVX_RoW = +(PX_@{co}_RoW*M_RoW_@{co}/PY_RoW - PXINT_RoW*M_RoW_@{co}/PY_RoW *exp(ZEPS_PX_@{co}_RoW) -((SIGMAPX1_RoW-1)*GAMMAPX_@{co}_RoW/2*M_RoW_@{co}*(PX_@{co}_RoW/PX_@{co}_RoW(-1)*E_RoW_@{co}/E_RoW_@{co}(-1)-exp(GP0))^2)) +(PX_REA_RoW*M_RoW_REA/PY_RoW - PXINT_RoW*M_RoW_REA/PY_RoW *exp(ZEPS_PX_REA_RoW) -((SIGMAPX1_RoW-1)*GAMMAPX_REA_RoW/2*M_RoW_REA*(PX_REA_RoW/PX_REA_RoW(-1)*E_RoW_REA/E_RoW_REA(-1)-exp(GP0))^2)) ;
+
+ [name = 'Bilateral import prices from country @{co} to country RoW', country = 'RoW']
+ PM_@{co}_RoW = (PM1_@{co}_RoW)^(1-ALPHAPM_@{co}_RoW)*PO_RoW^ALPHAPM_@{co}_RoW - GAMMAPM_@{co}_RoW* (PM_@{co}_RoW)^2/PM_@{co}_RoW(-1)*PO_RoW(-1)/PO_RoW * (PM_@{co}_RoW/PM_@{co}_RoW(-1)*PO_RoW(-1)/PO_RoW-1) + BETAT_RoW*(LAMBDAS_RoW(1)/LAMBDAS_RoW)*GAMMAPM_@{co}_RoW * M_@{co}_RoW(+1)/M_@{co}_RoW * exp(-PHIY_RoW(+1)) * (PM_@{co}_RoW(+1))^2/PM_@{co}_RoW*PO_RoW/PO_RoW(+1) * SFPM_RoW*(PM_@{co}_RoW(+1)/PM_@{co}_RoW*PO_RoW/PO_RoW(+1)-1);
+
+ [name = 'Bilateral Export Price from RoW to @{co}', country = 'RoW']
+ PX_@{co}_RoW = PXINT_RoW^(1-ALPHAPX_@{co}_RoW)*(PO_@{co}*E_@{co}_RoW)^(ALPHAPX_@{co}_RoW) *exp(ZEPS_PX_@{co}_RoW+TZEPS_PX_@{co}_RoW+TZEPS_PXAY_@{co}_RoW) -GAMMAPX_@{co}_RoW*PY_RoW*E_RoW_@{co}/E_RoW_@{co}(-1)*PX_@{co}_RoW/PX_@{co}_RoW(-1)*(PX_@{co}_RoW/PX_@{co}_RoW(-1)*E_RoW_@{co}/E_RoW_@{co}(-1)-exp(GP0)) +BETAT_RoW*(LAMBDAS_RoW(1)/LAMBDAS_RoW)*GAMMAPX_@{co}_RoW*PY_RoW*E_RoW_@{co}(+1)/E_RoW_@{co}*M_RoW_@{co}(+1)/M_RoW_@{co}*(PX_@{co}_RoW(+1)/PX_@{co}_RoW)*(PX_@{co}_RoW(+1)/PX_@{co}_RoW*E_RoW_@{co}(+1)/E_RoW_@{co}-exp(GP0))*SFPX_RoW;
+
+ [name = 'Bilateral import prices from country REA to country RoW', country = 'RoW']
+ PM_REA_RoW = (PM1_REA_RoW)^(1-ALPHAPM_REA_RoW)*PO_RoW^ALPHAPM_REA_RoW - GAMMAPM_REA_RoW* (PM_REA_RoW)^2/PM_REA_RoW(-1)*PO_RoW(-1)/PO_RoW * (PM_REA_RoW/PM_REA_RoW(-1)*PO_RoW(-1)/PO_RoW-1) + BETAT_RoW*(LAMBDAS_RoW(1)/LAMBDAS_RoW)*GAMMAPM_REA_RoW * M_REA_RoW(+1)/M_REA_RoW * exp(-PHIY_RoW(+1)) * (PM_REA_RoW(+1))^2/PM_REA_RoW*PO_RoW/PO_RoW(+1) * SFPM_RoW*(PM_REA_RoW(+1)/PM_REA_RoW*PO_RoW/PO_RoW(+1)-1);
+
+ [name = 'Bilateral Export Price from RoW to REA', country = 'RoW']
+ PX_REA_RoW = PXINT_RoW^(1-ALPHAPX_REA_RoW)*(PO_REA*E_REA_RoW)^(ALPHAPX_REA_RoW) *exp(ZEPS_PX_REA_RoW+TZEPS_PX_REA_RoW+TZEPS_PXAY_REA_RoW) -GAMMAPX_REA_RoW*PY_RoW*E_RoW_REA/E_RoW_REA(-1)*PX_REA_RoW/PX_REA_RoW(-1)*(PX_REA_RoW/PX_REA_RoW(-1)*E_RoW_REA/E_RoW_REA(-1)-exp(GP0)) +BETAT_RoW*(LAMBDAS_RoW(1)/LAMBDAS_RoW)*GAMMAPX_REA_RoW*PY_RoW*E_RoW_REA(+1)/E_RoW_REA*M_RoW_REA(+1)/M_RoW_REA*(PX_REA_RoW(+1)/PX_REA_RoW)*(PX_REA_RoW(+1)/PX_REA_RoW*E_RoW_REA(+1)/E_RoW_REA-exp(GP0))*SFPX_RoW;
+
+ [name = 'X price deflator RoW', country = 'RoW']
+ PXINT_RoW*X_RoW = PO_RoW*OX_RoW+PM_RoW*MX_RoW;
+
+ [name = 'Consumption price deflator RoW', country = 'RoW']
+ PC_RoW*C_RoW = PO_RoW*OC_RoW + PM_RoW*MC_RoW;
+
+ [name = 'Domestic C demand RoW', country = 'RoW']
+ OC_RoW= (APC_RoW)^(SIGMAC_RoW-1)*(1-SMC_RoW)*(PO_RoW/PC_RoW)^(-SIGMAC_RoW)*C_RoW -(ZEPS_M_RoW+TZEPS_MC_RoW+TZENDO_M_RoW)*STEADY_STATE(MC_RoW)*YTREND0;
+
+ [name = 'Domestic X demand RoW', country = 'RoW']
+ OX_RoW= (1/exp(ZEPS_PX_RoW))^(SIGMAX_RoW-1)*(1-SMX_RoW)*(PO_RoW/PXINT_RoW)^(-SIGMAX_RoW)*X_RoW -(ZEPS_M_RoW+TZEPS_MX_RoW+TZENDO_M_RoW)*STEADY_STATE(MX_RoW)*YTREND0;
+
+ [name = 'Consumption Imports RoW', country = 'RoW']
+ MC_RoW = ((APC_RoW)^(SIGMAC_RoW-1)*SMC_RoW*(PM_RoW/PC_RoW)^(-SIGMAC_RoW)*C_RoW)*(1-RHOIM_RoW) +(MC_RoW(-1)*exp(GYTREND0))*(RHOIM_RoW) +(ZEPS_M_RoW+TZEPS_MC_RoW+TZENDO_M_RoW-RHOIM_RoW*(ZEPS_M_RoW(-1)+TZEPS_MC_RoW(-1)+TZENDO_M_RoW(-1)))*STEADY_STATE(MC_RoW)*YTREND0;
+
+ [name = 'X Imports RoW', country = 'RoW']
+ MX_RoW = ((1/exp(ZEPS_PX_RoW))^(SIGMAX_RoW-1)*SMX_RoW*(PM_RoW/PXINT_RoW)^(-SIGMAX_RoW)*X_RoW)*(1-RHOIM_RoW) +(MX_RoW(-1)*exp(GYTREND0))*(RHOIM_RoW) +(ZEPS_M_RoW+TZEPS_MX_RoW+TZENDO_M_RoW-RHOIM_RoW*(ZEPS_M_RoW(-1)+TZEPS_MX_RoW(-1)+TZENDO_M_RoW(-1)))*STEADY_STATE(MX_RoW)*YTREND0;
+
+ [name = 'Trade Balance RoW', country = 'RoW']
+ TB_RoW = PX_RoW*X_RoW + -(SIZE_@{co}/SIZE_RoW)*E_@{co}_RoW*PX_RoW_@{co}*M_@{co}_RoW -(SIZE_REA/SIZE_RoW)*E_REA_RoW*PX_RoW_REA*M_REA_RoW +POIL_RoW*OIL_RoW ;
+
+ [name = 'Private consumption specific productivity RoW', country = 'RoW']
+ log(APC_RoW/APC0_RoW) = (log(APC_RoW(-1)/APC0_RoW) + GAPC_RoW)*APC_FLAG_RoW;
+
+ [name = 'GDP Inflation definition', country = 'RoW']
+ PHIY_RoW = log(PY_RoW/PY_RoW(-1));
+
+ [name = 'Total output production function RoW', country = 'RoW']
+ PO_RoW = PY_RoW;
+
+ [name = 'Oil Total Supply', country = 'RoW']
+ OIL_RoW = +OIL_@{co}*SIZE_@{co}/SIZE_RoW +OIL_REA*SIZE_REA/SIZE_RoW ;
+
+ [name = 'Oil price RoW', country = 'RoW']
+ POIL_RoW = (1-TAUOIL)*PY0/APOIL_RoW/E_RoW_RoW;
+
+ [name = 'Oil price observed RoW', country = 'RoW']
+ POIL_RoW = (1-TAUOIL)*PBRENTOBS_RoW;
+
+ [name = 'Real interest rate RoW', country = 'RoW']
+ R_RoW = INOM_RoW-log(PY_RoW(+1)/PY_RoW);
+
+ [name = 'Inflation target RoW', country ='RoW']
+ PHITREND_RoW = RHO_PHITREND_RoW*PHITREND_RoW(-1)+(1-RHO_PHITREND_RoW)*GP0;
+
+ [name = 'Log of trend productivity production fct RoW', country = 'RoW']
+ log(AYTREND_RoW) = log(AYTREND_RoW(-1)) + GAYTREND_RoW + EPS_LAYTREND_RoW + (EPS_AY_RoW - EPS_AY_RoW(-1)) ;
+
+ [name = 'Growth of productivity shock RoW', country ='RoW']
+ GAYTREND_RoW = RHO_GAYTREND_RoW*GAYTREND_RoW(-1) +EPS_GAYTREND_RoW+ +RHO_GAYTREND2_RoW*GAYTREND_RoW(-2)+(1-RHO_GAYTREND_RoW-RHO_GAYTREND2_RoW)*GAY0_RoW;
+
+ [name = 'Growth of oil specific productivy RoW', country ='RoW']
+ GAPOILTREND_RoW = RHO_GAPOILTREND_RoW*GAPOILTREND_RoW(-1)+EPS_GAPOILTREND_RoW;
+
+ [name = 'Growth Oil specific productivity RoW', country = 'RoW']
+ GAPOIL_RoW = log(APOIL_RoW/APOIL_RoW(-1));
+
+ [name = 'Log of oil specific productivity RoW', country = 'RoW']
+ log(APOIL_RoW) = log(APOILTREND_RoW) ;
+
+ [name = 'Trend Oil specific productivity RoW', country = 'RoW']
+ log(APOILTREND_RoW) = RHO_APOILTREND_RoW*log(APOILTREND_RoW(-1)) + GAPOILTREND_RoW;
+
+ [name = 'Log of productivity production fct RoW', country = 'RoW']
+ log(AY_RoW) = log(AYTREND_RoW) ;
+
+ [name = 'Productivity production fct RoW', country = 'RoW']
+ GAY_RoW = log(AY_RoW/AY_RoW(-1));
+
+ [name = 'Growth of Population definition RoW', country = 'RoW']
+ GPOP_RoW = log(POP_RoW/POP_RoW(-1));
+
+ [name = 'Growth of population RoW', country = 'RoW']
+ GPOP_RoW = RHO_GPOP_RoW*GPOP_RoW(-1) + ZEPS_POP_RoW + (1-RHO_GPOP_RoW)*GPOP0;
+
+ [name = 'Private consumption specific productivity RW RoW', country = 'RoW']
+ GAPC_RoW = GAPC0_RoW;
+
+ [name = 'Growth of GDP trend RoW', country = 'RoW']
+ GYTREND_RoW = GAY_RoW+GPOP_RoW;
+
+ [name = 'Nominal consumption share RoW', country = 'RoW']
+ CY_RoW = PC_RoW*C_RoW/(YOBS_RoW*PYOBS_RoW);
+
+ [name = 'Nominal oil share RoW', country = 'RoW']
+ OILY_RoW = ( POIL_RoW*OIL_RoW )/(YOBS_RoW*PYOBS_RoW);
+
+ [name = 'Log Nominal oil share RoW', country = 'RoW']
+ LOILY_RoW = log(OILY_RoW);
+
+ [name = 'Nominal trade balance share RoW', country = 'RoW']
+ TBY_RoW = TB_RoW/(YOBS_RoW*PYOBS_RoW);
+
+ [name = 'Nominal import share RoW', country = 'RoW']
+ MY_RoW = XY_RoW-TBY_RoW;
+
+ [name = 'Nominal export share RoW', country = 'RoW']
+ XY_RoW = (PX_RoW*X_RoW)/(YOBS_RoW*PYOBS_RoW)+OILY_RoW;
+
+ [name = 'Quarterly Anuualized YOBS RoW', country = 'RoW']
+ YOBSQA_RoW = (YOBS_RoW*PYOBS_RoW+YOBS_RoW(-1)*PYOBS_RoW(-1)+YOBS_RoW(-2)*PYOBS_RoW(-2)+YOBS_RoW(-3)*PYOBS_RoW(-3))/ (PYOBS_RoW+PYOBS_RoW(-1)+PYOBS_RoW(-2)+PYOBS_RoW(-3))*4;
+
+ [name = 'Quarterly Annualized Nominal interest rate RoW', country = 'RoW']
+ INOMQA_RoW = INOM_RoW+INOM_RoW(-1)+INOM_RoW(-2)+INOM_RoW(-3);
+
+ [name = 'Quarterly annualized exchange rate from RoW currency to REA currency RoW', country = 'RoW']
+ EQA_REA_RoW = (1/E_RoW_REA+1/E_RoW_REA(-1)+1/E_RoW_REA(-2)+1/E_RoW_REA(-3))/4;
+
+ [name = 'Quarterly annualized Log exchange rate from REA currency to RoW currency RoW', country = 'RoW']
+ LEQA_REA_RoW = -log(EQA_RoW_REA);
+
+ [name = 'Quarterly annualized exchange rate from RoW currency to REA currency RoW', country = 'RoW']
+ EQA_RoW_REA = (E_RoW_REA+E_RoW_REA(-1)+E_RoW_REA(-2)+E_RoW_REA(-3))/4;
+
+ [name = 'Quarterly annualized Log exchange rate from RoW currency to REA currency RoW', country = 'RoW']
+ LEQA_RoW_REA = log(EQA_RoW_REA);
+
+ [name = 'Taylor rule shock RoW', country = 'RoW']
+ ZEPS_INOM_RoW = RHO_INOM_RoW*ZEPS_INOM_RoW(-1)+EPS_INOM_RoW;
+
+ [name = 'Shock to Preference for financial assets RoW', country = 'RoW']
+ ZEPS_A_RoW = 0;
+
+ [name = 'Shock to Preference for bonds RoW', country = 'RoW']
+ ZEPS_B_RoW = 0;
+
+ [name = 'Consumption Import shock RoW', country = 'RoW']
+ ZEPS_M_RoW = RHO_M_RoW*ZEPS_M_RoW(-1)+EPS_M_RoW;
+
+ [name = 'Population shock RoW', country = 'RoW']
+ ZEPS_POP_RoW = RHO_POP_RoW*ZEPS_POP_RoW(-1)+EPS_POP_RoW;
+
+ [name = 'Shock to consumption RoW', country = 'RoW']
+ ZEPS_UC_RoW = RHO_P_RoW*ZEPS_UC_RoW(-1)+EPS_UC_RoW;
+
+ [name = 'Shock to Preference for stocks RoW', country = 'RoW']
+ ZEPS_S_RoW = 0;
+
+ [name = 'Phillips curve shock RoW', country = 'RoW']
+ ZEPS_Y_RoW = RHO_Y_RoW*ZEPS_Y_RoW(-1)+EPS_Y_RoW;
+
+ [name = 'Shock to Preference for international bonds RoW', country = 'RoW']
+ ZEPS_BW_RoW = RHO_BW_RoW*ZEPS_BW_RoW(-1)+EPS_BW_RoW;
+
+ [name = 'Shock to export price RoW', country = 'RoW']
+ ZEPS_PX_RoW = RHO_PX_RoW*ZEPS_PX_RoW(-1)+EPS_PX_RoW;
+
+ [name = 'Shock to GAY0 RoW', country = 'RoW']
+ ZEPS_GAY0_RoW-0.99*ZEPS_GAY0_RoW(-1) = RHO_GAY0_RoW*(ZEPS_GAY0_RoW(-1)-0.99*ZEPS_GAY0_RoW(-2))+EPS_GAY0_RoW;
+
+ [name = 'Flight to safety RoW', country = 'RoW']
+ ZEPS_FQ_RoW = RHO_FQ_RoW*ZEPS_FQ_RoW(-1)+EPS_FQ_RoW;
+
+ [name = 'Total import price RoW', country = 'RoW']
+ PM_RoW*M_RoW = +(SIZE_@{co}/SIZE_RoW)*PM_@{co}_RoW*M_@{co}_RoW +(SIZE_REA/SIZE_RoW)*PM_REA_RoW*M_REA_RoW ;
+
+ [name = 'Bilateral Export Price damping RoW to @{co}', country = 'RoW']
+ TZEPS_PXAY_@{co}_RoW-RHO_TZEPS_PXAY_@{co}_RoW*TZEPS_PXAY_@{co}_RoW(-1) = T_PXAY_@{co}*((GAY_@{co}(-1)-GAY0_@{co})*SIZE_@{co}-(GAY_RoW(-1)-GAY0_RoW)*SIZE_RoW)/(SIZE_@{co}+SIZE_RoW);
+
+ [name = 'Bilateral Export Price Trend Shock from RoW to @{co}', country = 'RoW']
+ TZEPS_PX_@{co}_RoW-RHO_TZEPS_PX_@{co}_RoW*TZEPS_PX_@{co}_RoW(-1) = - T_PXE_@{co}*GE_@{co};
+
+ [name = 'Export Price Shock RoW', country = 'RoW']
+ ZEPS_PX_@{co}_RoW = RHO_PX_@{co}_RoW*ZEPS_PX_@{co}_RoW(-1)+EPS_PX_@{co}_RoW;
+
+ [name = 'Bilateral Export Price damping RoW to REA', country = 'RoW']
+ TZEPS_PXAY_REA_RoW-RHO_TZEPS_PXAY_REA_RoW*TZEPS_PXAY_REA_RoW(-1) = T_PXAY_REA*((GAY_REA(-1)-GAY0_REA)*SIZE_REA-(GAY_RoW(-1)-GAY0_RoW)*SIZE_RoW)/(SIZE_REA+SIZE_RoW);
+
+ [name = 'Bilateral Export Price Trend Shock from RoW to REA', country = 'RoW']
+ TZEPS_PX_REA_RoW-RHO_TZEPS_PX_REA_RoW*TZEPS_PX_REA_RoW(-1) = - T_PXE_REA*GE_REA;
+
+ [name = 'Export Price Shock RoW', country = 'RoW']
+ ZEPS_PX_REA_RoW = RHO_PX_REA_RoW*ZEPS_PX_REA_RoW(-1)+EPS_PX_REA_RoW;
+
+ [name = 'Aggregate export price RoW', country = 'RoW']
+ PX_RoW*X_RoW = + PX_@{co}_RoW*M_RoW_@{co} + PX_REA_RoW*M_RoW_REA ;
+
+ [name = 'Total export volume definition RoW', country = 'RoW']
+ X_RoW = + M_RoW_@{co} + M_RoW_REA ;
+
+ [name = 'Growth rate of consumption RoW', country = 'RoW']
+ GC_RoW = log(C_RoW/C_RoW(-1));
+
+ [name = 'Growth rate GDP RoW', country = 'RoW']
+ GY_RoW = log(Y_RoW/Y_RoW(-1));
+
+ [name = 'Growth rate of observed GDP RoW', country = 'RoW']
+ GYOBS_RoW = log(YOBS_RoW/YOBS_RoW(-1));
+
+ [name = 'Nominal net foreign assets share RoW', country = 'RoW']
+ NFAY_RoW = (E_RoW_RoW)*NFA_RoW/YOBS_RoW/PYOBS_RoW;
+
+ [name = 'The demand of goods from country @{co} to country RoW', country = 'RoW']
+ M_@{co}_RoW = SM_@{co}_RoW* exp(ZEPS_M_@{co}_RoW)* (1 - (1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co})/(1 - (1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co}*SM_@{co}_RoW - (1-T_MAY1_REA_REA)*TZEPS_M_REA_REA*SM_REA_RoW )* ((PM_@{co}_RoW)/PM_RoW)^-SIGMAFM_RoW*SIZE_RoW/SIZE_@{co}*M_RoW;
+
+ [name = 'Bilateral imports from country @{co} to country RoW shock', country = 'RoW']
+ ZEPS_M_@{co}_RoW = RHO_M_@{co}_RoW*ZEPS_M_@{co}_RoW(-1)+EPS_M_@{co}_RoW;
+
+ [name = 'The demand of goods from country REA to country RoW', country = 'RoW']
+ M_REA_RoW = SM_REA_RoW* exp(ZEPS_M_REA_RoW)* (1 - (1-T_MAY1_REA_REA)*TZEPS_M_REA_REA)/(1 - (1-T_MAY1_@{co}_@{co})*TZEPS_M_@{co}_@{co}*SM_@{co}_RoW - (1-T_MAY1_REA_REA)*TZEPS_M_REA_REA*SM_REA_RoW )* ((PM_REA_RoW)/PM_RoW)^-SIGMAFM_RoW*SIZE_RoW/SIZE_REA*M_RoW;
+
+ [name = 'Trade trend RoW', country = 'RoW']
+ TZEPS_M_RoW_RoW = RHO_TZEPS_M_RoW*TZEPS_M_RoW_RoW(-1) - (1-RHO_TZEPS_M_RoW)*((T_MAY2_RoW_RoW-T_MAY3_RoW_RoW)*(AYTREND_RoW(-1)*exp(GAY0_RoW)/YTREND0*POP0-1) +T_MAY3_RoW_RoW*(AYTREND_RoW(-2)*exp(2*GAY0_RoW)/YTREND0*POP0-1));
+
+ [name = 'Implicit bilateral imports cycle from country RoW to country RoW shock', country = 'RoW']
+ (1 - SM_@{co}_RoW*exp(ZEPS_M_@{co}_RoW) - SM_REA_RoW*exp(ZEPS_M_REA_RoW) ) = 0;
+
+ [name = 'Log-level nominal exchange rate from currency @{co} to RoW', country = 'RoW']
+ LE_@{co}_RoW = log(E_@{co}_RoW);
+
+ [name = 'Log-level real exchange rate from currency @{co} to RoW', country = 'RoW']
+ LRER_@{co}_RoW = LE_@{co}_RoW + LPY_@{co} - LPY_RoW;
+
+ [name = 'Log-level nominal exchange rate from currency REA to RoW', country = 'RoW']
+ LE_REA_RoW = log(E_REA_RoW);
+
+ [name = 'Log-level real exchange rate from currency REA to RoW', country = 'RoW']
+ LRER_REA_RoW = LE_REA_RoW + LPY_REA - LPY_RoW;
+
+ [name = 'Log-level effective nominal exchange rate of RoW', country = 'RoW']
+ LE_RoW = -log( + WT_@{co}_RoW * E_RoW_@{co} + WT_REA_RoW * E_RoW_REA );
+
+ [name = 'Growth rate of Log-level effective nominal exchange rate of RoW', country = 'RoW']
+ GE_RoW = LE_RoW-LE_RoW(-1);
+
+ [name = 'Log-level effective real exchange rate of RoW', country = 'RoW']
+ LRER_RoW = -log( + WT_@{co}_RoW * exp(LRER_RoW_@{co}) + WT_REA_RoW * exp(LRER_RoW_REA) );
+
+ [name = 'Average bilateral openness of country RoW w.r.t. country RoW', country = 'RoW']
+ WT_@{co}_RoW = 0.5 * ((PX_@{co}_RoW*M_RoW_@{co} + POIL_RoW *OIL_@{co}*SIZE_@{co}/SIZE_RoW)/(XY_RoW*PYOBS_RoW*YOBS_RoW) + (E_@{co}_RoW*PX_RoW_@{co})*(SIZE_@{co}/SIZE_RoW)*M_@{co}_RoW/(PM_RoW*M_RoW) );
+
+ WT_REA_RoW = 0.5 * ((PX_REA_RoW*M_RoW_REA + POIL_RoW *OIL_REA*SIZE_REA/SIZE_RoW)/(XY_RoW*PYOBS_RoW*YOBS_RoW) + (E_REA_RoW*PX_RoW_REA)*(SIZE_REA/SIZE_RoW)*M_REA_RoW/(PM_RoW*M_RoW) );
+
+ [name = 'Quarterly Annualized Log YOBS RoW', country = 'RoW']
+ LYOBSQA_RoW = log(YOBSQA_RoW/STEADY_STATE(YOBS_RoW));
+
+ [name = 'Quarterly Annualized Log of GDP deflator RoW', country = 'RoW']
+ LPYQA_RoW = log((PYOBS_RoW+PYOBS_RoW(-1)+PYOBS_RoW(-2)+PYOBS_RoW(-3))/4/PY0);
+
+ [name = 'Log-level terms of trade RoW', country = 'RoW']
+ LTOT_RoW = LPX_RoW - LPM_RoW;
+
+ [name = 'Log-level APC shock RoW', country = 'RoW']
+ LAPC_RoW = log(APC_RoW/APC0_RoW);
+
+ [name = 'Log-level POP RoW', country = 'RoW']
+ LPOP_RoW = log(POP_RoW/POP0);
+
+ [name = 'Log-level PYOBS RoW', country = 'RoW']
+ LPYOBS_RoW = log(PYOBS_RoW/PY0/STEADY_STATE(PYOBS_RoW));
+
+ [name = 'Log-level PY RoW', country = 'RoW']
+ LPY_RoW = log(PY_RoW/PY0);
+
+ [name = 'Log-level PX RoW', country = 'RoW']
+ LPX_RoW = log(PX_RoW/PY0);
+
+ [name = 'Log-level PM RoW', country = 'RoW']
+ LPM_RoW = log(PM_RoW/PY0);
+
+ [name = 'Log-level YTREND RoW', country = 'RoW']
+ LYTREND_RoW = log((YTREND_RoW+STEADY_STATE(OIL_RoW)*(1-TAUOIL)*YTREND0)/STEADY_STATE(YOBS_RoW)/STEADY_STATE(PYOBS_RoW)/YTREND0)+EPS_LYTREND_RoW;
+
+ [name = 'Log-level APOIL RoW', country = 'RoW']
+ LAPOIL_RoW = log(APOIL_RoW);
+
+ [name = 'Log-level POIL RoW', country = 'RoW']
+ LPBRENTOBS_RoW = log(POIL_RoW/PY0/(1-TAUOIL));
+
+ [name = 'Log-level C RoW', country = 'RoW']
+ LC_RoW = log(C_RoW/YTREND0/APC0_RoW);
+
+ [name = 'Log-level Y RoW', country = 'RoW']
+ LY_RoW = log(Y_RoW/YTREND0);
+
+ [name = 'Log-level YOBS RoW', country = 'RoW']
+ LYOBS_RoW = log(YOBS_RoW/STEADY_STATE(YOBS_RoW)/YTREND0);
+
+ [name = 'Log-level YOBS RoW', country = 'RoW']
+ LYOBSN_RoW = log(YOBS_RoW*PYOBS_RoW/STEADY_STATE(YOBS_RoW)/STEADY_STATE(PYOBS_RoW)/YTREND0/PY0);
+
+ [name = 'Log-level X RoW', country = 'RoW']
+ LX_RoW = log(X_RoW/YTREND0);
+
+ [name = 'Log-level M RoW', country = 'RoW']
+ LM_RoW = log(M_RoW/YTREND0);
+
+ [name = 'Log-level OIL RoW', country = 'RoW']
+ LOIL_RoW = log(OIL_RoW/YTREND0);
+
+ [name = 'Taylor rule EA']
+ INOM_EA-INOM_SS_EA = RHOINOM_EA*(INOM_EA(-1)-INOM_SS_EA)+(1-RHOINOM_EA)*( ETAIPHI_EA*0.25*(PHICVATQA_EA - PHICVATQA_SS_EA) +ETADY_EA*((GYOBS_EA+GYOBS_EA(-1)+GYOBS_EA(-2)+GYOBS_EA(-3)) - (log(YPOT_EA/YPOT_EA(-4)))) +ETAIY_EA*(log(0.25*(Y_EA(-1)+Y_EA(-2)+Y_EA(-3)+Y_EA(-4)))-log(0.25*(YPOT_EA(-1)+YPOT_EA(-2)+YPOT_EA(-3)+YPOT_EA(-4))))) +0*ETADPHI_EA*DPHI_EA(-1)+ZEPS_INOM_EA;
+
+ [name = 'Integral of deviation of inflation from target EA', country = 'EA']
+ DPHI_EA = 0*(DPHI_EA(-1)+(0.25*(PHICVATQA_EA - PHICVATQA_SS_EA)));
+
+ [name = 'Taylor rule shock EA', country = 'EA']
+ ZEPS_INOM_EA = RHO_INOM_EA*ZEPS_INOM_EA(-1)+EPS_INOM_EA+MA_INOM_EA*EPS_INOM_EA(-1);
+
+ [name = 'Definition of _EA consumption inflation']
+ PHIC_EA = log(PC_EA/PC_EA(-1));
+
+ [name = 'Final consumption price EA', country = 'EA']
+ PCVAT_EA = (1+TAUC_EA)*PC_EA;
+
+ [name = 'Consumption VAT Inflation definition EA', country = 'EA']
+ PHICVAT_EA = log(PCVAT_EA/PCVAT_EA(-1));
+
+ [name = 'Consumption VAT Inflation QA definition EA', country = 'EA']
+ PHICVATQA_EA = log(PCVAT_EA + PCVAT_EA(-1) + PCVAT_EA(-2) + PCVAT_EA(-3)) -log(PCVAT_EA(-4) + PCVAT_EA(-5) + PCVAT_EA(-6) + PCVAT_EA(-7));
+
+ [name = 'Definition of _EA import price inflation']
+ PHIMTOT_EA = log(PMTOT_EA/PMTOT_EA(-1));
+
+ [name = 'Definition of _EA consumption inflation']
+ PHIYOBS_EA = log(PYOBS_EA/PYOBS_EA(-1));
+
+ [name = 'Export price inflation EA']
+ PHIX_EA = log(PX_EA/PX_EA(-1));
+
+ [name = 'Log-level YOBS _EA']
+ LYOBS_EA = log(YOBS_EA/STEADY_STATE(YOBS_EA)/YTREND0);
+
+ [name = 'Log-level YOBS _EA']
+ LYOBSN_EA = log(YOBS_EA*PYOBS_EA/STEADY_STATE(YOBS_EA)/STEADY_STATE(PYOBS_EA)/YTREND0/PY0);
+
+ [name = 'Log-level POP EA', country = 'EA']
+ LPOP_EA = log(POP_EA/POP0);
+
+ [name = 'Log-level PY _EA']
+ LPY_EA = log(PY_EA/PY0);
+
+ [name = 'Log-level PYOBS _EA']
+ LPYOBS_EA = log(PYOBS_EA/STEADY_STATE(PYOBS_EA)/PY0);
+
+ [name = 'Log-level PC _EA']
+ LPCVAT_EA = log(PCVAT_EA/STEADY_STATE(PCVAT_EA)/PY0);
+
+ [name = 'Log of import price to GDP price _EA']
+ LPMTOTPYOBS_EA = log(PMTOT_EA/PYOBS_EA*STEADY_STATE(PYOBS_EA)/STEADY_STATE(PMTOT_EA));
+
+ [name = 'Log of import price to GDP price _EA']
+ LPMTOT_EA = log(PMTOT_EA/STEADY_STATE(PMTOT_EA));
+
+ [name = 'Log of export price to GDP price _EA']
+ LPXPYOBS_EA = log(PX_EA/PYOBS_EA*STEADY_STATE(PYOBS_EA));
+
+ [name = 'Log of export price to GDP price _EA']
+ LPX_EA = log(PX_EA/PY0);
+
+ [name = 'Nominal import share EA']
+ MTOTY_EA = PMTOT_EA*MTOT_EA/(YOBS_EA*PYOBS_EA);
+
+ [name = 'Log. of Nominal import share _EA']
+ LMTOTY_EA = log(MTOTY_EA);
+
+ [name = 'Nominal import share EA']
+ LMTOT_EA = log(MTOT_EA/(STEADY_STATE(YOBS_EA)*STEADY_STATE(PYOBS_EA)/STEADY_STATE(PMTOT_EA)));
+
+ [name = 'Nominal export share _EA']
+ XY_EA = PX_EA*X_EA/(YOBS_EA*PYOBS_EA);
+
+ [name = 'Log of Nominal export share _EA']
+ LXY_EA = log(XY_EA);
+
+ [name = 'Log of Real export _EA']
+ LX_EA = log(X_EA/(STEADY_STATE(YOBS_EA)*STEADY_STATE(PYOBS_EA)/YTREND0));
+
+ [name = 'Log of Nominal export _EA']
+ LXN_EA = log(X_EA*PX_EA/(STEADY_STATE(YOBS_EA)*STEADY_STATE(PYOBS_EA))/YTREND0/PY0);
+
+ [name = 'Growth rate of total nominal exports _EA']
+ GXN_EA = log(X_EA*PX_EA/X_EA(-1)/PX_EA(-1));
+
+ [name = 'Temporary Shock to UIP EEA']
+ ZEPS_BW_EA = RHO_BW_EA*ZEPS_BW_EA(-1)+EPS_BW_EA;
+
+ [name = 'Log-level effective nominal exchange rate of EA', country = 'EA']
+ LE_EA = -log( (1/E_RoW_EA) );
+
+ [name = 'Growth of Population definition _EA']
+ GPOP_EA = log(POP_EA/POP_EA(-1));
+
+ [name = 'Growth rate of observed GDP _EA']
+ GYOBS_EA = log(YOBS_EA/YOBS_EA(-1));
+
+ [name = 'Definition of nominal TB _EA']
+ TB_EA = PX_EA*X_EA-PMTOT_EA*MTOT_EA;
+
+ [name = 'Definition of nominal TB _EA']
+ TBY_EA = TB_EA/(PYOBS_EA*YOBS_EA);
+
+ [name = 'Quarterly Anuualized YOBS EA', country = 'EA']
+ YOBSQA_EA = (YOBS_EA*PYOBS_EA+YOBS_EA(-1)*PYOBS_EA(-1)+YOBS_EA(-2)*PYOBS_EA(-2)+YOBS_EA(-3)*PYOBS_EA(-3))/ (PYOBS_EA+PYOBS_EA(-1)+PYOBS_EA(-2)+PYOBS_EA(-3))*4;
+
+ [name = 'Log-level nominal exchange rate from currency RoW to EA', country = 'RoW']
+ LE_RoW_EA = log(E_RoW_EA/E_RoW_RoW);
+
+ [name = 'Growth rate of nominal exchange rate from currency RoW to EA', country = 'EA']
+ GE_RoW_EA = LE_RoW_EA-LE_RoW_EA(-1);
+
+ end;
+
+ 

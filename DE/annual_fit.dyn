@@ -1,0 +1,80 @@
+//=========================================================================
+// Forecast Script
+// Generate forecasts from the GM model and a BVAR
+//=========================================================================
+
+//=========================================================================
+// GM Unconditional Forecast //
+// start the forecast from the last datapoint available
+oo0_=oo_;
+options_.forecast=10;
+
+NOBS0 = options_.nobs;
+options_.nobs=options_.nobs+options_.forecast;
+forecast0 = options_.forecast;
+options_.forecast = 10;
+//M_ = set_all_parameters(xparam1,estim_params_,M_);
+
+oo_=evaluate_smoother('calibration',M_.endo_names,M_,oo_,options_,bayestopt_,estim_params_);
+oo1.SmoothedVariables =  oo_.SmoothedVariables;
+// use only the information up to 75
+oo_.SmoothedVariables = oo_.UpdatedVariables;
+options_.parameter_set='calibration';
+smoother2histval(period = 75);
+oo_.SmoothedVariables = oo1.SmoothedVariables;
+
+Sigma0 = M_.Sigma_e;
+
+//M_.Sigma_e = Sigma_e_frcst;
+options_.nograph = 1;
+options_.noprint = 1;
+stoch_simul(nomoments, periods=0, order=1);
+forecast(periods  = 10);
+
+
+//=========================================================================
+// plot the forecast
+
+
+// annualized
+// nplots = [3 4 12; 3 4 12; 3 4 12; 3 4 12; 2 4 6];
+// 
+// forecastA = annualized_plot_forecasts2(cellstr(avname),q2avec, M_, options_, oo_, T(options_.first_obs:end), [2011 ceil(T(end))], nplots, [], 0, 1,0,0,1,0);
+// 
+// [status] = xls_export_ann_forecasts('gemc_annual_frcst_ecfin', forecastA);
+avname1= {      
+'GYOBSA_@{co}'
+'PHIYOBSA_@{co}'
+'GCA_@{co}'
+'GIA_@{co}'
+'GNA_@{co}'
+'TBA_@{co}'
+};
+
+load data T;
+nplots = [3 2 6];
+
+// [r2a, annual_vname] = annualized_plot_fit(cellstr(avname),q2avec, M_, options_, oo_, T(options_.first_obs:end), [2000 ceil(T(90))], nplots);
+[r2a, annual_vname] = annualized_plot_fit(avname1, q2avec, M_, options_, oo_, T(options_.first_obs:end), [2000 ceil(T(90))], nplots);
+disp(table(annual_vname,r2a))
+oo_.jrc.fit_annual.r2a=r2a;
+oo_.jrc.fit_annual.vname=annual_vname;
+
+xls_cell_fit=cell(length(annual_vname),3);
+xls_cell_fit(:,1)=annual_vname;
+xls_cell_fit(:,2)=num2cell(r2a(:,1)); 
+xls_cell_fit(:,3)=num2cell(r2a(:,2)); 
+xls_cell_fit=[{'Variable' '1-year ahead' '1-year ahead'};xls_cell_fit];
+[SUCCESS,MESSAGE]=xlswrite([M_.fname '_moments.xls'],xls_cell_fit,'fit r2');
+
+options_.forecast = forecast0;
+options_.nobs = NOBS0;
+
+// oo0_.forecast = oo_.forecast; 
+// oo_.jrc.forecastA = forecastA;
+
+save gemc_results_cfrcst oo_ 
+
+oo0_.jrc = oo_.jrc;
+oo_ = oo0_; 
+

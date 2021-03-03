@@ -1,0 +1,89 @@
+/*                        shock_groups                       */
+/*************************************************************/
+
+// Detailed country decomposition
+
+
+
+        shock_groups(name=@{co});
+
+        // (1) TFP
+        'TFP @{co}' = EPS_LAYTREND_@{co} EPS_GAYTREND_@{co} EPS_AY_@{co};
+
+
+        // (2) Fiscal
+        'Fiscal @{co}' = EPS_G_@{co} EPS_IG_@{co} EPS_T_@{co} EPS_TAX_@{co};
+
+
+        // (3) Monetary
+            'Monetary EA' = EPS_INOM_EA;
+
+
+        // (4) Price Mark-up
+        'Price Mark-up @{co}' = EPS_MUY_@{co};
+
+
+        // (5) Bond premium
+            'Bond premium DE and EA vs RoW' = EPS_BW_@{co} EPS_BW_EA;
+
+
+        // (7) Private savings shock
+        'Private savings shock @{co}' = EPS_UC_@{co};
+
+
+        // (8) Investment risk premium
+        'Investment risk premium @{co}' = EPS_S_@{co}_@{co};
+
+
+        // (9) Wage Mark-up
+        'Wage Mark-up @{co}' = EPS_U_@{co};
+
+
+        // (10) Labor demand shock
+        'Labor cost shock @{co}' = EPS_CU_@{co} EPS_ND_@{co};
+
+
+        // (11) Other shocks
+        'Other shocks @{co}' = EPS_B_@{co}_@{co} EPS_APC_@{co} EPS_APG_@{co} EPS_API_@{co} EPS_APIG_@{co} EPS_POP_@{co} EPS_ACTR_@{co};
+
+
+        // (12) Trade shocks
+        'Trade shocks' = EPS_PX_@{co} EPS_PX_@{co}_RoW 
+            EPS_M_@{co}
+            EPS_M_REA
+                EPS_PX_REA_RoW EPS_PX_REA
+            EPS_M_RoW
+                EPS_M_@{co}_RoW
+        ;
+
+
+        // (13) Shocks (Not present in GM3-EMU)
+
+        // (14) Shocks REA
+           'Shocks REA' = EPS_Y_REA EPS_GAYTREND_REA EPS_UC_REA;
+
+        // (15) Shocks RoW
+            'Shocks RoW' = EPS_INOM_RoW EPS_Y_RoW EPS_FQ_RoW EPS_GAYTREND_RoW EPS_UC_RoW EPS_LAYTREND_RoW EPS_GAY0_RoW;
+
+       // (16) Commodities
+        
+                 'Oil' = EPS_GAPOILTREND_RoW;
+       
+        @#if co == "DE"
+        // (17) Hartz Reform
+            'Hartz Reform' = EPS_BU_@{co};
+        @#endif
+        
+        // (18) Flight to Safety
+        'Flight to safety' = EPS_FQ_@{co};
+
+        // (19) Inventories
+
+        end;
+
+	
+    // Others, gathers the shocks which are not modelled
+    //'Others'=;
+
+/*                        shock_groups                       */
+/*************************************************************/

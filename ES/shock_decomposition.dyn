@@ -1,0 +1,25 @@
+// refresh smoother !!
+clear evaluate_smoother;
+options_.initial_date                       = dates('1998Q4');
+save_decomp=0;
+
+var_list_ = char('GYOBS_@{co}','TBY_@{co}');
+
+shock_decomposition(nograph,init_state = 1);
+save_decomp=1;
+
+
+/*                 plot_shock_decomposition                  */
+/*************************************************************/
+
+plot_shock_decomposition(use_shock_groups = @{co}, type=yoy, interactive, detail_plot, write_xls, steadystate, nodisplay, graph_format=(fig,eps)) 
+          GYOBS_@{co} 
+          ;
+
+plot_shock_decomposition(use_shock_groups = @{co}, type=qoq, interactive, detail_plot, write_xls, steadystate, nodisplay, graph_format=(fig,eps)) 
+          TBY_@{co}              
+          ;
+
+
+/*                 plot_shock_decomposition               */
+/*************************************************************/

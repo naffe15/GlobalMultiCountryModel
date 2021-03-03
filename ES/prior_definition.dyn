@@ -1,0 +1,201 @@
+estimated_params;
+
+// Detailed country parameters 
+        stderr EPS_APC_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                     
+        stderr EPS_APG_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                     
+        stderr EPS_API_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;     
+        stderr EPS_APIG_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf; 
+        stderr EPS_ND_@{co}, GAMMA_PDF, 0.005, 0.002, 0, inf;
+        stderr EPS_FQ_@{co}, GAMMA_PDF, 0.001, 0.0004, 0, inf;
+        RHO_FQ_@{co},,0,1, BETA_PDF, 0.85, 0.05, 0, 1;
+        stderr EPS_G_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf; 
+        stderr EPS_GAYTREND_@{co}, GAMMA_PDF, 0.001, 0.0004, 0, inf;
+        stderr EPS_LAYTREND_@{co}, GAMMA_PDF, 0.001, 0.0004, 0, inf;
+        stderr EPS_IG_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                       
+        stderr EPS_M_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                        
+        stderr EPS_MUY_@{co}, GAMMA_PDF, 0.02, 0.008, 0, inf;  
+                            
+        stderr EPS_PX_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                                        
+        stderr EPS_T_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                       
+        stderr EPS_TAX_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                       
+        stderr EPS_UC_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                        
+        stderr EPS_U_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                                                     
+            @#if co == "DE"
+            stderr EPS_BU_@{co}, GAMMA_PDF, 0.01, 0.004, 0, inf;                                                                     
+            @#endif
+                stderr EPS_B_@{co}_@{co},  GAMMA_PDF, 0.01, 0.004, 0, inf;   
+                stderr EPS_S_@{co}_@{co},  GAMMA_PDF, 0.001, 0.0004, 0, inf;     
+            //@#if (co2 != co)  && (co2 != "RoW")                            
+        
+        @#if co != "DE"
+        ALPHABW1_@{co},,-0.001,0.003, NORMAL_PDF, 0.001, 0.0004;
+        @#endif
+                
+		ETABT_@{co}, BETA_PDF, 0.02, 0.01, 0, 0.04;                
+        ETADEFT_@{co}, BETA_PDF, 0.03, 0.008, 0.01, .05;              
+            FC_@{co}, BETA_PDF, 0.05, 0.02, 0, 0.15;
+        GAMMAI1_@{co}, GAMMA_PDF, 60, 40, 0, inf; 
+        GAMMAI2_@{co}, GAMMA_PDF, 60, 40, 0, inf; 
+        GAMMAN_@{co}, GAMMA_PDF, 60, 40, 0, inf; 
+            GAMMAP_@{co}, GAMMA_PDF, 60, 40, 10, inf; 
+
+
+        // Endogenized GAMMAU1_@{co}
+        GAMMAU2_@{co}, GAMMA_PDF, 0.003, 0.0012, 0, inf;
+		GAMMAW_@{co}, GAMMA_PDF, 5, 2, 0, inf; 
+        GAMMAWR_@{co}, BETA_PDF, 0.5, 0.2, 0, 0.99; 
+		
+		GAMMAFN2_@{co}, GAMMA_PDF, 2, 0.5, 0, inf;
+		FN_@{co}, BETA_PDF, 0.1, 0.04, 0, 0.25; 
+        @#if co == "ES"
+        RHO_G_@{co}, BETA_PDF, 0.7, 0.1, 0, 1;
+        @#endif
+        H_@{co}, BETA_PDF, 0.5, 0.1, 0, 1;
+        
+        RHOOIL_@{co}, BETA_PDF, 0.5, 0.2, 0, 1; 
+        
+        RHO_APC_@{co}, BETA_PDF, 0.5, 0.2, 0, 0.99;
+        RHO_APG_@{co}, BETA_PDF, 0.5, 0.2, 0, 0.99;
+        RHO_API_@{co}, BETA_PDF, 0.5, 0.2, 0, 0.99;
+        RHO_APIG_@{co}, BETA_PDF, 0.5, 0.2, 0, 0.99;
+        RHO_GAYTREND_@{co}, BETA_PDF, 0.85, 0.075, 0, 0.99;
+        @#if co == "IT" || co == "ES"
+        RHO_M_@{co},,0,1, BETA_PDF, 0.45, 0.15,0,0.9;   
+        RHO_PHISTAR_@{co},,0,1, BETA_PDF, 0, 0.4,-0.99,0.99;
+        RHO_TZEPS_M_@{co},,0,1, BETA_PDF, 0, 0.4,-0.99,0.99;  
+        T_MAY1_@{co}_@{co}, UNIFORM_PDF, , , 0, 1;
+        T_MAY2_@{co}_@{co}, UNIFORM_PDF, , , 0, 2; // calibrated to 1
+        @#else
+        RHO_M_@{co},,0,1, BETA_PDF, 0.5, 0.2,0,0.99;
+        RHO_MUY_@{co},,0,1, BETA_PDF, 0.5, 0.2,0,0.99; 
+        @#endif
+
+        RHO_ND_@{co}, BETA_PDF, 0.5, 0.2, 0, 0.99;       
+        //
+        RHO_P_@{co},,0,1, BETA_PDF, 0.5, 0.2,0,0.99;                        
+        RHO_PX_@{co},,0,1, BETA_PDF, 0.5, 0.2,0,0.99;               
+        RHO_TAX_@{co},,0,1, BETA_PDF, 0.5, 0.2,0,0.99;
+        
+        SFP_@{co},,0,1, NORMAL_PDF, 1, 0.5; 
+        SFW_@{co}, BETA_PDF, 0.5, 0.2, 0, 1;
+
+        SIGMAFM_@{co}, GAMMA_PDF, 2, 1, 0, inf; 
+        SIGMAO_@{co}, BETA_PDF, 0.5, 0.2, 0, 1; 
+        //@#if (co == "FR") || (co == "IT") || (co == "US") || (co == "EA")
+        
+         SIGMAZ_@{co}, GAMMA_PDF, 2, 0.4, 1, inf; 
+
+
+
+        THETAN_@{co}, GAMMA_PDF, 2.5, 0.5, 1, inf;
+        THETA_@{co}, GAMMA_PDF, 1.5, 0.2, 1, inf;
+        
+
+
+        // Bilateral parameters
+                RHO_B_@{co}_@{co}, BETA_PDF, 0.5, 0.2,0,0.99;    
+            
+           RHO_S_@{co}_@{co}, BETA_PDF, 0.85, 0.05, 0, 1;   
+             
+ 
+             stderr EPS_PX_REA, GAMMA_PDF, 0.01, 0.004, 0, inf;
+  
+
+             RHO_PX_REA,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;               
+
+       // ADD EAA PARAMETERS
+
+        RHO_BW_EA,,0,1, BETA_PDF, 0.5, 0.2,0,1;
+         stderr EPS_INOM_EA, GAMMA_PDF, 0.01, 0.004, 0, inf;         
+         stderr EPS_BW_EA, GAMMA_PDF, 0.01, 0.004, 0, inf;         
+
+            stderr EPS_M_REA, GAMMA_PDF, 0.01, 0.004, 0, inf;          
+     
+            stderr EPS_UC_REA, GAMMA_PDF, 0.01, 0.004, 0, inf;                           
+            stderr EPS_Y_REA, GAMMA_PDF, 0.01, 0.004, 0, inf;  
+                stderr EPS_GAYTREND_REA, GAMMA_PDF, 0.0002, 0.00008, 0, inf;
+                stderr EPS_LAYTREND_REA, GAMMA_PDF, 0.006, 0.002, 0, inf;
+        ALPHABW1_REA,,-0.001,0.003, NORMAL_PDF, 0.001, 0.0004;
+        
+        H_REA, BETA_PDF, 0.7, 0.1, 0, 1;  
+        
+        RHO_GAYTREND_REA, BETA_PDF, 0.85, 0.075, 0, 0.99;
+
+        @#if co == "IT" || co == "ES"
+        RHO_M_REA,,0,1, BETA_PDF, 0.45, 0.15,0,0.9;   
+        RHO_PHISTAR_REA,,0,1, BETA_PDF, 0, 0.4,-0.99,0.99;
+        RHO_TZEPS_M_REA,,0,1, BETA_PDF, 0, 0.4,-0.99,0.99;  
+        T_MAY1_REA_REA, UNIFORM_PDF, , , 0, 1;
+        T_MAY2_REA_REA, UNIFORM_PDF, , , 0, 2; // calibrated to 1
+        @#else
+        RHO_M_REA,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;
+        @#endif
+                
+          	PHI_Y_REA, GAMMA_PDF, 0.5, 0.2, 0, inf;
+            RHO_P_REA,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;                
+			RHO_Y_REA,,0,1, BETA_PDF, 0.5, 0.2,0,0.99; 
+            //T_MAY2_REA, GAMMA_PDF, 60, 40, 0, inf;
+
+
+            SFP_REA,,0,1, NORMAL_PDF, 1, 0.5; 
+                       
+             SIGMAC_REA, GAMMA_PDF, 2, 0.4, 1, inf; 
+            
+             SIGMAFM_REA, GAMMA_PDF, 2, 1, 0, inf; 
+            THETA_REA, GAMMA_PDF, 1.5, 0.2, 1, inf;
+
+
+        
+             stderr EPS_INOM_RoW, GAMMA_PDF, 0.01, 0.004, 0, inf;  
+             
+            stderr EPS_M_RoW, GAMMA_PDF, 0.01, 0.004, 0, inf;          
+               stderr EPS_M_@{co}_RoW, GAMMA_PDF, 0.02, 0.008, 0, inf;  
+     
+            stderr EPS_PX_@{co}_RoW, GAMMA_PDF, 0.01, 0.004, 0, inf;                                        
+            stderr EPS_PX_REA_RoW, GAMMA_PDF, 0.01, 0.004, 0, inf;                                        
+
+            stderr EPS_UC_RoW, GAMMA_PDF, 0.01, 0.004, 0, inf;                           
+            stderr EPS_Y_RoW, GAMMA_PDF, 0.01, 0.004, 0, inf;  
+                stderr EPS_GAYTREND_RoW, GAMMA_PDF, 0.0002, 0.00008, 0, inf;
+                stderr EPS_AY_RoW, GAMMA_PDF, 0.006, 0.002, 0, inf;
+            
+            RPBW_RoW, BETA_PDF, 0.01, 0.004, 0, 0.02;
+        
+     
+        ALPHABW1_RoW,,-0.001,0.003, NORMAL_PDF, 0.001, 0.0004;
+        
+
+        H_RoW, BETA_PDF, 0.7, 0.1, 0, 1;  
+        
+        RHO_GAYTREND_RoW, BETA_PDF, 0.85, 0.075, 0, 0.99;
+
+
+            @#if co == "IT" || co == "ES"
+            RHO_M_RoW,,0,1, BETA_PDF, 0.45, 0.15,0,0.9;   
+            RHO_PHISTAR_RoW,,0,1, BETA_PDF, 0, 0.4,-0.99,0.99;
+            RHO_TZEPS_M_RoW,,0,1, BETA_PDF, 0, 0.4,-0.99,0.99;  
+            T_MAY1_RoW_RoW, UNIFORM_PDF, , , 0, 1;
+            T_MAY2_RoW_RoW, UNIFORM_PDF, , , 0, 2; // calibrated to 1
+            @#else
+            RHO_M_RoW,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;
+            @#endif
+      
+			PHI_Y_RoW, GAMMA_PDF, 0.5, 0.2, 0, inf;
+            RHO_P_RoW,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;                
+			RHO_Y_RoW,,0,1, BETA_PDF, 0.5, 0.2,0,0.99; 
+		
+		
+            RHO_M_@{co}_RoW,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;  
+            RHO_PX_@{co}_RoW,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;
+            RHO_PX_REA_RoW,,0,1, BETA_PDF, 0.5, 0.2,0,0.99;
+
+            SFP_RoW,,0,1, NORMAL_PDF, 1, 0.5; 
+                       
+             SIGMAC_RoW, GAMMA_PDF, 2, 0.4, 1, inf; 
+            
+             SIGMAFM_RoW, GAMMA_PDF, 2, 1, 0, inf; 
+            THETA_RoW, GAMMA_PDF, 1.5, 0.2, 1, inf;
+
+
+
+end; 

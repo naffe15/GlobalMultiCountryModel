@@ -1,0 +1,328 @@
+    // annualized
+// annualized
+q2avec=0;
+
+% 'GYOBSQA_@{co}'
+            q2a=struct();
+            q2a.qname='LYOBS_@{co}';
+            q2a.type=1; % real sum
+            q2a.islog=1;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.aux = 0; 
+            q2a.name='LYOBSA_@{co}';
+            q2a.tex_name='{yobs^A_{@{co}}}';
+            q2a.gname='GYOBSA_@{co}';
+            q2a.tex_gname='{gyobs^A_{@{co}}}';
+            q2a.frcst_name ='Real GDP';
+            if isint(q2avec)
+              q2avec=q2a;
+            else
+              q2avec=[q2avec q2a];
+            end
+
+% 'PHIYOBSQA_@{co}' 
+            q2a=struct();
+            q2a.qname = 'LPYOBS_@{co}';
+            q2a.type=2; % average
+            q2a.islog=1;
+            q2a.aux = 0; 
+            q2a.GYTREND0 = get_param_by_name('GP0');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.name='LPYOBSA_@{co}';
+            q2a.tex_name='{py^A_{@{co}}}';
+            q2a.gname='PHIYOBSA_@{co}';
+            q2a.tex_gname='{\pi^{y^A}_{@{co}}}';
+            q2a.frcst_name ='GDP Inflation';
+
+            q2avec=[q2avec q2a];
+
+
+% 'GCQA_@{co}'
+            q2a=struct();
+            q2a.qname = 'LC_@{co}';
+            q2a.type=1; % real sum
+            q2a.islog=1;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0')+get_param_by_name('GAPC0_@{co}');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.aux = 0; 
+            q2a.name='LCA_@{co}';
+            q2a.tex_name='{c^A_{@{co}}}';
+            q2a.gname='GCA_@{co}';
+            q2a.tex_gname='{gc^A_{@{co}}}';
+            q2a.frcst_name ='Real consumption';
+
+            q2avec=[q2avec q2a];
+
+
+% 'INOM_EA'
+            q2a=struct();
+            q2a.qname = 'INOM_EA';
+            q2a.type=1; % sum
+            q2a.islog=0;
+            q2a.aux = 0; 
+            q2a.GYTREND0 = 0;
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 2; % level
+            q2a.name='INOMA_EA';
+            q2a.tex_name='{py^A_{{EA}}}';
+            q2a.gname='';
+            q2a.tex_gname='';
+            q2a.frcst_name ='EA Nominal interest rate';
+
+            q2avec=[q2avec q2a];
+
+
+% 'PHICVATQA_@{co}'
+            q2a=struct();
+            q2a.qname = 'LPCVAT_@{co}';
+            q2a.type=2; % average
+            q2a.islog=1;
+            q2a.aux = 0; 
+            q2a.GYTREND0 = get_param_by_name('GP0')-get_param_by_name('GAPC0_@{co}');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.name='LPCVATA_@{co}';
+            q2a.tex_name='{pcvat^A_{@{co}}}';
+            q2a.gname='PHICVATA_@{co}';
+            q2a.tex_gname='{\pi^{CVAT^A}_{@{co}}}';
+            q2a.frcst_name ='Consumption Inflation';
+
+            q2avec=[q2avec q2a];
+
+% 'GIQA_@{co}'
+            q2a=struct();
+            q2a.qname = 'LI_@{co}';
+            q2a.type=1; % real sum
+            q2a.islog=1;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0')+get_param_by_name('GAPI0_@{co}');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.aux = 0; 
+            q2a.name='LIA_@{co}';
+            q2a.tex_name='{i^A_{@{co}}}';
+            q2a.gname='GIA_@{co}';
+            q2a.tex_gname='{gi^A_{@{co}}}';
+            q2a.frcst_name ='Real investment';
+
+            q2avec=[q2avec q2a];
+
+ % 'CUA_@{co}'
+            q2a=struct();
+            q2a.qname = 'CU_@{co}';
+            q2a.type=2; % average
+            q2a.islog=1;
+            q2a.aux = 0; 
+            q2a.GYTREND0 = 0;
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 2; % level
+            q2a.name='CUA_@{co}';
+            q2a.tex_name='{cu^A_{@{co}}}';
+            q2a.gname='CUA_@{co}';
+            q2a.tex_gname='{cu^{y^A}_{@{co}}}';
+            q2a.frcst_name ='Growth of capacity utilization';
+
+            q2avec=[q2avec q2a];
+            
+                       
+% 'GNQA_@{co}'
+            q2a=struct();
+            q2a.qname = 'LN_@{co}';
+            q2a.type=1; % real sum
+            q2a.islog=1;
+            q2a.GYTREND0 = get_param_by_name('GPOP0');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.aux = 0; 
+            q2a.name='LNA_@{co}';
+            q2a.tex_name='{n^A_{@{co}}}';
+            q2a.gname='GNA_@{co}';
+            q2a.tex_gname='{gn^A_{@{co}}}';
+            q2a.frcst_name ='Hours';
+
+            q2avec=[q2avec q2a];
+
+
+
+% 'GCGQA_@{co}'
+            q2a=struct();
+            q2a.qname = 'LG_@{co}';
+            q2a.type=1; % real sum
+            q2a.islog=1;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0')+get_param_by_name('GAPG0_@{co}');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.aux = 0; 
+            q2a.name='LGA_@{co}';
+            q2a.tex_name='{g^A_{@{co}}}';
+            q2a.gname='GCGA_@{co}';
+            q2a.tex_gname='{gcg^A_{@{co}}}';
+            q2a.frcst_name ='Real government expenditures';
+
+            q2avec=[q2avec q2a];
+
+
+
+% 'TBQA_@{co}'
+            q2a=struct();
+            q2a.qname = 'TB_@{co}';
+            q2a.type=1; % flow
+            q2a.islog=0;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0')+get_param_by_name('GP0'); % growth of TB is nominal
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 2; % level
+            q2a.aux=0;
+            q2a.name='TBA_@{co}';
+            q2a.tex_name='{TBA_{@{co}}}';
+            q2a.gname='';
+            q2a.tex_gname='{}';
+            q2a.frcst_name ='Trade balance';
+
+            q2avec=[q2avec q2a];
+
+
+
+% 'TBYA_@{co}'
+            q2a=struct();
+            q2a.qname = 'TBY_@{co}';
+            q2a.type=5; % ratio of two flows
+            q2a.islog=0;
+            q2a.GYTREND0 = 0; % growth of TBY is zero!
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 2; % level
+            q2a.aux.y=char('YOBSN_@{co}'); % associated denominator MISSING
+            q2a.aux.type=1; % flow
+            q2a.aux.islog=0;
+            q2a.aux.yss=get_mean('YOBSN_@{co}');
+            q2a.aux.GYTREND0 = get_param_by_name('GYTREND0')+get_param_by_name('GP0');
+            q2a.name='TBYA_@{co}';
+            q2a.tex_name='{TBYA_{@{co}}}';
+            q2a.gname='';
+            q2a.tex_gname='{}';
+            q2a.frcst_name ='Trade balance over GDP';
+
+            q2avec=[q2avec q2a];
+
+
+
+% 'GYOBSQA_REA'
+            q2a=struct();
+            q2a.qname='LYOBS_REA';
+            q2a.type=1; % real sum
+            q2a.islog=1;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.aux = 0; 
+            q2a.name='LYOBSA_REA';
+            q2a.tex_name='{yobs^A_{REA}}';
+            q2a.gname='GYOBSA_REA';
+            q2a.tex_gname='{gyobs^A_{REA}}';
+            q2a.frcst_name ='Real GDP';
+            if isint(q2avec)
+              q2avec=q2a;
+            else
+              q2avec=[q2avec q2a];
+            end
+
+                    
+% 'PHIYOBSQA_REA' 
+            q2a=struct();
+            q2a.qname = 'LPYOBS_REA';
+            q2a.type=2; % average
+            q2a.islog=1;
+            q2a.aux = 0; 
+            q2a.GYTREND0 = get_param_by_name('GP0');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.name='LPYOBSA_REA';
+            q2a.tex_name='{py^A_{REA}}';
+            q2a.gname='PHIYOBSA_REA';
+            q2a.tex_gname='{\pi^{y^A}_{REA}}';
+            q2a.frcst_name ='GDP Inflation';
+
+            q2avec=[q2avec q2a];
+
+            
+
+% 'TBQA_REA'
+            q2a=struct();
+            q2a.qname = 'TB_REA';
+            q2a.type=1; % flow
+            q2a.islog=0;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0')+get_param_by_name('GP0'); % growth of TB is nominal
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 2; % level
+            q2a.aux=0;
+            q2a.name='TBA_REA';
+            q2a.tex_name='{TBA_{REA}}';
+            q2a.gname='';
+            q2a.tex_gname='{}';
+            q2a.frcst_name ='Trade balance';
+
+            q2avec=[q2avec q2a];
+
+
+
+% 'GYOBSQA_RoW'
+            q2a=struct();
+            q2a.qname='LYOBS_RoW';
+            q2a.type=1; % real sum
+            q2a.islog=1;
+            q2a.GYTREND0 = get_param_by_name('GYTREND0');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.aux = 0; 
+            q2a.name='LYOBSA_RoW';
+            q2a.tex_name='{yobs^A_{RoW}}';
+            q2a.gname='GYOBSA_RoW';
+            q2a.tex_gname='{gyobs^A_{RoW}}';
+            q2a.frcst_name ='Real GDP';
+            if isint(q2avec)
+              q2avec=q2a;
+            else
+              q2avec=[q2avec q2a];
+            end
+
+% 'PHIYOBSQA_RoW' 
+            q2a=struct();
+            q2a.qname = 'LPYOBS_RoW';
+            q2a.type=2; % average
+            q2a.islog=1;
+            q2a.aux = 0; 
+            q2a.GYTREND0 = get_param_by_name('GP0');
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 1; % growth rate
+            q2a.name='LPYOBSA_RoW';
+            q2a.tex_name='{py^A_{RoW}}';
+            q2a.gname='PHIYOBSA_RoW';
+            q2a.tex_gname='{\pi^{y^A}_{RoW}}';
+            q2a.frcst_name ='GDP Inflation';
+
+            q2avec=[q2avec q2a];
+
+% 'INOM_RoW'
+            q2a=struct();
+            q2a.qname = 'INOM_RoW';
+            q2a.type=1; % sum
+            q2a.islog=0;
+            q2a.aux = 0; 
+            q2a.GYTREND0 = 0;
+            q2a.cumfix = 1; % shift constant
+            q2a.plot = 2; % level
+            q2a.name='INOMA_RoW';
+            q2a.tex_name='{py^A_{RoW}}';
+            q2a.gname='';
+            q2a.tex_gname='';
+            q2a.frcst_name ='Nominal interest rate';
+
+            q2avec=[q2avec q2a];
+
+
+
+avname=char({q2avec.qname});
+M_.jrc.q2avec=q2avec;
+M_.jrc.avname=avname;

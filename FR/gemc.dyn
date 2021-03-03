@@ -1,0 +1,98 @@
+
+
+        
+//----------------------------------------------------
+//                  
+
+// @#define COUNTRIES = ["DE","REA","RoW"] 
+// @#define COUNTRIES_EMU = ["DE","REA"]            
+@#define COUNTRIES = ["FR"] 
+// @#define COUNTRIES_EMU = ["DE"]           
+        
+//====================================================
+
+@#define theoretical_moments = 1   
+        
+//----------------------------------------------------
+//        Theoretical moments and annual fit
+        
+@#if theoretical_moments        
+    @#define compute_moments = 1
+    @#define annual_fit = 1
+@#else 
+    @#define compute_moments = 0
+    @#define annual_fit = 0   
+@#endif
+        
+//====================================================      
+        
+        
+
+
+//----------------------------------------------------
+//        Model building blocks        
+    
+        
+@#include "definitions.dyn"
+// 
+@#include "shock_group_definition.dyn"
+// 
+@#include "model_definition.dyn"
+
+@#include "initval.dyn"
+
+
+// initialize JRC specific fields
+M_.jrc = struct();
+oo_.jrc = struct();
+options_.jrc = struct();
+        
+
+// @#include "recalibration.dyn"
+@#include "gemc_estim_params.dyn"
+@#include "gemc_estim_shocks.dyn"
+
+@#include "steady_state.dyn"
+
+steady; 
+check;
+
+gen_list_param_val(M_,'recalib_params.dyn');
+frcst_smooth = 0;
+skipinsample = 0;
+
+@#include "prior_definition.dyn"
+        
+@#include "estimation_script.dyn"
+
+@#include "annualized_definitions.dyn"
+
+@#if theoretical_moments
+    @#include "compute_moments.dyn"   
+    @#include "annual_fit.dyn"
+@#endif
+        
+@#include "shock_decomposition.dyn"
+
+@#include "IRFs.dyn"
+            
+//====================================================      
+        
+            
+/*            
+    WriteYearlyShockDecomp2Excel(M_);
+    WriteAnnualShockDecomp2Excel(M_);
+    WriteQuarterlyShockDecomp2Excel(M_);
+    WriteSmoothed2Excel(M_, oo_);
+    WriteParameters2Excel(M_, oo_, bayestopt_);
+
+
+    diary off
+    copyfile(['gemc.log'],[pwd filesep 'log' filesep dirname],'f')
+*/
+
+            
+
+
+
+
